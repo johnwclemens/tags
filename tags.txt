@@ -1,11 +1,11 @@
 title=Funktional Family At Kiss The Sky Batavia IL 12-03-17 (Camera 1)
     Funktional Family At Kiss The Sky Batavia IL 12-03-17 (Camera 1) ,
 Funktional Family
-tags=['Funktional Family At Kiss The Sky Batavia IL 12-03-17 (Camera 1)', 'Funktional Family']
+tags=['Funktional Family At Kiss The Sky Batavia IL 12-03-17 (Camera 1)', 'Funktional Family', '12-03-17']
 title=Palm at the House Cafe Dekalb IL 10-10-17
     Palm at the House Cafe Dekalb IL 10-10-17 ,
-tags=['Palm at the House Cafe Dekalb IL 10-10-17']
+tags=['Palm at the House Cafe Dekalb IL 10-10-17', '10-10-17']
 title=Some Show At Local Venue City IL 12-15-17 
     Some Show At Local Venue City IL 12-15-17 ,
 Some Show
-tags=['Some Show At Local Venue City IL 12-15-17 ', 'Some Show']
+tags=['Some Show At Local Venue City IL 12-15-17 ', 'Some Show', '12-15-17']
