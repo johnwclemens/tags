@@ -1,11 +1,18 @@
 title=Funktional Family At Kiss The Sky Batavia IL 12-03-17 (Camera 1)
     Funktional Family At Kiss The Sky Batavia IL 12-03-17 (Camera 1) ,
-Funktional Family
-tags=['Funktional Family At Kiss The Sky Batavia IL 12-03-17 (Camera 1)', 'Funktional Family', '12-03-17']
+tags=['Funktional Family At Kiss The Sky Batavia IL 12-03-17 (Camera 1)', 'Family ', 'At']
 title=Palm at the House Cafe Dekalb IL 10-10-17
     Palm at the House Cafe Dekalb IL 10-10-17 ,
-tags=['Palm at the House Cafe Dekalb IL 10-10-17', '10-10-17']
-title=Some Show At Local Venue City IL 12-15-17 
+tags=['Palm at the House Cafe Dekalb IL 10-10-17', 'Palm ', 'at']
+title=Some Show At Local Venue City IL 12-15-17
     Some Show At Local Venue City IL 12-15-17 ,
-Some Show
-tags=['Some Show At Local Venue City IL 12-15-17 ', 'Some Show', '12-15-17']
+tags=['Some Show At Local Venue City IL 12-15-17', 'Show ', 'At']
+title=Three word show At Michigan City IL 1-1-18
+    Three word show At Michigan City IL 1-1-18 ,
+tags=['Three word show At Michigan City IL 1-1-18', 'show ', 'At']
+title=Four Word cool SHOW at my town MI 2-2-18
+    Four Word cool SHOW at my town MI 2-2-18 ,
+tags=['Four Word cool SHOW at my town MI 2-2-18', 'SHOW ', 'at']
+title=SomeLongSingleWordName at my town MI 3-3-18
+    SomeLongSingleWordName at my town MI 3-3-18 ,
+tags=['SomeLongSingleWordName at my town MI 3-3-18', 'SomeLongSingleWordName ', 'at']
