@@ -31,6 +31,18 @@ def getTitles(inFile, outFile):
         printn("tags={}".format(tags), file=outFile)
 
 def genTags(title, outFile):
+    title = title.title()
+    tags = [title]
+    words = title.split()
+    printn('words = ', end='', file=outFile)
+    for word in words:
+        printn('{}'.format(word), end=' ', file=outFile)
+    printn(',', file=outFile)
+    stuff = title.split(' At ')
+#    stuff = re.split('At', title)
+    printn('stuff={}'.format(stuff), file=outFile)
+
+def genTags2(title, outFile):
     tags = [title]
     words = title.split()
     printn('    ', end='', file=outFile)
