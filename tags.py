@@ -2,18 +2,8 @@
 import os, sys, re
 
 cres = {}
-reAt         = r'(?P<reAt>at|At)\s+'
-#reAt         = r'\s*(?P<reAt>at|At)\s*'
 reDate       = r'\s*(?P<reDate>\d{1,2}-\d{1,2}-\d{2})\s*'
-#reName       = r'\s*(\S+)\s*'
-#reName       = r'(\s*\S+){1,4}'
-#reName       = r'(?P<reName>\s*\S+){1,4}'
-#reName1       = r'(?P<reName1>\s*\S+)'
-#reName2       = r'(?P<reName2>\s*\S+)'
-#reName1       = r'(?P<reName1>\S+\s+)'
-#reName2       = r'(?P<reName2>\S+\s+)'
-#reName        = r'(?P<reName>\S+\s+){1,4}'
-reVenue       = r'(?P<reVenue>\S+\s)+'
+reVenue      = r'(?P<reVenue>\S+\s)+'
 
 def main():
     with open('tags.txt', 'w') as outFile:
@@ -39,14 +29,12 @@ def genTags(title, outFile):
         printn('{}'.format(w), end=' ', file=outFile)
     printn(',', file=outFile)
     stuff = title.split(' At ')
-    printn('stuff1 = {}'.format(stuff), file=outFile)
-#    printn('stuff2 = ', file=outFile)
-#    for s in stuff:
-#        printn('    {}'.format(s), file=outFile)
+    name = stuff[0]
+    rest = stuff[1]
+    printn('stuff = {}'.format(stuff), file=outFile)
     printn('    name = {}'.format(stuff[0]), file=outFile)
     printn('    rest = {}'.format(stuff[1]), file=outFile)
-    rest = stuff[1]
-    key = 'date'
+    key = 'parse'
     pattern = reVenue + reDate
     print('pattern={}'.format(pattern))
     m = findString(rest, cres, key, pattern)
