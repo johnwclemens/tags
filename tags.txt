@@ -1,18 +1,48 @@
-title=Funktional Family At Kiss The Sky Batavia IL 12-03-17 (Camera 1)
-    Funktional Family At Kiss The Sky Batavia IL 12-03-17 (Camera 1) ,
-tags=['Funktional Family At Kiss The Sky Batavia IL 12-03-17 (Camera 1)', 'Family ', 'At']
-title=Palm at the House Cafe Dekalb IL 10-10-17
-    Palm at the House Cafe Dekalb IL 10-10-17 ,
-tags=['Palm at the House Cafe Dekalb IL 10-10-17', 'Palm ', 'at']
-title=Some Show At Local Venue City IL 12-15-17
-    Some Show At Local Venue City IL 12-15-17 ,
-tags=['Some Show At Local Venue City IL 12-15-17', 'Show ', 'At']
-title=Three word show At Michigan City IL 1-1-18
-    Three word show At Michigan City IL 1-1-18 ,
-tags=['Three word show At Michigan City IL 1-1-18', 'show ', 'At']
-title=Four Word cool SHOW at my town MI 2-2-18
-    Four Word cool SHOW at my town MI 2-2-18 ,
-tags=['Four Word cool SHOW at my town MI 2-2-18', 'SHOW ', 'at']
-title=SomeLongSingleWordName at my town MI 3-3-18
-    SomeLongSingleWordName at my town MI 3-3-18 ,
-tags=['SomeLongSingleWordName at my town MI 3-3-18', 'SomeLongSingleWordName ', 'at']
+title=Funktional Family At Kiss The Sky, Batavia, IL 12-03-17 (Camera 1)
+words = Funktional Family At Kiss The Sky, Batavia, Il 12-03-17 (Camera 1) ,
+stuff = ['Funktional Family', 'Kiss The Sky, Batavia, Il 12-03-17 (Camera 1)']
+    name = Funktional Family
+stuff = Kiss The Sky, Batavia, Il 12-03-17 (Camera 1)
+    venue = Kiss The Sky
+stuff =  Batavia
+tags=None
+title=Palm at the House Cafe, Dekalb, IL 10-10-17
+words = Palm At The House Cafe, Dekalb, Il 10-10-17 ,
+stuff = ['Palm', 'The House Cafe, Dekalb, Il 10-10-17']
+    name = Palm
+stuff = The House Cafe, Dekalb, Il 10-10-17
+    venue = The House Cafe
+stuff =  Dekalb
+tags=None
+title=Some Show At Local Venue, City, IL 12-15-17
+words = Some Show At Local Venue, City, Il 12-15-17 ,
+stuff = ['Some Show', 'Local Venue, City, Il 12-15-17']
+    name = Some Show
+stuff = Local Venue, City, Il 12-15-17
+    venue = Local Venue
+stuff =  City
+tags=None
+title=Three word show At Joe's Park, Michigan City, IL 1-1-18
+words = Three Word Show At Joe'S Park, Michigan City, Il 1-1-18 ,
+stuff = ['Three Word Show', "Joe'S Park, Michigan City, Il 1-1-18"]
+    name = Three Word Show
+stuff = Joe'S Park, Michigan City, Il 1-1-18
+    venue = Joe'S Park
+stuff =  Michigan City
+tags=None
+title=Four Word cool SHOW at my cafe, Grand Rapids, MI 2-2-18
+words = Four Word Cool Show At My Cafe, Grand Rapids, Mi 2-2-18 ,
+stuff = ['Four Word Cool Show', 'My Cafe, Grand Rapids, Mi 2-2-18']
+    name = Four Word Cool Show
+stuff = My Cafe, Grand Rapids, Mi 2-2-18
+    venue = My Cafe
+stuff =  Grand Rapids
+tags=None
+title=SomeLongSingleWordName at Grease & Spoon, my town, MI 3-3-18
+words = Somelongsinglewordname At Grease & Spoon, My Town, Mi 3-3-18 ,
+stuff = ['Somelongsinglewordname', 'Grease & Spoon, My Town, Mi 3-3-18']
+    name = Somelongsinglewordname
+stuff = Grease & Spoon, My Town, Mi 3-3-18
+    venue = Grease & Spoon
+stuff =  My Town
+tags=None

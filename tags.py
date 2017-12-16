@@ -2,8 +2,8 @@
 import os, sys, re
 
 cres = {}
-reDate       = r'\s*(?P<reDate>\d{1,2}-\d{1,2}-\d{2})\s*'
 reVenue      = r'(?P<reVenue>\S+\s)+'
+reDate       = r'\s*(?P<reDate>\d{1,2}-\d{1,2}-\d{2})\s*'
 
 def main():
     with open('tags.txt', 'w') as outFile:
@@ -29,26 +29,60 @@ def genTags(title, outFile):
         printn('{}'.format(w), end=' ', file=outFile)
     printn(',', file=outFile)
     stuff = title.split(' At ')
-    name = stuff[0]
-    rest = stuff[1]
     printn('stuff = {}'.format(stuff), file=outFile)
-    printn('    name = {}'.format(stuff[0]), file=outFile)
-    printn('    rest = {}'.format(stuff[1]), file=outFile)
+    name = stuff[0]
+    stuff = stuff[1]
+    printn('    name = {}'.format(name), file=outFile)
+    printn('stuff = {}'.format(stuff), file=outFile)
+    stuff = stuff.split(',')
+    venue = stuff[0]
+    stuff = stuff[1]
+    printn('    venue = {}'.format(venue), file=outFile)
+    printn('stuff = {}'.format(stuff), file=outFile)
+    
+def parse(str, dlm):
+    ret = str.split(dlm)
+
+def genTags1(title, outFile):
+    title = title.title()
+    tags = [title]
+    words = title.split()
+    printn('words = ', end='', file=outFile)
+    for w in words:
+        printn('{}'.format(w), end=' ', file=outFile)
+    printn(',', file=outFile)
+    stuff = title.split(' At ')
+    printn('stuff = {}'.format(stuff), file=outFile)
+    name = stuff[0]
+    stuff1 = stuff[1]
+    printn('    name = {}'.format(name), file=outFile)
+#    printn('    stuff1 = {}'.format(stuff1), file=outFile)
+    stuff2 = stuff1.split(',')
+#    printn('    stuff2 = {}'.format(stuff2), file=outFile)
+    venue = stuff2[0]
+    stuff3 = stuff2[1]
+    printn('    venue = {}'.format(venue), file=outFile)
+    printn('    stuff3 = {}'.format(stuff3), file=outFile)
+    stuff4 = stuff3.split(',')
+    city = stuff4[0]
+    stuff5 = stuff4[1]
+    state = stuff5[0]
+    stuff6 = stuff5[1]
     key = 'parse'
-    pattern = reVenue + reDate
+    pattern = reDate
     print('pattern={}'.format(pattern))
-    m = findString(rest, cres, key, pattern)
+    m = findString(stuff6, cres, key, pattern)
     if m:
         print('m={}'.format(m))
         grpMap = m.groupdict()
-        if 'reVenue' in grpMap:
-            venue = m.group('reVenue')
-            print('    venue = {}'.format(venue), file=outFile)
-            tags.append(venue)
         if 'reDate' in grpMap:
             date = m.group('reDate')
             print('    date = {}'.format(date), file=outFile)
             tags.append(date)
+#        if 'reVenue' in grpMap:
+#            venue = m.group('reVenue')
+#            print('    venue = {}'.format(venue), file=outFile)
+#            tags.append(venue)
 
 def genTags2(title, outFile):
     tags = [title]
