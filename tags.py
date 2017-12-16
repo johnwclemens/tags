@@ -4,7 +4,7 @@ import os, sys, re
 cres = {}
 reAt         = r'(?P<reAt>at|At)\s+'
 #reAt         = r'\s*(?P<reAt>at|At)\s*'
-reDate       = r'\s*(?P<reDate>\d{2}-\d{2}-\d{2})\s*'
+reDate       = r'\s*(?P<reDate>\d{1,2}-\d{1,2}-\d{2})\s*'
 #reName       = r'\s*(\S+)\s*'
 #reName       = r'(\s*\S+){1,4}'
 #reName       = r'(?P<reName>\s*\S+){1,4}'
@@ -13,7 +13,7 @@ reDate       = r'\s*(?P<reDate>\d{2}-\d{2}-\d{2})\s*'
 #reName1       = r'(?P<reName1>\S+\s+)'
 #reName2       = r'(?P<reName2>\S+\s+)'
 #reName        = r'(?P<reName>\S+\s+){1,4}'
-reName        = r'(?P<reName>\S+\s+)+'
+reVenue       = r'(?P<reVenue>\S+\s)+'
 
 def main():
     with open('tags.txt', 'w') as outFile:
@@ -35,12 +35,32 @@ def genTags(title, outFile):
     tags = [title]
     words = title.split()
     printn('words = ', end='', file=outFile)
-    for word in words:
-        printn('{}'.format(word), end=' ', file=outFile)
+    for w in words:
+        printn('{}'.format(w), end=' ', file=outFile)
     printn(',', file=outFile)
     stuff = title.split(' At ')
-#    stuff = re.split('At', title)
-    printn('stuff={}'.format(stuff), file=outFile)
+    printn('stuff1 = {}'.format(stuff), file=outFile)
+#    printn('stuff2 = ', file=outFile)
+#    for s in stuff:
+#        printn('    {}'.format(s), file=outFile)
+    printn('    name = {}'.format(stuff[0]), file=outFile)
+    printn('    rest = {}'.format(stuff[1]), file=outFile)
+    rest = stuff[1]
+    key = 'date'
+    pattern = reVenue + reDate
+    print('pattern={}'.format(pattern))
+    m = findString(rest, cres, key, pattern)
+    if m:
+        print('m={}'.format(m))
+        grpMap = m.groupdict()
+        if 'reVenue' in grpMap:
+            venue = m.group('reVenue')
+            print('    venue = {}'.format(venue), file=outFile)
+            tags.append(venue)
+        if 'reDate' in grpMap:
+            date = m.group('reDate')
+            print('    date = {}'.format(date), file=outFile)
+            tags.append(date)
 
 def genTags2(title, outFile):
     tags = [title]
