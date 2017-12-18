@@ -29,16 +29,19 @@ def genTags(title, outFile):
         printn('{}'.format(w), end=' ', file=outFile)
     printn(',', file=outFile)
     stuff = title.split(' At ')
-    printn('stuff = {}'.format(stuff), file=outFile)
+    printn('stuff[{}] = {}'.format(len(stuff), stuff), file=outFile)
     name = stuff[0]
     stuff = stuff[1]
     printn('    name = {}'.format(name), file=outFile)
-    printn('stuff = {}'.format(stuff), file=outFile)
+    printn('stuff[{}] = {}'.format(len(stuff), stuff), file=outFile)
     stuff = stuff.split(',')
+    printn('stuff[{}] = {}'.format(len(stuff), stuff), file=outFile)
     venue = stuff[0]
-    stuff = stuff[1]
+    city = stuff[1]
+    stuff = stuff[2]
     printn('    venue = {}'.format(venue), file=outFile)
-    printn('stuff = {}'.format(stuff), file=outFile)
+    printn('    city = {}'.format(city), file=outFile)
+    printn('stuff[{}] = {}'.format(len(stuff), stuff), file=outFile)
     
 def parse(str, dlm):
     ret = str.split(dlm)
