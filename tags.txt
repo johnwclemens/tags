@@ -1,60 +1,153 @@
-title=Funktional Family At Kiss The Sky, Batavia, IL 12-03-17 (Camera 1)
-words = Funktional Family At Kiss The Sky, Batavia, Il 12-03-17 (Camera 1) ,
-stuff[2] = ['Funktional Family', 'Kiss The Sky, Batavia, Il 12-03-17 (Camera 1)']
-    name = Funktional Family
-stuff[45] = Kiss The Sky, Batavia, Il 12-03-17 (Camera 1)
-stuff[3] = ['Kiss The Sky', ' Batavia', ' Il 12-03-17 (Camera 1)']
-    venue = Kiss The Sky
-    city =  Batavia
-stuff[23] =  Il 12-03-17 (Camera 1)
-tags=None
-title=Palm at the House Cafe, Dekalb, IL 10-10-17
-words = Palm At The House Cafe, Dekalb, Il 10-10-17 ,
-stuff[2] = ['Palm', 'The House Cafe, Dekalb, Il 10-10-17']
-    name = Palm
-stuff[35] = The House Cafe, Dekalb, Il 10-10-17
-stuff[3] = ['The House Cafe', ' Dekalb', ' Il 10-10-17']
-    venue = The House Cafe
-    city =  Dekalb
-stuff[12] =  Il 10-10-17
-tags=None
-title=Some Show At Local Venue, City, IL 12-15-17
-words = Some Show At Local Venue, City, Il 12-15-17 ,
-stuff[2] = ['Some Show', 'Local Venue, City, Il 12-15-17']
-    name = Some Show
-stuff[30] = Local Venue, City, Il 12-15-17
-stuff[3] = ['Local Venue', ' City', ' Il 12-15-17']
-    venue = Local Venue
-    city =  City
-stuff[12] =  Il 12-15-17
-tags=None
-title=Three word show At Joe's Park, Michigan City, IL 1-1-18
-words = Three Word Show At Joe'S Park, Michigan City, Il 1-1-18 ,
-stuff[2] = ['Three Word Show', "Joe'S Park, Michigan City, Il 1-1-18"]
-    name = Three Word Show
-stuff[36] = Joe'S Park, Michigan City, Il 1-1-18
-stuff[3] = ["Joe'S Park", ' Michigan City', ' Il 1-1-18']
-    venue = Joe'S Park
-    city =  Michigan City
-stuff[10] =  Il 1-1-18
-tags=None
-title=Four Word cool SHOW at my cafe, Grand Rapids, MI 2-2-18
-words = Four Word Cool Show At My Cafe, Grand Rapids, Mi 2-2-18 ,
-stuff[2] = ['Four Word Cool Show', 'My Cafe, Grand Rapids, Mi 2-2-18']
-    name = Four Word Cool Show
-stuff[32] = My Cafe, Grand Rapids, Mi 2-2-18
-stuff[3] = ['My Cafe', ' Grand Rapids', ' Mi 2-2-18']
-    venue = My Cafe
-    city =  Grand Rapids
-stuff[10] =  Mi 2-2-18
-tags=None
-title=SomeLongSingleWordName at Grease & Spoon, my town, MI 3-3-18
-words = Somelongsinglewordname At Grease & Spoon, My Town, Mi 3-3-18 ,
-stuff[2] = ['Somelongsinglewordname', 'Grease & Spoon, My Town, Mi 3-3-18']
-    name = Somelongsinglewordname
-stuff[34] = Grease & Spoon, My Town, Mi 3-3-18
-stuff[3] = ['Grease & Spoon', ' My Town', ' Mi 3-3-18']
-    venue = Grease & Spoon
-    city =  My Town
-stuff[10] =  Mi 3-3-18
-tags=None
+title = [Funktional Family At Kiss The Sky, Batavia, IL 12-03-17 (Camera 1)]
+words = [ Funktional Family At Kiss The Sky Batavia Il 12-03-17 (Camera 1)]
+parse([Funktional Family At Kiss The Sky, Batavia, Il 12-03-17 (Camera 1)], delim = [ At ], keys = [Name])
+    [0], Name = Funktional Family
+    [1], Remainder = Kiss The Sky, Batavia, Il 12-03-17 (Camera 1)
+parse([Kiss The Sky, Batavia, Il 12-03-17 (Camera 1)], delim = [, ], keys = [Venue City])
+    [0], Venue = Kiss The Sky
+    [1], City = Batavia
+    [2], Remainder = Il 12-03-17 (Camera 1)
+Remainder = Il 12-03-17 (Camera 1)
+tags = [
+    Funktional Family At Kiss The Sky, Batavia, Il 12-03-17 (Camera 1),
+    Funktional,
+    Family,
+    At,
+    Kiss,
+    The,
+    Sky,
+    Batavia,
+    Il,
+    12-03-17,
+    (Camera,
+    1),
+    Funktional Family,
+    Kiss The Sky,
+    Batavia,
+]
+title = [Palm at the House Cafe, Dekalb, IL 10-10-17]
+words = [ Palm At The House Cafe Dekalb Il 10-10-17]
+parse([Palm At The House Cafe, Dekalb, Il 10-10-17], delim = [ At ], keys = [Name])
+    [0], Name = Palm
+    [1], Remainder = The House Cafe, Dekalb, Il 10-10-17
+parse([The House Cafe, Dekalb, Il 10-10-17], delim = [, ], keys = [Venue City])
+    [0], Venue = The House Cafe
+    [1], City = Dekalb
+    [2], Remainder = Il 10-10-17
+Remainder = Il 10-10-17
+tags = [
+    Palm At The House Cafe, Dekalb, Il 10-10-17,
+    Palm,
+    At,
+    The,
+    House,
+    Cafe,
+    Dekalb,
+    Il,
+    10-10-17,
+    Palm,
+    The House Cafe,
+    Dekalb,
+]
+title = [Some Show At Local Venue, City, IL 12-15-17]
+words = [ Some Show At Local Venue City Il 12-15-17]
+parse([Some Show At Local Venue, City, Il 12-15-17], delim = [ At ], keys = [Name])
+    [0], Name = Some Show
+    [1], Remainder = Local Venue, City, Il 12-15-17
+parse([Local Venue, City, Il 12-15-17], delim = [, ], keys = [Venue City])
+    [0], Venue = Local Venue
+    [1], City = City
+    [2], Remainder = Il 12-15-17
+Remainder = Il 12-15-17
+tags = [
+    Some Show At Local Venue, City, Il 12-15-17,
+    Some,
+    Show,
+    At,
+    Local,
+    Venue,
+    City,
+    Il,
+    12-15-17,
+    Some Show,
+    Local Venue,
+    City,
+]
+title = [Three word show At Joe's Park, Michigan City, IL 1-1-18]
+words = [ Three Word Show At Joe'S Park Michigan City Il 1-1-18]
+parse([Three Word Show At Joe'S Park, Michigan City, Il 1-1-18], delim = [ At ], keys = [Name])
+    [0], Name = Three Word Show
+    [1], Remainder = Joe'S Park, Michigan City, Il 1-1-18
+parse([Joe'S Park, Michigan City, Il 1-1-18], delim = [, ], keys = [Venue City])
+    [0], Venue = Joe'S Park
+    [1], City = Michigan City
+    [2], Remainder = Il 1-1-18
+Remainder = Il 1-1-18
+tags = [
+    Three Word Show At Joe'S Park, Michigan City, Il 1-1-18,
+    Three,
+    Word,
+    Show,
+    At,
+    Joe'S,
+    Park,
+    Michigan,
+    City,
+    Il,
+    1-1-18,
+    Three Word Show,
+    Joe'S Park,
+    Michigan City,
+]
+title = [Four Word cool SHOW at my cafe, Grand Rapids, MI 2-2-18]
+words = [ Four Word Cool Show At My Cafe Grand Rapids Mi 2-2-18]
+parse([Four Word Cool Show At My Cafe, Grand Rapids, Mi 2-2-18], delim = [ At ], keys = [Name])
+    [0], Name = Four Word Cool Show
+    [1], Remainder = My Cafe, Grand Rapids, Mi 2-2-18
+parse([My Cafe, Grand Rapids, Mi 2-2-18], delim = [, ], keys = [Venue City])
+    [0], Venue = My Cafe
+    [1], City = Grand Rapids
+    [2], Remainder = Mi 2-2-18
+Remainder = Mi 2-2-18
+tags = [
+    Four Word Cool Show At My Cafe, Grand Rapids, Mi 2-2-18,
+    Four,
+    Word,
+    Cool,
+    Show,
+    At,
+    My,
+    Cafe,
+    Grand,
+    Rapids,
+    Mi,
+    2-2-18,
+    Four Word Cool Show,
+    My Cafe,
+    Grand Rapids,
+]
+title = [SomeLongSingleWordName at Grease & Spoon, my town, MI 3-3-18]
+words = [ Somelongsinglewordname At Grease & Spoon My Town Mi 3-3-18]
+parse([Somelongsinglewordname At Grease & Spoon, My Town, Mi 3-3-18], delim = [ At ], keys = [Name])
+    [0], Name = Somelongsinglewordname
+    [1], Remainder = Grease & Spoon, My Town, Mi 3-3-18
+parse([Grease & Spoon, My Town, Mi 3-3-18], delim = [, ], keys = [Venue City])
+    [0], Venue = Grease & Spoon
+    [1], City = My Town
+    [2], Remainder = Mi 3-3-18
+Remainder = Mi 3-3-18
+tags = [
+    Somelongsinglewordname At Grease & Spoon, My Town, Mi 3-3-18,
+    Somelongsinglewordname,
+    At,
+    Grease,
+    &,
+    Spoon,
+    My,
+    Town,
+    Mi,
+    3-3-18,
+    Somelongsinglewordname,
+    Grease & Spoon,
+    My Town,
+]

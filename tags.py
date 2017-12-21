@@ -9,25 +9,74 @@ def main():
     with open('tags.txt', 'w') as outFile:
         with open('titles.txt', 'r') as inFile:
             getTitles(inFile, outFile)
+        print('inFile={}'.format(inFile))
         inFile = None
+        print('inFile={}'.format(inFile))
+    print('outFile={}'.format(outFile))
     outFile = None
-    print('inFile={}'.format(inFile))
+    print('outFile={}'.format(outFile))
 
 def getTitles(inFile, outFile):
     for line in inFile:
         title = line.rstrip('\n')
-        printn("title={}".format(title), file=outFile)
-        tags = genTags(title, outFile)
-        printn("tags={}".format(tags), file=outFile)
+        printn("title = [{}]".format(title), file=outFile)
+        tags = getTags(title, outFile)
+        printn("tags = [", file=outFile)
+        for i in range(0, len(tags)): printn('    {},'.format(tags[i]), file=outFile)
+        printn("]", file=outFile)
 
-def genTags(title, outFile):
+def getTags(title, outFile):
     title = title.title()
     tags = [title]
     words = title.split()
-    printn('words = ', end='', file=outFile)
+    printn('words = [', file=outFile, end='')
+    for w in words:
+        w = w.rstrip(',')
+        tags.append(w)
+        printn(' {}'.format(w), file=outFile, end='')
+    printn(']', file=outFile)
+    remainder = parse(title, ' At ', ['Name'], tags, outFile)
+    remainder = parse(remainder, ', ', ['Venue', 'City'], tags, outFile)
+    printn('Remainder = {}'.format(remainder), file=outFile)
+    return tags
+
+def parse(s, delim, keys, tags, outFile):
+    max = len(keys)
+    tokens = s.split(delim, max+1)
+#    printn('parse(delim = [{}], keys = {})'.format(delim, keys), file=outFile)
+    printn('parse([{}], delim = [{}], keys = ['.format(s, delim), file=outFile, end='')
+    if max >= 1: 
+        tags.append(tokens[0])
+        printn('{}'.format(keys[0]), file=outFile, end='')
+    for i in range(1, max):
+        tags.append(tokens[i])
+        printn(' {}'.format(keys[i]), file=outFile, end='')
+    printn('])', file=outFile)
+    for i in range(0, max):
+        printn('    [{}], {} = {}'.format(i, keys[i], tokens[i]), file=outFile)
+    i += 1
+    remainder = tokens[-1]
+    printn('    [{}], {} = {}'.format(i, 'Remainder', tokens[i]), file=outFile)
+    return remainder
+
+def getDate(dStr, outfile):
+    m = findString(dStr, cres, 'reDate', reDate)
+    if m:
+        print('m={}'.format(m))
+        grpMap = m.groupdict()
+        if 'reDate' in grpMap:
+            date = m.group('reDate')
+            print('    date = {}'.format(date), file=outFile)
+            tags.append(date)
+
+def genTags0(title, outFile):
+    title = title.title()
+    tags = [title]
+    words = title.split()
+    printn('words = [', end='', file=outFile)
     for w in words:
         printn('{}'.format(w), end=' ', file=outFile)
-    printn(',', file=outFile)
+    printn(']', file=outFile)
     stuff = title.split(' At ')
     printn('stuff[{}] = {}'.format(len(stuff), stuff), file=outFile)
     name = stuff[0]
@@ -42,9 +91,10 @@ def genTags(title, outFile):
     printn('    venue = {}'.format(venue), file=outFile)
     printn('    city = {}'.format(city), file=outFile)
     printn('stuff[{}] = {}'.format(len(stuff), stuff), file=outFile)
-    
-def parse(str, dlm):
-    ret = str.split(dlm)
+    printn('########################', file=outFile)
+    remainder = split(title, ' At ', ['Name'], outFile)
+    split(remainder, ', ', ['Venue', 'City'], outFile)
+    printn('########################', file=outFile)
 
 def genTags1(title, outFile):
     title = title.title()
