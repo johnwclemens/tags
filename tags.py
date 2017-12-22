@@ -21,16 +21,12 @@ def getTitles(inFile, outFile):
         title = line.rstrip('\n')
         printn("title = [{}]".format(title), file=outFile)
         tags = getTags(title, outFile)
-#        printn("tags = [", file=outFile)
-#        for i in range(0, len(tags)): printn('    {},'.format(tags[i]), file=outFile)
-#        printn("]", file=outFile)
         printn("tags = {", file=outFile)
         for k in tags.keys(): printn('    {} => {},'.format(k, tags[k]), file=outFile)
         printn("}", file=outFile)
 
 def getTags(title, outFile):
     title = title.title()
-#    tags = [title]
     tags = {}
     tags['Title'] = title
     words = title.split()
@@ -52,11 +48,9 @@ def parse(s, delim, keys, tags, outFile):
 #    printn('parse(delim = [{}], keys = {})'.format(delim, keys), file=outFile)
     printn('parse([{}], delim = [{}], keys = ['.format(s, delim), file=outFile, end='')
     if max >= 1: 
-#        tags.append(tokens[0])
         tags[keys[0]] = tokens[0]
         printn('{}'.format(keys[0]), file=outFile, end='')
     for i in range(1, max):
-#        tags.append(tokens[i])
         tags[keys[i]] = tokens[i]
         printn(' {}'.format(keys[i]), file=outFile, end='')
     printn('])', file=outFile)
@@ -75,7 +69,6 @@ def getDate(dStr, tags, outFile):
         if 'reDate' in grpMap:
             date = m.group('reDate')
             print('    date = {}'.format(date), file=outFile)
-#            tags.append(date)
             tags['Date'] = date
 
 def genTags0(title, outFile):
