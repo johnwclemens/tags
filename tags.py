@@ -26,21 +26,25 @@ def getTitles(inFile, outFile):
         printn("}", file=outFile)
 
 def getTags(title, outFile):
-    title = title.title()
+    title = titleCase(title)
     tags = {}
     tags['Title'] = title
     words = title.split()
     printn('words = [', file=outFile, end='')
     for w in words:
-        w = w.rstrip(',')
+        w = w.strip('),(')
 #        tags.append(w)
         printn(' {}'.format(w), file=outFile, end='')
     printn(']', file=outFile)
+#    tags['Title'] = ' '.join(words)
     remainder = parse(title, ' At ', ['Name'], tags, outFile)
     remainder = parse(remainder, ', ', ['Venue', 'City'], tags, outFile)
 #    printn('Remainder = {}'.format(remainder), file=outFile)
     getDate(remainder, tags, outFile)
     return tags
+
+def titleCase(s):
+    return re.sub(r"[A-Za-z]+('[A-Za-z]+)?", lambda mo: mo.group(0)[0].upper() + mo.group(0)[1:].lower(), s)
 
 def parse(s, delim, keys, tags, outFile):
     max = len(keys)

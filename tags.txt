@@ -1,5 +1,5 @@
 title = [Funktional Family At Kiss The Sky, Batavia, IL 12-03-17 (Camera 1)]
-words = [ Funktional Family At Kiss The Sky Batavia Il 12-03-17 (Camera 1)]
+words = [ Funktional Family At Kiss The Sky Batavia Il 12-03-17 Camera 1]
 parse([Funktional Family At Kiss The Sky, Batavia, Il 12-03-17 (Camera 1)], delim = [ At ], keys = [Name])
     [0], Name = Funktional Family
     [1], Remainder = Kiss The Sky, Batavia, Il 12-03-17 (Camera 1)
@@ -9,11 +9,28 @@ parse([Kiss The Sky, Batavia, Il 12-03-17 (Camera 1)], delim = [, ], keys = [Ven
     [2], Remainder = Il 12-03-17 (Camera 1)
     date = 12-03-17
 tags = {
-    Venue => Kiss The Sky,
-    Name => Funktional Family,
     Title => Funktional Family At Kiss The Sky, Batavia, Il 12-03-17 (Camera 1),
+    Name => Funktional Family,
+    Venue => Kiss The Sky,
     City => Batavia,
     Date => 12-03-17,
+}
+title = [some band's performance at their favorite venue, their city, their state/prov 12-25-17 more stuff ]
+words = [ Some Band's Performance At Their Favorite Venue Their City Their State/Prov 12-25-17 More Stuff]
+parse([Some Band's Performance At Their Favorite Venue, Their City, Their State/Prov 12-25-17 More Stuff ], delim = [ At ], keys = [Name])
+    [0], Name = Some Band's Performance
+    [1], Remainder = Their Favorite Venue, Their City, Their State/Prov 12-25-17 More Stuff 
+parse([Their Favorite Venue, Their City, Their State/Prov 12-25-17 More Stuff ], delim = [, ], keys = [Venue City])
+    [0], Venue = Their Favorite Venue
+    [1], City = Their City
+    [2], Remainder = Their State/Prov 12-25-17 More Stuff 
+    date = 12-25-17
+tags = {
+    Title => Some Band's Performance At Their Favorite Venue, Their City, Their State/Prov 12-25-17 More Stuff ,
+    Name => Some Band's Performance,
+    Venue => Their Favorite Venue,
+    City => Their City,
+    Date => 12-25-17,
 }
 title = [Palm at the House Cafe, Dekalb, IL 10-10-17]
 words = [ Palm At The House Cafe Dekalb Il 10-10-17]
@@ -26,9 +43,9 @@ parse([The House Cafe, Dekalb, Il 10-10-17], delim = [, ], keys = [Venue City])
     [2], Remainder = Il 10-10-17
     date = 10-10-17
 tags = {
-    Venue => The House Cafe,
-    Name => Palm,
     Title => Palm At The House Cafe, Dekalb, Il 10-10-17,
+    Name => Palm,
+    Venue => The House Cafe,
     City => Dekalb,
     Date => 10-10-17,
 }
@@ -43,26 +60,26 @@ parse([Local Venue, City, Il 12-15-17], delim = [, ], keys = [Venue City])
     [2], Remainder = Il 12-15-17
     date = 12-15-17
 tags = {
-    Venue => Local Venue,
-    Name => Some Show,
     Title => Some Show At Local Venue, City, Il 12-15-17,
+    Name => Some Show,
+    Venue => Local Venue,
     City => City,
     Date => 12-15-17,
 }
 title = [Three word show At Joe's Park, Michigan City, IL 1-1-18]
-words = [ Three Word Show At Joe'S Park Michigan City Il 1-1-18]
-parse([Three Word Show At Joe'S Park, Michigan City, Il 1-1-18], delim = [ At ], keys = [Name])
+words = [ Three Word Show At Joe's Park Michigan City Il 1-1-18]
+parse([Three Word Show At Joe's Park, Michigan City, Il 1-1-18], delim = [ At ], keys = [Name])
     [0], Name = Three Word Show
-    [1], Remainder = Joe'S Park, Michigan City, Il 1-1-18
-parse([Joe'S Park, Michigan City, Il 1-1-18], delim = [, ], keys = [Venue City])
-    [0], Venue = Joe'S Park
+    [1], Remainder = Joe's Park, Michigan City, Il 1-1-18
+parse([Joe's Park, Michigan City, Il 1-1-18], delim = [, ], keys = [Venue City])
+    [0], Venue = Joe's Park
     [1], City = Michigan City
     [2], Remainder = Il 1-1-18
     date = 1-1-18
 tags = {
-    Venue => Joe'S Park,
+    Title => Three Word Show At Joe's Park, Michigan City, Il 1-1-18,
     Name => Three Word Show,
-    Title => Three Word Show At Joe'S Park, Michigan City, Il 1-1-18,
+    Venue => Joe's Park,
     City => Michigan City,
     Date => 1-1-18,
 }
@@ -77,9 +94,9 @@ parse([My Cafe, Grand Rapids, Mi 2-2-18], delim = [, ], keys = [Venue City])
     [2], Remainder = Mi 2-2-18
     date = 2-2-18
 tags = {
-    Venue => My Cafe,
-    Name => Four Word Cool Show,
     Title => Four Word Cool Show At My Cafe, Grand Rapids, Mi 2-2-18,
+    Name => Four Word Cool Show,
+    Venue => My Cafe,
     City => Grand Rapids,
     Date => 2-2-18,
 }
@@ -94,9 +111,9 @@ parse([Grease & Spoon, My Town, Mi 3-3-18], delim = [, ], keys = [Venue City])
     [2], Remainder = Mi 3-3-18
     date = 3-3-18
 tags = {
-    Venue => Grease & Spoon,
-    Name => Somelongsinglewordname,
     Title => Somelongsinglewordname At Grease & Spoon, My Town, Mi 3-3-18,
+    Name => Somelongsinglewordname,
+    Venue => Grease & Spoon,
     City => My Town,
     Date => 3-3-18,
 }
