@@ -1,5 +1,4 @@
-title = [Funktional Family At Kiss The Sky, Batavia, IL 12-03-17 (Camera 1)]
-words = [ Funktional Family At Kiss The Sky Batavia Il 12-03-17 Camera 1]
+line = Funktional Family At Kiss The Sky, Batavia, IL 12-03-17 (Camera 1)
 parse([Funktional Family At Kiss The Sky, Batavia, Il 12-03-17 (Camera 1)], delim = [ At ], keys = [Name])
     [0], Name = Funktional Family
     [1], Remainder = Kiss The Sky, Batavia, Il 12-03-17 (Camera 1)
@@ -15,25 +14,23 @@ tags = {
     City => Batavia,
     Date => 12-03-17,
 }
-title = [some band's performance at their favorite venue, their city, their state/prov 12-25-17 more stuff ]
-words = [ Some Band's Performance At Their Favorite Venue Their City Their State/Prov 12-25-17 More Stuff]
-parse([Some Band's Performance At Their Favorite Venue, Their City, Their State/Prov 12-25-17 More Stuff ], delim = [ At ], keys = [Name])
+line = some band's performance at their favorite venue, their city, their state/prov 12-25-17 more stuff
+parse([Some Band's Performance At Their Favorite Venue, Their City, Their State/Prov 12-25-17 More Stuff], delim = [ At ], keys = [Name])
     [0], Name = Some Band's Performance
-    [1], Remainder = Their Favorite Venue, Their City, Their State/Prov 12-25-17 More Stuff 
-parse([Their Favorite Venue, Their City, Their State/Prov 12-25-17 More Stuff ], delim = [, ], keys = [Venue City])
+    [1], Remainder = Their Favorite Venue, Their City, Their State/Prov 12-25-17 More Stuff
+parse([Their Favorite Venue, Their City, Their State/Prov 12-25-17 More Stuff], delim = [, ], keys = [Venue City])
     [0], Venue = Their Favorite Venue
     [1], City = Their City
-    [2], Remainder = Their State/Prov 12-25-17 More Stuff 
+    [2], Remainder = Their State/Prov 12-25-17 More Stuff
     date = 12-25-17
 tags = {
-    Title => Some Band's Performance At Their Favorite Venue, Their City, Their State/Prov 12-25-17 More Stuff ,
+    Title => Some Band's Performance At Their Favorite Venue, Their City, Their State/Prov 12-25-17 More Stuff,
     Name => Some Band's Performance,
     Venue => Their Favorite Venue,
     City => Their City,
     Date => 12-25-17,
 }
-title = [Palm at the House Cafe, Dekalb, IL 10-10-17]
-words = [ Palm At The House Cafe Dekalb Il 10-10-17]
+line = Palm at the House Cafe, Dekalb, IL 10-10-17
 parse([Palm At The House Cafe, Dekalb, Il 10-10-17], delim = [ At ], keys = [Name])
     [0], Name = Palm
     [1], Remainder = The House Cafe, Dekalb, Il 10-10-17
@@ -49,8 +46,7 @@ tags = {
     City => Dekalb,
     Date => 10-10-17,
 }
-title = [Some Show At Local Venue, City, IL 12-15-17]
-words = [ Some Show At Local Venue City Il 12-15-17]
+line = Some Show At Local Venue, City, IL 12-15-17
 parse([Some Show At Local Venue, City, Il 12-15-17], delim = [ At ], keys = [Name])
     [0], Name = Some Show
     [1], Remainder = Local Venue, City, Il 12-15-17
@@ -66,8 +62,7 @@ tags = {
     City => City,
     Date => 12-15-17,
 }
-title = [Three word show At Joe's Park, Michigan City, IL 1-1-18]
-words = [ Three Word Show At Joe's Park Michigan City Il 1-1-18]
+line = Three word show At Joe's Park, Michigan City, IL 1-1-18
 parse([Three Word Show At Joe's Park, Michigan City, Il 1-1-18], delim = [ At ], keys = [Name])
     [0], Name = Three Word Show
     [1], Remainder = Joe's Park, Michigan City, Il 1-1-18
@@ -83,8 +78,7 @@ tags = {
     City => Michigan City,
     Date => 1-1-18,
 }
-title = [Four Word cool SHOW at my cafe, Grand Rapids, MI 2-2-18]
-words = [ Four Word Cool Show At My Cafe Grand Rapids Mi 2-2-18]
+line = Four Word cool SHOW at my cafe, Grand Rapids, MI 2-2-18
 parse([Four Word Cool Show At My Cafe, Grand Rapids, Mi 2-2-18], delim = [ At ], keys = [Name])
     [0], Name = Four Word Cool Show
     [1], Remainder = My Cafe, Grand Rapids, Mi 2-2-18
@@ -100,8 +94,7 @@ tags = {
     City => Grand Rapids,
     Date => 2-2-18,
 }
-title = [SomeLongSingleWordName at Grease & Spoon, my town, MI 3-3-18]
-words = [ Somelongsinglewordname At Grease & Spoon My Town Mi 3-3-18]
+line = SomeLongSingleWordName at Grease & Spoon, my town, MI 3-3-18
 parse([Somelongsinglewordname At Grease & Spoon, My Town, Mi 3-3-18], delim = [ At ], keys = [Name])
     [0], Name = Somelongsinglewordname
     [1], Remainder = Grease & Spoon, My Town, Mi 3-3-18

@@ -18,17 +18,17 @@ def main():
 
 def getTitles(inFile, outFile):
     for line in inFile:
-        title = line.rstrip('\n')
-        printn("title = [{}]".format(title), file=outFile)
-        tags = getTags(title, outFile)
-        printn("tags = {", file=outFile)
+        tags = getTags(line.strip(), outFile)
+        printn('tags = {', file=outFile)
         for k in tags.keys(): printn('    {} => {},'.format(k, tags[k]), file=outFile)
         printn("}", file=outFile)
 
-def getTags(title, outFile):
-    title = titleCase(title)
+def getTags(line, outFile):
+    printn('line = {}'.format(line), file=outFile)
     tags = {}
+    title = titleCase(line)
     tags['Title'] = title
+    """
     words = title.split()
     printn('words = [', file=outFile, end='')
     for w in words:
@@ -37,6 +37,7 @@ def getTags(title, outFile):
         printn(' {}'.format(w), file=outFile, end='')
     printn(']', file=outFile)
 #    tags['Title'] = ' '.join(words)
+    """
     remainder = parse(title, ' At ', ['Name'], tags, outFile)
     remainder = parse(remainder, ', ', ['Venue', 'City'], tags, outFile)
 #    printn('Remainder = {}'.format(remainder), file=outFile)
