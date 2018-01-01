@@ -11,37 +11,18 @@ class Tags(object):
         self.inFileName = inFileName
         self.outFileName = outFileName
         self.reDate = r'\s*(?P<reDate>\d{1,2}-\d{1,2}-\d{2})\s*'
-        self.reState = r'\s*(?P<reState>)\s*'
+        self.reState = r'\s*(?P<reState>[A-Z][a-z])\s*'
 
     def run(self):
         with open(self.outFileName, 'w') as self.outFile, open(self.inFileName, 'r') as self.inFile:
             self.getTitles()
         self.close(self.inFileName, self.inFile)
         self.close(self.outFileName, self.outFile)
-        '''
-        print('inFile={}'.format(self.inFile))
-        self.inFile = None
-        print('inFile={}'.format(self.inFile))
-        print('outFile={}'.format(self.outFile))
-        self.outFile = None
-        print('outFile={}'.format(self.outFile))
-        '''
 
     def close(self, fileName, file):
         print('{}={}'.format(fileName, file))
         file = None
         print('{}={}'.format(fileName, file))
-
-    def close2(self, fileName):
-        if fileName == self.inFileName:
-            print('{}={}'.format(fileName, self.inFile))
-            self.inFile = None
-            print('{}={}'.format(fileName, self.inFile))
-        elif fileName == self.outFileName:
-            print('{}={}'.format(fileName, self.outFile))
-            self.outFile = None
-            print('{}={}'.format(fileName, self.outFile))
-        else: exit()#print('ERROR: Closing file name={}'.format(fileName))
 
     def getTitles(self):
         for line in self.inFile:
@@ -57,6 +38,7 @@ class Tags(object):
         self.tags['Title'] = title
         remainder = self.parse(title, ' At ', ['Name'])
         remainder = self.parse(remainder, ', ', ['Venue', 'City'])
+        self.getState(remainder)
         self.getDate(remainder)
 
     def titleCase(self, s):
@@ -79,8 +61,11 @@ class Tags(object):
         printn('    [{}], {} = {}'.format(i, 'Remainder', tokens[i]), file=self.outFile)
         return remainder
 
-    def getDate(self, dStr):
-        self.tags['Date'] = self.findString(dStr, 'reDate', self.reDate).group(1)
+    def getDate(self, s):
+        self.tags['Date'] = self.findString(s, 'reDate', self.reDate).group(1)
+
+    def getState(self, s):
+        self.tags['State'] = self.findString(s, 'reState', self.reState).group(1).upper()
 
     def findString(self, s, key, pattern):
         if key not in self.cres:
