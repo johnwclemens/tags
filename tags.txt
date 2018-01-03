@@ -1,34 +1,130 @@
-line = Funktional Family At Kiss The Sky, Batavia, IL 12-03-17 (Camera 1)
-parse([Funktional Family At Kiss The Sky, Batavia, Il 12-03-17 (Camera 1)], delim = [ At ], keys = [ Name])
-    [0], Name = Funktional Family
-    [1], Remainder = Kiss The Sky, Batavia, Il 12-03-17 (Camera 1)
-parse([Kiss The Sky, Batavia, Il 12-03-17 (Camera 1)], delim = [, ], keys = [ Venue City])
-    [0], Venue = Kiss The Sky
-    [1], City = Batavia
-    [2], Remainder = Il 12-03-17 (Camera 1)
-    date = 12-03-17
-tags = {
-    Title => Funktional Family At Kiss The Sky, Batavia, Il 12-03-17 (Camera 1),
-    City => Batavia,
-    Name => Funktional Family,
-    Venue => Kiss The Sky,
-    Date => 12-03-17,
-}
-line = some band's performance at their favorite venue, their city, their state/prov 12-25-17 more stuff
-parse([Some Band's Performance At Their Favorite Venue, Their City, Their State/Prov 12-25-17 More Stuff], delim = [ At ], keys = [ Name])
-    [0], Name = Some Band's Performance
-    [1], Remainder = Their Favorite Venue, Their City, Their State/Prov 12-25-17 More Stuff
-parse([Their Favorite Venue, Their City, Their State/Prov 12-25-17 More Stuff], delim = [, ], keys = [ Venue City])
+line = band a at their favorite venue, their city, their state/prov 10-10-17 more stuff
+parse([Band A At Their Favorite Venue, Their City, Their State/Prov 10-10-17 More Stuff], delim = [ At ], keys = [ Name])
+    [0], Name = Band A
+    [1], Remainder = Their Favorite Venue, Their City, Their State/Prov 10-10-17 More Stuff
+parse([Their Favorite Venue, Their City, Their State/Prov 10-10-17 More Stuff], delim = [, ], keys = [ Venue City])
     [0], Venue = Their Favorite Venue
     [1], City = Their City
-    [2], Remainder = Their State/Prov 12-25-17 More Stuff
-    date = 12-25-17
+    [2], Remainder = Their State/Prov 10-10-17 More Stuff
 tags = {
-    Title => Some Band's Performance At Their Favorite Venue, Their City, Their State/Prov 12-25-17 More Stuff,
     City => Their City,
-    Name => Some Band's Performance,
+    Date => 10-10-17,
     Venue => Their Favorite Venue,
-    Date => 12-25-17,
+    Title => Band A At Their Favorite Venue, Their City, Their State/Prov 10-10-17 More Stuff,
+    Name => Band A,
+    State => TH,
+}
+line = band 1 at their favorite venue, their city, their state/prov 1-1-17 more stuff
+parse([Band 1 At Their Favorite Venue, Their City, Their State/Prov 1-1-17 More Stuff], delim = [ At ], keys = [ Name])
+    [0], Name = Band 1
+    [1], Remainder = Their Favorite Venue, Their City, Their State/Prov 1-1-17 More Stuff
+parse([Their Favorite Venue, Their City, Their State/Prov 1-1-17 More Stuff], delim = [, ], keys = [ Venue City])
+    [0], Venue = Their Favorite Venue
+    [1], City = Their City
+    [2], Remainder = Their State/Prov 1-1-17 More Stuff
+tags = {
+    City => Their City,
+    Date => 1-1-17,
+    Venue => Their Favorite Venue,
+    Title => Band 1 At Their Favorite Venue, Their City, Their State/Prov 1-1-17 More Stuff,
+    Name => Band 1,
+    State => TH,
+}
+line = band 2 at their favorite venue, their city, their state/prov 2-10-17 more stuff
+parse([Band 2 At Their Favorite Venue, Their City, Their State/Prov 2-10-17 More Stuff], delim = [ At ], keys = [ Name])
+    [0], Name = Band 2
+    [1], Remainder = Their Favorite Venue, Their City, Their State/Prov 2-10-17 More Stuff
+parse([Their Favorite Venue, Their City, Their State/Prov 2-10-17 More Stuff], delim = [, ], keys = [ Venue City])
+    [0], Venue = Their Favorite Venue
+    [1], City = Their City
+    [2], Remainder = Their State/Prov 2-10-17 More Stuff
+tags = {
+    City => Their City,
+    Date => 2-10-17,
+    Venue => Their Favorite Venue,
+    Title => Band 2 At Their Favorite Venue, Their City, Their State/Prov 2-10-17 More Stuff,
+    Name => Band 2,
+    State => TH,
+}
+line = band 3 at their favorite venue, their city, their state/prov 3-20-17 more stuff
+parse([Band 3 At Their Favorite Venue, Their City, Their State/Prov 3-20-17 More Stuff], delim = [ At ], keys = [ Name])
+    [0], Name = Band 3
+    [1], Remainder = Their Favorite Venue, Their City, Their State/Prov 3-20-17 More Stuff
+parse([Their Favorite Venue, Their City, Their State/Prov 3-20-17 More Stuff], delim = [, ], keys = [ Venue City])
+    [0], Venue = Their Favorite Venue
+    [1], City = Their City
+    [2], Remainder = Their State/Prov 3-20-17 More Stuff
+tags = {
+    City => Their City,
+    Date => 3-20-17,
+    Venue => Their Favorite Venue,
+    Title => Band 3 At Their Favorite Venue, Their City, Their State/Prov 3-20-17 More Stuff,
+    Name => Band 3,
+    State => TH,
+}
+line = band 9 at their favorite venue, their city, their state/prov 9-30-17 more stuff
+parse([Band 9 At Their Favorite Venue, Their City, Their State/Prov 9-30-17 More Stuff], delim = [ At ], keys = [ Name])
+    [0], Name = Band 9
+    [1], Remainder = Their Favorite Venue, Their City, Their State/Prov 9-30-17 More Stuff
+parse([Their Favorite Venue, Their City, Their State/Prov 9-30-17 More Stuff], delim = [, ], keys = [ Venue City])
+    [0], Venue = Their Favorite Venue
+    [1], City = Their City
+    [2], Remainder = Their State/Prov 9-30-17 More Stuff
+tags = {
+    City => Their City,
+    Date => 9-30-17,
+    Venue => Their Favorite Venue,
+    Title => Band 9 At Their Favorite Venue, Their City, Their State/Prov 9-30-17 More Stuff,
+    Name => Band 9,
+    State => TH,
+}
+line = band a at their favorite venue, their city, their state/prov 10-10-17 more stuff
+parse([Band A At Their Favorite Venue, Their City, Their State/Prov 10-10-17 More Stuff], delim = [ At ], keys = [ Name])
+    [0], Name = Band A
+    [1], Remainder = Their Favorite Venue, Their City, Their State/Prov 10-10-17 More Stuff
+parse([Their Favorite Venue, Their City, Their State/Prov 10-10-17 More Stuff], delim = [, ], keys = [ Venue City])
+    [0], Venue = Their Favorite Venue
+    [1], City = Their City
+    [2], Remainder = Their State/Prov 10-10-17 More Stuff
+tags = {
+    City => Their City,
+    Date => 10-10-17,
+    Venue => Their Favorite Venue,
+    Title => Band A At Their Favorite Venue, Their City, Their State/Prov 10-10-17 More Stuff,
+    Name => Band A,
+    State => TH,
+}
+line = band b at their favorite venue, their city, their state/prov 11-20-17 more stuff
+parse([Band B At Their Favorite Venue, Their City, Their State/Prov 11-20-17 More Stuff], delim = [ At ], keys = [ Name])
+    [0], Name = Band B
+    [1], Remainder = Their Favorite Venue, Their City, Their State/Prov 11-20-17 More Stuff
+parse([Their Favorite Venue, Their City, Their State/Prov 11-20-17 More Stuff], delim = [, ], keys = [ Venue City])
+    [0], Venue = Their Favorite Venue
+    [1], City = Their City
+    [2], Remainder = Their State/Prov 11-20-17 More Stuff
+tags = {
+    City => Their City,
+    Date => 11-20-17,
+    Venue => Their Favorite Venue,
+    Title => Band B At Their Favorite Venue, Their City, Their State/Prov 11-20-17 More Stuff,
+    Name => Band B,
+    State => TH,
+}
+line = band c at their favorite venue, their city, their state/prov 12-20-17 more stuff
+parse([Band C At Their Favorite Venue, Their City, Their State/Prov 12-20-17 More Stuff], delim = [ At ], keys = [ Name])
+    [0], Name = Band C
+    [1], Remainder = Their Favorite Venue, Their City, Their State/Prov 12-20-17 More Stuff
+parse([Their Favorite Venue, Their City, Their State/Prov 12-20-17 More Stuff], delim = [, ], keys = [ Venue City])
+    [0], Venue = Their Favorite Venue
+    [1], City = Their City
+    [2], Remainder = Their State/Prov 12-20-17 More Stuff
+tags = {
+    City => Their City,
+    Date => 12-20-17,
+    Venue => Their Favorite Venue,
+    Title => Band C At Their Favorite Venue, Their City, Their State/Prov 12-20-17 More Stuff,
+    Name => Band C,
+    State => TH,
 }
 line = Palm at the House Cafe, Dekalb, IL 10-10-17
 parse([Palm At The House Cafe, Dekalb, Il 10-10-17], delim = [ At ], keys = [ Name])
@@ -38,13 +134,29 @@ parse([The House Cafe, Dekalb, Il 10-10-17], delim = [, ], keys = [ Venue City])
     [0], Venue = The House Cafe
     [1], City = Dekalb
     [2], Remainder = Il 10-10-17
-    date = 10-10-17
 tags = {
-    Title => Palm At The House Cafe, Dekalb, Il 10-10-17,
     City => Dekalb,
-    Name => Palm,
-    Venue => The House Cafe,
     Date => 10-10-17,
+    Venue => The House Cafe,
+    Title => Palm At The House Cafe, Dekalb, Il 10-10-17,
+    Name => Palm,
+    State => IL,
+}
+line = Funktional Family At Kiss The Sky, Batavia, IL 12-03-17 (Camera 1)
+parse([Funktional Family At Kiss The Sky, Batavia, Il 12-03-17 (Camera 1)], delim = [ At ], keys = [ Name])
+    [0], Name = Funktional Family
+    [1], Remainder = Kiss The Sky, Batavia, Il 12-03-17 (Camera 1)
+parse([Kiss The Sky, Batavia, Il 12-03-17 (Camera 1)], delim = [, ], keys = [ Venue City])
+    [0], Venue = Kiss The Sky
+    [1], City = Batavia
+    [2], Remainder = Il 12-03-17 (Camera 1)
+tags = {
+    City => Batavia,
+    Date => 12-03-17,
+    Venue => Kiss The Sky,
+    Title => Funktional Family At Kiss The Sky, Batavia, Il 12-03-17 (Camera 1),
+    Name => Funktional Family,
+    State => IL,
 }
 line = Some Show At Local Venue, City, IL 12-15-17
 parse([Some Show At Local Venue, City, Il 12-15-17], delim = [ At ], keys = [ Name])
@@ -54,13 +166,13 @@ parse([Local Venue, City, Il 12-15-17], delim = [, ], keys = [ Venue City])
     [0], Venue = Local Venue
     [1], City = City
     [2], Remainder = Il 12-15-17
-    date = 12-15-17
 tags = {
-    Title => Some Show At Local Venue, City, Il 12-15-17,
     City => City,
-    Name => Some Show,
-    Venue => Local Venue,
     Date => 12-15-17,
+    Venue => Local Venue,
+    Title => Some Show At Local Venue, City, Il 12-15-17,
+    Name => Some Show,
+    State => IL,
 }
 line = Three word show At Joe's Park, Michigan City, IL 1-1-18
 parse([Three Word Show At Joe's Park, Michigan City, Il 1-1-18], delim = [ At ], keys = [ Name])
@@ -70,13 +182,13 @@ parse([Joe's Park, Michigan City, Il 1-1-18], delim = [, ], keys = [ Venue City]
     [0], Venue = Joe's Park
     [1], City = Michigan City
     [2], Remainder = Il 1-1-18
-    date = 1-1-18
 tags = {
-    Title => Three Word Show At Joe's Park, Michigan City, Il 1-1-18,
     City => Michigan City,
-    Name => Three Word Show,
-    Venue => Joe's Park,
     Date => 1-1-18,
+    Venue => Joe's Park,
+    Title => Three Word Show At Joe's Park, Michigan City, Il 1-1-18,
+    Name => Three Word Show,
+    State => IL,
 }
 line = Four Word cool SHOW at my cafe, Grand Rapids, MI 2-2-18
 parse([Four Word Cool Show At My Cafe, Grand Rapids, Mi 2-2-18], delim = [ At ], keys = [ Name])
@@ -86,13 +198,13 @@ parse([My Cafe, Grand Rapids, Mi 2-2-18], delim = [, ], keys = [ Venue City])
     [0], Venue = My Cafe
     [1], City = Grand Rapids
     [2], Remainder = Mi 2-2-18
-    date = 2-2-18
 tags = {
-    Title => Four Word Cool Show At My Cafe, Grand Rapids, Mi 2-2-18,
     City => Grand Rapids,
-    Name => Four Word Cool Show,
-    Venue => My Cafe,
     Date => 2-2-18,
+    Venue => My Cafe,
+    Title => Four Word Cool Show At My Cafe, Grand Rapids, Mi 2-2-18,
+    Name => Four Word Cool Show,
+    State => MI,
 }
 line = SomeLongSingleWordName at Grease & Spoon, my town, MI 3-3-18
 parse([Somelongsinglewordname At Grease & Spoon, My Town, Mi 3-3-18], delim = [ At ], keys = [ Name])
@@ -102,11 +214,11 @@ parse([Grease & Spoon, My Town, Mi 3-3-18], delim = [, ], keys = [ Venue City])
     [0], Venue = Grease & Spoon
     [1], City = My Town
     [2], Remainder = Mi 3-3-18
-    date = 3-3-18
 tags = {
-    Title => Somelongsinglewordname At Grease & Spoon, My Town, Mi 3-3-18,
     City => My Town,
-    Name => Somelongsinglewordname,
-    Venue => Grease & Spoon,
     Date => 3-3-18,
+    Venue => Grease & Spoon,
+    Title => Somelongsinglewordname At Grease & Spoon, My Town, Mi 3-3-18,
+    Name => Somelongsinglewordname,
+    State => MI,
 }

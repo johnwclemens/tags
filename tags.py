@@ -10,7 +10,9 @@ class Tags(object):
         self.cres = {}
         self.inFileName = inFileName
         self.outFileName = outFileName
-        self.reDate = r'\s*(?P<reDate>\d{1,2}-\d{1,2}-\d{2})\s*'
+#        self.reDate = r'\s*(?P<reDate>\d{1,2}-\d{1,2}-\d{2})\s*'
+#        self.reDate = r'\s*(?P<reDate>1[0-2]|0[1-9]|[1-9])-(\d{1,2})-(\d{1,2})\s*'
+        self.reDate = r'\s*(?P<reDate>1[0-2]|0[1-9]|[1-9])-(1[0-9]|2[0-9]|3[0-1]|0[1-9]|[1-9])-(\d{2})\s*'
         self.reState = r'\s*(?P<reState>[A-Z][a-z])\s*'
 
     def run(self):
@@ -38,6 +40,7 @@ class Tags(object):
         self.tags['Title'] = title
         remainder = self.parse(title, ' At ', ['Name'])
         remainder = self.parse(remainder, ', ', ['Venue', 'City'])
+#        remainder = self.parse(remainder, ' ', ['State', 'Date', 'Other'])
         self.getState(remainder)
         self.getDate(remainder)
 
@@ -62,7 +65,8 @@ class Tags(object):
         return remainder
 
     def getDate(self, s):
-        self.tags['Date'] = self.findString(s, 'reDate', self.reDate).group(1)
+#        self.tags['Date'] = self.findString(s, 'reDate', self.reDate).group(0)
+        self.tags['Date'] = self.findString(s, 'reDate', self.reDate).group(1) + '-' + self.findString(s, 'reDate', self.reDate).group(2) + '-' + self.findString(s, 'reDate', self.reDate).group(3)
 
     def getState(self, s):
         self.tags['State'] = self.findString(s, 'reState', self.reState).group(1).upper()
