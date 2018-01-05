@@ -41,8 +41,8 @@ class Tags(object):
         remainder = self.parse(title, ' At ', ['Name'])
         remainder = self.parse(remainder, ', ', ['Venue', 'City'])
 #        remainder = self.parse(remainder, ' ', ['State', 'Date', 'Other'])
-        self.getState(remainder)
-        self.getDate(remainder)
+#        self.getState(remainder)
+        remainder = self.getStateAndDate(remainder)
 
     def titleCase(self, s):
 #        printn('titleCase({})'.format(s), file=self.outFile)
@@ -64,12 +64,15 @@ class Tags(object):
         printn('    [{}], {} = {}'.format(i, 'Remainder', tokens[i]), file=self.outFile)
         return remainder
 
-    def getDate(self, s):
-#        self.tags['Date'] = self.findString(s, 'reDate', self.reDate).group(0)
-        self.tags['Date'] = self.findString(s, 'reDate', self.reDate).group(1) + '-' + self.findString(s, 'reDate', self.reDate).group(2) + '-' + self.findString(s, 'reDate', self.reDate).group(3)
+    def getStateAndDate(self, s):
+        m = self.findString(s, 'reDate', self.reDate)
+        self.tags['Date'] = m.group(1) + '-' + m.group(2) + '-' + m.group(3)
+        self.tags['State'] = s[:m.start()]
+        remainder = s[m.end():]
+        return remainder
 
-    def getState(self, s):
-        self.tags['State'] = self.findString(s, 'reState', self.reState).group(1).upper()
+#    def getState(self, s):
+#        self.tags['State'] = self.findString(s, 'reState', self.reState).group(1).upper()
 
     def findString(self, s, key, pattern):
         if key not in self.cres:
