@@ -40,9 +40,8 @@ class Tags(object):
         self.tags['Title'] = title
         remainder = self.parse(title, ' At ', ['Name'])
         remainder = self.parse(remainder, ', ', ['Venue', 'City'])
-#        remainder = self.parse(remainder, ' ', ['State', 'Date', 'Other'])
-#        self.getState(remainder)
         remainder = self.getStateAndDate(remainder)
+        if remainder: self.tags['Other'] = remainder
 
     def titleCase(self, s):
 #        printn('titleCase({})'.format(s), file=self.outFile)
@@ -70,9 +69,6 @@ class Tags(object):
         self.tags['State'] = s[:m.start()]
         remainder = s[m.end():]
         return remainder
-
-#    def getState(self, s):
-#        self.tags['State'] = self.findString(s, 'reState', self.reState).group(1).upper()
 
     def findString(self, s, key, pattern):
         if key not in self.cres:
