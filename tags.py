@@ -10,10 +10,7 @@ class Tags(object):
         self.cres = {}
         self.inFileName = inFileName
         self.outFileName = outFileName
-#        self.reDate = r'\s*(?P<reDate>\d{1,2}-\d{1,2}-\d{2})\s*'
-#        self.reDate = r'\s*(?P<reDate>1[0-2]|0[1-9]|[1-9])-(\d{1,2})-(\d{1,2})\s*'
         self.reDate = r'\s*(?P<reDate>1[0-2]|0[1-9]|[1-9])-(1[0-9]|2[0-9]|3[0-1]|0[1-9]|[1-9])-(\d{2})\s*'
-        self.reState = r'\s*(?P<reState>[A-Z][a-z])\s*'
 
     def run(self):
         with open(self.outFileName, 'w') as self.outFile, open(self.inFileName, 'r') as self.inFile:
@@ -30,8 +27,10 @@ class Tags(object):
         for line in self.inFile:
             self.getTags(line.strip())
             printn('tags = {', file=self.outFile)
-            for k in self.tags.keys(): printn('    {} => {},'.format(k, self.tags[k]), file=self.outFile)
-            printn("}", file=self.outFile)
+            for k in self.tags.keys(): printn('    {:>20} => {},'.format(k, self.tags[k]), file=self.outFile)
+            printn("}\ntags({}) = [", file=self.outFile, end='')
+            for k in self.tags.keys(): printn('{}'.format(self.tags[k]), file=self.outFile, end=',')
+            printn("]", file=self.outFile)
 
     def getTags(self, line):
         printn('line = {}'.format(line), file=self.outFile)
@@ -41,11 +40,9 @@ class Tags(object):
         remainder = self.parse(title, ' At ', ['Name'])
         remainder = self.parse(remainder, ', ', ['Venue', 'City'])
         remainder = self.getStateAndDate(remainder)
-        if remainder: self.tags['Other'] = remainder
+        self.group()
 
     def titleCase(self, s):
-#        printn('titleCase({})'.format(s), file=self.outFile)
-#        return re.sub(r"([A-Za-z]+)", lambda mo: mo.group(0)[0].upper() + mo.group(0)[1:].lower(), s)
         return re.sub(r"[A-Za-z]+('[A-Za-z]+)?", lambda mo: mo.group(0)[0].upper() + mo.group(0)[1:].lower(), s)
 
     def parse(self, s, delim, keys):
@@ -68,7 +65,23 @@ class Tags(object):
         self.tags['Date'] = m.group(1) + '-' + m.group(2) + '-' + m.group(3)
         self.tags['State'] = s[:m.start()]
         remainder = s[m.end():]
+        if remainder: self.tags['Other'] = remainder
         return remainder
+
+    def group(self):
+        self.tags['Name_City'] = self.tags['Name'] + " " + self.tags['City']
+        self.tags['Name_Date'] = self.tags['Name'] + " " + self.tags['Date']
+        self.tags['Name_Venue'] = self.tags['Name'] + " " + self.tags['Venue']
+        self.tags['Name_Venue_City'] = self.tags['Name'] + " " + self.tags['Venue'] + " " + self.tags['City']
+        self.tags['Name_Venue_Date'] = self.tags['Name'] + " " + self.tags['Venue'] + " " + self.tags['Date']
+        self.tags['Name_City_Date'] = self.tags['Name'] + " " + self.tags['City'] + " " + self.tags['Date']
+        self.tags['City_Date'] = self.tags['City'] + " " + self.tags['Date']
+        self.tags['Venue_Date'] = self.tags['Venue'] + " " + self.tags['Date']
+
+        self.tags['Name_City_Live'] = self.tags['Name'] + " Live " + self.tags['City']
+        self.tags['Name_Date_Live'] = self.tags['Name'] + " Live " + self.tags['Date']
+        self.tags['Name_Venue_Live'] = self.tags['Name'] + " Live " + self.tags['Venue']
+        self.tags['Name_Venue_Date_Live'] = self.tags['Name'] + " Live " + self.tags['Venue'] + " " + self.tags['Date']
 
     def findString(self, s, key, pattern):
         if key not in self.cres:
