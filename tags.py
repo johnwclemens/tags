@@ -1,4 +1,4 @@
-import os, sys, re
+import os, sys, re, collections
 
 def main():
     tags = Tags(inFileName='titles.txt', outFileName='tags.txt')
@@ -7,6 +7,7 @@ def main():
 class Tags(object):
     def __init__(self, inFileName = 'titles.txt', outFileName='tags.txt'):
         self.tags = None
+        self.len = 0
         self.cres = {}
         self.inFileName = inFileName
         self.outFileName = outFileName
@@ -24,33 +25,41 @@ class Tags(object):
         print('{}={}'.format(fileName, file))
 
     def getTitles(self):
+        i = 0
         for line in self.inFile:
             self.getTags(line.strip())
-            printn('tags = {', file=self.outFile)
-            for k in self.tags.keys(): printn('    {:>20} => {},'.format(k, self.tags[k]), file=self.outFile)
-            printn("}\ntags({}) = [", file=self.outFile, end='')
+            printn('tags = [', file=self.outFile)
+            for k, v in self.tags.items():
+                i += 1
+                length = len(v)
+                self.len += length
+                printn('    {:>20}[{:>2}:{:>2}:{:>3}] {}'.format(k, i, length, self.len, v), file=self.outFile)
+            printn(']\ntags({}) = ['.format(self.len), file=self.outFile, end='')
             for k in self.tags.keys(): printn('{}'.format(self.tags[k]), file=self.outFile, end=',')
             printn("]", file=self.outFile)
+            i = 0
+            self.len = 0
 
     def getTags(self, line):
         printn('line = {}'.format(line), file=self.outFile)
-        self.tags = {}
+        self.tags = collections.OrderedDict()
         title = self.titleCase(line)
-        self.tags['Title'] = title
+        self.addTag('Title', title)
         remainder = self.parse(title, ' At ', ['Name'])
         remainder = self.parse(remainder, ', ', ['Venue', 'City'])
         remainder = self.getStateAndDate(remainder)
         self.group()
 
-    def titleCase(self, s):
-        return re.sub(r"[A-Za-z]+('[A-Za-z]+)?", lambda mo: mo.group(0)[0].upper() + mo.group(0)[1:].lower(), s)
+    def addTag(self, key, value):
+        self.tags[key] = value
+#        self.len += len(value)
 
     def parse(self, s, delim, keys):
         max = len(keys)
         tokens = s.split(delim, max+1)
         printn('parse([{}], delim = [{}], keys = ['.format(s, delim), file=self.outFile, end='')
         for i in range(0, max):
-            self.tags[keys[i]] = tokens[i]
+            self.addTag(keys[i], tokens[i])
             printn(' {}'.format(keys[i]), file=self.outFile, end='')
         printn('])', file=self.outFile)
         for i in range(0, max):
@@ -62,43 +71,37 @@ class Tags(object):
 
     def getStateAndDate(self, s):
         m = self.findString(s, 'reDate', self.reDate)
-        self.tags['Date'] = m.group(1) + '-' + m.group(2) + '-' + m.group(3)
-        self.tags['State'] = s[:m.start()]
+        self.addTag('Date', m.group(1) + '-' + m.group(2) + '-' + m.group(3))
+        self.addTag('State', s[:m.start()])
         remainder = s[m.end():]
         if remainder: self.tags['Other'] = remainder
         return remainder
 
     def group(self):
-        self.tags['Name_City'] = self.tags['Name'] + " " + self.tags['City']
-        self.tags['Name_Date'] = self.tags['Name'] + " " + self.tags['Date']
-        self.tags['Name_Venue'] = self.tags['Name'] + " " + self.tags['Venue']
-        self.tags['Name_Venue_City'] = self.tags['Name'] + " " + self.tags['Venue'] + " " + self.tags['City']
-        self.tags['Name_Venue_Date'] = self.tags['Name'] + " " + self.tags['Venue'] + " " + self.tags['Date']
-        self.tags['Name_City_Date'] = self.tags['Name'] + " " + self.tags['City'] + " " + self.tags['Date']
-        self.tags['City_Date'] = self.tags['City'] + " " + self.tags['Date']
-        self.tags['Venue_Date'] = self.tags['Venue'] + " " + self.tags['Date']
+        self.addTag('Name_City', self.tags['Name'] + " " + self.tags['City'])
+        self.addTag('Name_Date', self.tags['Name'] + " " + self.tags['Date'])
+        self.addTag('Name_Venue', self.tags['Name'] + " " + self.tags['Venue'])
+        self.addTag('Name_Venue_City', self.tags['Name'] + " " + self.tags['Venue'] + " " + self.tags['City'])
+        self.addTag('Name_Venue_Date', self.tags['Name'] + " " + self.tags['Venue'] + " " + self.tags['Date'])
+        self.addTag('Name_City_Date', self.tags['Name'] + " " + self.tags['City'] + " " + self.tags['Date'])
+        self.addTag('City_Date', self.tags['City'] + " " + self.tags['Date'])
+        self.addTag('Venue_Date', self.tags['Venue'] + " " + self.tags['Date'])
 
-        self.tags['Name_City_Live'] = self.tags['Name'] + " Live " + self.tags['City']
-        self.tags['Name_Date_Live'] = self.tags['Name'] + " Live " + self.tags['Date']
-        self.tags['Name_Venue_Live'] = self.tags['Name'] + " Live " + self.tags['Venue']
-        self.tags['Name_Venue_Date_Live'] = self.tags['Name'] + " Live " + self.tags['Venue'] + " " + self.tags['Date']
+        self.addTag('Name_City_Live', self.tags['Name'] + " Live " + self.tags['City'])
+        self.addTag('Name_Date_Live', self.tags['Name'] + " Live " + self.tags['Date'])
+        self.addTag('Name_Venue_Live', self.tags['Name'] + " Live " + self.tags['Venue'])
+        self.addTag('Name_Venue_Date_Live', self.tags['Name'] + " Live " + self.tags['Venue'] + " " + self.tags['Date'])
 
     def findString(self, s, key, pattern):
         if key not in self.cres:
             self.cres[key] = re.compile(pattern)
         return self.cres[key].search(s)
 
+    def titleCase(self, s):
+        return re.sub(r"[A-Za-z]+('[A-Za-z]+)?", lambda mo: mo.group(0)[0].upper() + mo.group(0)[1:].lower(), s)
+
 def printn(msg='', sep=' ', end='\n', file=sys.stdout, flush=False):
     print(msg, sep=sep, end=end, file=file, flush=flush)
 
 if __name__ == "__main__":
     main()
-
-#    words = title.split()
-#    printn('words = [', file=self.outFile, end='')
-#    for w in words:
-#        w = w.strip('),(')
-##        self.tags.append(w)
-#        printn(' {}'.format(w), file=self.outFile, end='')
-#    printn(']', file=self.outFile)
-##    self.tags['Title'] = ' '.join(words)
