@@ -1,33 +1,63 @@
-line = Bent Knee at the House Cafe, Dekalb, IL 7-23-17 (part 1)
-parse([Bent Knee At The House Cafe, Dekalb, Il 7-23-17 (Part 1)], delim = [ At ], keys = [ Name])
-    [0], Name = Bent Knee
-    [1], Remainder = The House Cafe, Dekalb, Il 7-23-17 (Part 1)
-parse([The House Cafe, Dekalb, Il 7-23-17 (Part 1)], delim = [, ], keys = [ Venue City])
+line = Bent Knee (Ben Courtney) at the House Cafe, Dekalb, IL 7-23-17 (part 2)
+parse([Bent Knee Ben Courtney At The House Cafe, Dekalb, Il 7-23-17 Part 2], delim = [ At ], keys = [ Name])
+    [0], Name = Bent Knee Ben Courtney
+    [1], Remainder = The House Cafe, Dekalb, Il 7-23-17 Part 2
+parse([The House Cafe, Dekalb, Il 7-23-17 Part 2], delim = [, ], keys = [ Venue City])
     [0], Venue = The House Cafe
     [1], City = Dekalb
-    [2], Remainder = Il 7-23-17 (Part 1)
-tags = {
-          Name_Date_Live => Bent Knee Live 7-23-17,
-              Name_Venue => Bent Knee The House Cafe,
-                   Title => Bent Knee At The House Cafe, Dekalb, Il 7-23-17 (Part 1),
-                   Other => (Part 1),
-          Name_City_Live => Bent Knee Live Dekalb,
-                    City => Dekalb,
-              Venue_Date => The House Cafe 7-23-17,
-         Name_Venue_City => Bent Knee The House Cafe Dekalb,
-          Name_City_Date => Bent Knee Dekalb 7-23-17,
-         Name_Venue_Date => Bent Knee The House Cafe 7-23-17,
-                    Name => Bent Knee,
-    Name_Venue_Date_Live => Bent Knee Live The House Cafe 7-23-17,
-                   State => Il,
-                   Venue => The House Cafe,
-                    Date => 7-23-17,
-               Name_City => Bent Knee Dekalb,
-               City_Date => Dekalb 7-23-17,
-         Name_Venue_Live => Bent Knee Live The House Cafe,
-               Name_Date => Bent Knee 7-23-17,
-}
-tags = [Bent Knee Live 7-23-17,Bent Knee The House Cafe,Bent Knee At The House Cafe, Dekalb, Il 7-23-17 (Part 1),(Part 1),Bent Knee Live Dekalb,Dekalb,The House Cafe 7-23-17,Bent Knee The House Cafe Dekalb,Bent Knee Dekalb 7-23-17,Bent Knee The House Cafe 7-23-17,Bent Knee,Bent Knee Live The House Cafe 7-23-17,Il,The House Cafe,7-23-17,Bent Knee Dekalb,Dekalb 7-23-17,Bent Knee Live The House Cafe,Bent Knee 7-23-17,]
+    [2], Remainder = Il 7-23-17 Part 2
+tags = [
+                   Title[ 1:67: 67] Bent Knee Ben Courtney At The House Cafe, Dekalb, Il 7-23-17 Part 2
+                    Name[ 2:22: 89] Bent Knee Ben Courtney
+                   Venue[ 3:14:103] The House Cafe
+                    City[ 4: 6:109] Dekalb
+                   State[ 5: 2:111] Il
+                    Date[ 6: 7:118] 7-23-17
+                   Other[ 7: 6:124] Part 2
+               Name_Date[ 8:30:154] Bent Knee Ben Courtney 7-23-17
+              Name_Venue[ 9:37:191] Bent Knee Ben Courtney The House Cafe
+               Name_City[10:29:220] Bent Knee Ben Courtney Dekalb
+         Name_Venue_Date[11:45:265] Bent Knee Ben Courtney The House Cafe 7-23-17
+         Name_Venue_City[12:44:309] Bent Knee Ben Courtney The House Cafe Dekalb
+          Name_City_Date[13:37:346] Bent Knee Ben Courtney Dekalb 7-23-17
+               City_Date[14:14:360] Dekalb 7-23-17
+              Venue_Date[15:22:382] The House Cafe 7-23-17
+          Name_City_Live[16:34:416] Bent Knee Ben Courtney Live Dekalb
+          Name_Date_Live[17:35:451] Bent Knee Ben Courtney Live 7-23-17
+         Name_Venue_Live[18:42:493] Bent Knee Ben Courtney Live The House Cafe
+    Name_Venue_Date_Live[19:50:543] Bent Knee Ben Courtney Live The House Cafe 7-23-17
+]
+tags(543) = [Bent Knee Ben Courtney At The House Cafe, Dekalb, Il 7-23-17 Part 2,Bent Knee Ben Courtney,The House Cafe,Dekalb,Il,7-23-17,Part 2,Bent Knee Ben Courtney 7-23-17,Bent Knee Ben Courtney The House Cafe,Bent Knee Ben Courtney Dekalb,Bent Knee Ben Courtney The House Cafe 7-23-17,Bent Knee Ben Courtney The House Cafe Dekalb,Bent Knee Ben Courtney Dekalb 7-23-17,Dekalb 7-23-17,The House Cafe 7-23-17,Bent Knee Ben Courtney Live Dekalb,Bent Knee Ben Courtney Live 7-23-17,Bent Knee Ben Courtney Live The House Cafe,Bent Knee Ben Courtney Live The House Cafe 7-23-17,]
+line = Bent Knee at the House Cafe, Dekalb, IL 7-23-17 (part 1)
+parse([Bent Knee At The House Cafe, Dekalb, Il 7-23-17 Part 1], delim = [ At ], keys = [ Name])
+    [0], Name = Bent Knee
+    [1], Remainder = The House Cafe, Dekalb, Il 7-23-17 Part 1
+parse([The House Cafe, Dekalb, Il 7-23-17 Part 1], delim = [, ], keys = [ Venue City])
+    [0], Venue = The House Cafe
+    [1], City = Dekalb
+    [2], Remainder = Il 7-23-17 Part 1
+tags = [
+                   Title[ 1:54: 54] Bent Knee At The House Cafe, Dekalb, Il 7-23-17 Part 1
+                    Name[ 2: 9: 63] Bent Knee
+                   Venue[ 3:14: 77] The House Cafe
+                    City[ 4: 6: 83] Dekalb
+                   State[ 5: 2: 85] Il
+                    Date[ 6: 7: 92] 7-23-17
+                   Other[ 7: 6: 98] Part 1
+               Name_Date[ 8:17:115] Bent Knee 7-23-17
+              Name_Venue[ 9:24:139] Bent Knee The House Cafe
+               Name_City[10:16:155] Bent Knee Dekalb
+         Name_Venue_Date[11:32:187] Bent Knee The House Cafe 7-23-17
+         Name_Venue_City[12:31:218] Bent Knee The House Cafe Dekalb
+          Name_City_Date[13:24:242] Bent Knee Dekalb 7-23-17
+               City_Date[14:14:256] Dekalb 7-23-17
+              Venue_Date[15:22:278] The House Cafe 7-23-17
+          Name_City_Live[16:21:299] Bent Knee Live Dekalb
+          Name_Date_Live[17:22:321] Bent Knee Live 7-23-17
+         Name_Venue_Live[18:29:350] Bent Knee Live The House Cafe
+    Name_Venue_Date_Live[19:37:387] Bent Knee Live The House Cafe 7-23-17
+]
+tags(387) = [Bent Knee At The House Cafe, Dekalb, Il 7-23-17 Part 1,Bent Knee,The House Cafe,Dekalb,Il,7-23-17,Part 1,Bent Knee 7-23-17,Bent Knee The House Cafe,Bent Knee Dekalb,Bent Knee The House Cafe 7-23-17,Bent Knee The House Cafe Dekalb,Bent Knee Dekalb 7-23-17,Dekalb 7-23-17,The House Cafe 7-23-17,Bent Knee Live Dekalb,Bent Knee Live 7-23-17,Bent Knee Live The House Cafe,Bent Knee Live The House Cafe 7-23-17,]
 line = band a at their favorite venue, their city, their state/prov 12-3-17 more stuff
 parse([Band A At Their Favorite Venue, Their City, Their State/Prov 12-3-17 More Stuff], delim = [ At ], keys = [ Name])
     [0], Name = Band A
@@ -36,28 +66,28 @@ parse([Their Favorite Venue, Their City, Their State/Prov 12-3-17 More Stuff], d
     [0], Venue = Their Favorite Venue
     [1], City = Their City
     [2], Remainder = Their State/Prov 12-3-17 More Stuff
-tags = {
-          Name_Date_Live => Band A Live 12-3-17,
-              Name_Venue => Band A Their Favorite Venue,
-                   Title => Band A At Their Favorite Venue, Their City, Their State/Prov 12-3-17 More Stuff,
-                   Other => More Stuff,
-          Name_City_Live => Band A Live Their City,
-                    City => Their City,
-              Venue_Date => Their Favorite Venue 12-3-17,
-         Name_Venue_City => Band A Their Favorite Venue Their City,
-          Name_City_Date => Band A Their City 12-3-17,
-         Name_Venue_Date => Band A Their Favorite Venue 12-3-17,
-                    Name => Band A,
-    Name_Venue_Date_Live => Band A Live Their Favorite Venue 12-3-17,
-                   State => Their State/Prov,
-                   Venue => Their Favorite Venue,
-                    Date => 12-3-17,
-               Name_City => Band A Their City,
-               City_Date => Their City 12-3-17,
-         Name_Venue_Live => Band A Live Their Favorite Venue,
-               Name_Date => Band A 12-3-17,
-}
-tags = [Band A Live 12-3-17,Band A Their Favorite Venue,Band A At Their Favorite Venue, Their City, Their State/Prov 12-3-17 More Stuff,More Stuff,Band A Live Their City,Their City,Their Favorite Venue 12-3-17,Band A Their Favorite Venue Their City,Band A Their City 12-3-17,Band A Their Favorite Venue 12-3-17,Band A,Band A Live Their Favorite Venue 12-3-17,Their State/Prov,Their Favorite Venue,12-3-17,Band A Their City,Their City 12-3-17,Band A Live Their Favorite Venue,Band A 12-3-17,]
+tags = [
+                   Title[ 1:79: 79] Band A At Their Favorite Venue, Their City, Their State/Prov 12-3-17 More Stuff
+                    Name[ 2: 6: 85] Band A
+                   Venue[ 3:20:105] Their Favorite Venue
+                    City[ 4:10:115] Their City
+                   State[ 5:16:131] Their State/Prov
+                    Date[ 6: 7:138] 12-3-17
+                   Other[ 7:10:148] More Stuff
+               Name_Date[ 8:14:162] Band A 12-3-17
+              Name_Venue[ 9:27:189] Band A Their Favorite Venue
+               Name_City[10:17:206] Band A Their City
+         Name_Venue_Date[11:35:241] Band A Their Favorite Venue 12-3-17
+         Name_Venue_City[12:38:279] Band A Their Favorite Venue Their City
+          Name_City_Date[13:25:304] Band A Their City 12-3-17
+               City_Date[14:18:322] Their City 12-3-17
+              Venue_Date[15:28:350] Their Favorite Venue 12-3-17
+          Name_City_Live[16:22:372] Band A Live Their City
+          Name_Date_Live[17:19:391] Band A Live 12-3-17
+         Name_Venue_Live[18:32:423] Band A Live Their Favorite Venue
+    Name_Venue_Date_Live[19:40:463] Band A Live Their Favorite Venue 12-3-17
+]
+tags(463) = [Band A At Their Favorite Venue, Their City, Their State/Prov 12-3-17 More Stuff,Band A,Their Favorite Venue,Their City,Their State/Prov,12-3-17,More Stuff,Band A 12-3-17,Band A Their Favorite Venue,Band A Their City,Band A Their Favorite Venue 12-3-17,Band A Their Favorite Venue Their City,Band A Their City 12-3-17,Their City 12-3-17,Their Favorite Venue 12-3-17,Band A Live Their City,Band A Live 12-3-17,Band A Live Their Favorite Venue,Band A Live Their Favorite Venue 12-3-17,]
 line = band 1 at their favorite venue, their city, their state/prov 1-23-17 more stuff
 parse([Band 1 At Their Favorite Venue, Their City, Their State/Prov 1-23-17 More Stuff], delim = [ At ], keys = [ Name])
     [0], Name = Band 1
@@ -66,28 +96,28 @@ parse([Their Favorite Venue, Their City, Their State/Prov 1-23-17 More Stuff], d
     [0], Venue = Their Favorite Venue
     [1], City = Their City
     [2], Remainder = Their State/Prov 1-23-17 More Stuff
-tags = {
-          Name_Date_Live => Band 1 Live 1-23-17,
-              Name_Venue => Band 1 Their Favorite Venue,
-                   Title => Band 1 At Their Favorite Venue, Their City, Their State/Prov 1-23-17 More Stuff,
-                   Other => More Stuff,
-          Name_City_Live => Band 1 Live Their City,
-                    City => Their City,
-              Venue_Date => Their Favorite Venue 1-23-17,
-         Name_Venue_City => Band 1 Their Favorite Venue Their City,
-          Name_City_Date => Band 1 Their City 1-23-17,
-         Name_Venue_Date => Band 1 Their Favorite Venue 1-23-17,
-                    Name => Band 1,
-    Name_Venue_Date_Live => Band 1 Live Their Favorite Venue 1-23-17,
-                   State => Their State/Prov,
-                   Venue => Their Favorite Venue,
-                    Date => 1-23-17,
-               Name_City => Band 1 Their City,
-               City_Date => Their City 1-23-17,
-         Name_Venue_Live => Band 1 Live Their Favorite Venue,
-               Name_Date => Band 1 1-23-17,
-}
-tags = [Band 1 Live 1-23-17,Band 1 Their Favorite Venue,Band 1 At Their Favorite Venue, Their City, Their State/Prov 1-23-17 More Stuff,More Stuff,Band 1 Live Their City,Their City,Their Favorite Venue 1-23-17,Band 1 Their Favorite Venue Their City,Band 1 Their City 1-23-17,Band 1 Their Favorite Venue 1-23-17,Band 1,Band 1 Live Their Favorite Venue 1-23-17,Their State/Prov,Their Favorite Venue,1-23-17,Band 1 Their City,Their City 1-23-17,Band 1 Live Their Favorite Venue,Band 1 1-23-17,]
+tags = [
+                   Title[ 1:79: 79] Band 1 At Their Favorite Venue, Their City, Their State/Prov 1-23-17 More Stuff
+                    Name[ 2: 6: 85] Band 1
+                   Venue[ 3:20:105] Their Favorite Venue
+                    City[ 4:10:115] Their City
+                   State[ 5:16:131] Their State/Prov
+                    Date[ 6: 7:138] 1-23-17
+                   Other[ 7:10:148] More Stuff
+               Name_Date[ 8:14:162] Band 1 1-23-17
+              Name_Venue[ 9:27:189] Band 1 Their Favorite Venue
+               Name_City[10:17:206] Band 1 Their City
+         Name_Venue_Date[11:35:241] Band 1 Their Favorite Venue 1-23-17
+         Name_Venue_City[12:38:279] Band 1 Their Favorite Venue Their City
+          Name_City_Date[13:25:304] Band 1 Their City 1-23-17
+               City_Date[14:18:322] Their City 1-23-17
+              Venue_Date[15:28:350] Their Favorite Venue 1-23-17
+          Name_City_Live[16:22:372] Band 1 Live Their City
+          Name_Date_Live[17:19:391] Band 1 Live 1-23-17
+         Name_Venue_Live[18:32:423] Band 1 Live Their Favorite Venue
+    Name_Venue_Date_Live[19:40:463] Band 1 Live Their Favorite Venue 1-23-17
+]
+tags(463) = [Band 1 At Their Favorite Venue, Their City, Their State/Prov 1-23-17 More Stuff,Band 1,Their Favorite Venue,Their City,Their State/Prov,1-23-17,More Stuff,Band 1 1-23-17,Band 1 Their Favorite Venue,Band 1 Their City,Band 1 Their Favorite Venue 1-23-17,Band 1 Their Favorite Venue Their City,Band 1 Their City 1-23-17,Their City 1-23-17,Their Favorite Venue 1-23-17,Band 1 Live Their City,Band 1 Live 1-23-17,Band 1 Live Their Favorite Venue,Band 1 Live Their Favorite Venue 1-23-17,]
 line = band 2 at their favorite venue, their city, their state/prov 2-3-17 more stuff
 parse([Band 2 At Their Favorite Venue, Their City, Their State/Prov 2-3-17 More Stuff], delim = [ At ], keys = [ Name])
     [0], Name = Band 2
@@ -96,28 +126,28 @@ parse([Their Favorite Venue, Their City, Their State/Prov 2-3-17 More Stuff], de
     [0], Venue = Their Favorite Venue
     [1], City = Their City
     [2], Remainder = Their State/Prov 2-3-17 More Stuff
-tags = {
-          Name_Date_Live => Band 2 Live 2-3-17,
-              Name_Venue => Band 2 Their Favorite Venue,
-                   Title => Band 2 At Their Favorite Venue, Their City, Their State/Prov 2-3-17 More Stuff,
-                   Other => More Stuff,
-          Name_City_Live => Band 2 Live Their City,
-                    City => Their City,
-              Venue_Date => Their Favorite Venue 2-3-17,
-         Name_Venue_City => Band 2 Their Favorite Venue Their City,
-          Name_City_Date => Band 2 Their City 2-3-17,
-         Name_Venue_Date => Band 2 Their Favorite Venue 2-3-17,
-                    Name => Band 2,
-    Name_Venue_Date_Live => Band 2 Live Their Favorite Venue 2-3-17,
-                   State => Their State/Prov,
-                   Venue => Their Favorite Venue,
-                    Date => 2-3-17,
-               Name_City => Band 2 Their City,
-               City_Date => Their City 2-3-17,
-         Name_Venue_Live => Band 2 Live Their Favorite Venue,
-               Name_Date => Band 2 2-3-17,
-}
-tags = [Band 2 Live 2-3-17,Band 2 Their Favorite Venue,Band 2 At Their Favorite Venue, Their City, Their State/Prov 2-3-17 More Stuff,More Stuff,Band 2 Live Their City,Their City,Their Favorite Venue 2-3-17,Band 2 Their Favorite Venue Their City,Band 2 Their City 2-3-17,Band 2 Their Favorite Venue 2-3-17,Band 2,Band 2 Live Their Favorite Venue 2-3-17,Their State/Prov,Their Favorite Venue,2-3-17,Band 2 Their City,Their City 2-3-17,Band 2 Live Their Favorite Venue,Band 2 2-3-17,]
+tags = [
+                   Title[ 1:78: 78] Band 2 At Their Favorite Venue, Their City, Their State/Prov 2-3-17 More Stuff
+                    Name[ 2: 6: 84] Band 2
+                   Venue[ 3:20:104] Their Favorite Venue
+                    City[ 4:10:114] Their City
+                   State[ 5:16:130] Their State/Prov
+                    Date[ 6: 6:136] 2-3-17
+                   Other[ 7:10:146] More Stuff
+               Name_Date[ 8:13:159] Band 2 2-3-17
+              Name_Venue[ 9:27:186] Band 2 Their Favorite Venue
+               Name_City[10:17:203] Band 2 Their City
+         Name_Venue_Date[11:34:237] Band 2 Their Favorite Venue 2-3-17
+         Name_Venue_City[12:38:275] Band 2 Their Favorite Venue Their City
+          Name_City_Date[13:24:299] Band 2 Their City 2-3-17
+               City_Date[14:17:316] Their City 2-3-17
+              Venue_Date[15:27:343] Their Favorite Venue 2-3-17
+          Name_City_Live[16:22:365] Band 2 Live Their City
+          Name_Date_Live[17:18:383] Band 2 Live 2-3-17
+         Name_Venue_Live[18:32:415] Band 2 Live Their Favorite Venue
+    Name_Venue_Date_Live[19:39:454] Band 2 Live Their Favorite Venue 2-3-17
+]
+tags(454) = [Band 2 At Their Favorite Venue, Their City, Their State/Prov 2-3-17 More Stuff,Band 2,Their Favorite Venue,Their City,Their State/Prov,2-3-17,More Stuff,Band 2 2-3-17,Band 2 Their Favorite Venue,Band 2 Their City,Band 2 Their Favorite Venue 2-3-17,Band 2 Their Favorite Venue Their City,Band 2 Their City 2-3-17,Their City 2-3-17,Their Favorite Venue 2-3-17,Band 2 Live Their City,Band 2 Live 2-3-17,Band 2 Live Their Favorite Venue,Band 2 Live Their Favorite Venue 2-3-17,]
 line = band 3 at their favorite venue, their city, their state/prov 3-23-17 more stuff
 parse([Band 3 At Their Favorite Venue, Their City, Their State/Prov 3-23-17 More Stuff], delim = [ At ], keys = [ Name])
     [0], Name = Band 3
@@ -126,28 +156,28 @@ parse([Their Favorite Venue, Their City, Their State/Prov 3-23-17 More Stuff], d
     [0], Venue = Their Favorite Venue
     [1], City = Their City
     [2], Remainder = Their State/Prov 3-23-17 More Stuff
-tags = {
-          Name_Date_Live => Band 3 Live 3-23-17,
-              Name_Venue => Band 3 Their Favorite Venue,
-                   Title => Band 3 At Their Favorite Venue, Their City, Their State/Prov 3-23-17 More Stuff,
-                   Other => More Stuff,
-          Name_City_Live => Band 3 Live Their City,
-                    City => Their City,
-              Venue_Date => Their Favorite Venue 3-23-17,
-         Name_Venue_City => Band 3 Their Favorite Venue Their City,
-          Name_City_Date => Band 3 Their City 3-23-17,
-         Name_Venue_Date => Band 3 Their Favorite Venue 3-23-17,
-                    Name => Band 3,
-    Name_Venue_Date_Live => Band 3 Live Their Favorite Venue 3-23-17,
-                   State => Their State/Prov,
-                   Venue => Their Favorite Venue,
-                    Date => 3-23-17,
-               Name_City => Band 3 Their City,
-               City_Date => Their City 3-23-17,
-         Name_Venue_Live => Band 3 Live Their Favorite Venue,
-               Name_Date => Band 3 3-23-17,
-}
-tags = [Band 3 Live 3-23-17,Band 3 Their Favorite Venue,Band 3 At Their Favorite Venue, Their City, Their State/Prov 3-23-17 More Stuff,More Stuff,Band 3 Live Their City,Their City,Their Favorite Venue 3-23-17,Band 3 Their Favorite Venue Their City,Band 3 Their City 3-23-17,Band 3 Their Favorite Venue 3-23-17,Band 3,Band 3 Live Their Favorite Venue 3-23-17,Their State/Prov,Their Favorite Venue,3-23-17,Band 3 Their City,Their City 3-23-17,Band 3 Live Their Favorite Venue,Band 3 3-23-17,]
+tags = [
+                   Title[ 1:79: 79] Band 3 At Their Favorite Venue, Their City, Their State/Prov 3-23-17 More Stuff
+                    Name[ 2: 6: 85] Band 3
+                   Venue[ 3:20:105] Their Favorite Venue
+                    City[ 4:10:115] Their City
+                   State[ 5:16:131] Their State/Prov
+                    Date[ 6: 7:138] 3-23-17
+                   Other[ 7:10:148] More Stuff
+               Name_Date[ 8:14:162] Band 3 3-23-17
+              Name_Venue[ 9:27:189] Band 3 Their Favorite Venue
+               Name_City[10:17:206] Band 3 Their City
+         Name_Venue_Date[11:35:241] Band 3 Their Favorite Venue 3-23-17
+         Name_Venue_City[12:38:279] Band 3 Their Favorite Venue Their City
+          Name_City_Date[13:25:304] Band 3 Their City 3-23-17
+               City_Date[14:18:322] Their City 3-23-17
+              Venue_Date[15:28:350] Their Favorite Venue 3-23-17
+          Name_City_Live[16:22:372] Band 3 Live Their City
+          Name_Date_Live[17:19:391] Band 3 Live 3-23-17
+         Name_Venue_Live[18:32:423] Band 3 Live Their Favorite Venue
+    Name_Venue_Date_Live[19:40:463] Band 3 Live Their Favorite Venue 3-23-17
+]
+tags(463) = [Band 3 At Their Favorite Venue, Their City, Their State/Prov 3-23-17 More Stuff,Band 3,Their Favorite Venue,Their City,Their State/Prov,3-23-17,More Stuff,Band 3 3-23-17,Band 3 Their Favorite Venue,Band 3 Their City,Band 3 Their Favorite Venue 3-23-17,Band 3 Their Favorite Venue Their City,Band 3 Their City 3-23-17,Their City 3-23-17,Their Favorite Venue 3-23-17,Band 3 Live Their City,Band 3 Live 3-23-17,Band 3 Live Their Favorite Venue,Band 3 Live Their Favorite Venue 3-23-17,]
 line = band 9 at their favorite venue, their city, their state/prov 9-30-17 more stuff
 parse([Band 9 At Their Favorite Venue, Their City, Their State/Prov 9-30-17 More Stuff], delim = [ At ], keys = [ Name])
     [0], Name = Band 9
@@ -156,28 +186,28 @@ parse([Their Favorite Venue, Their City, Their State/Prov 9-30-17 More Stuff], d
     [0], Venue = Their Favorite Venue
     [1], City = Their City
     [2], Remainder = Their State/Prov 9-30-17 More Stuff
-tags = {
-          Name_Date_Live => Band 9 Live 9-30-17,
-              Name_Venue => Band 9 Their Favorite Venue,
-                   Title => Band 9 At Their Favorite Venue, Their City, Their State/Prov 9-30-17 More Stuff,
-                   Other => More Stuff,
-          Name_City_Live => Band 9 Live Their City,
-                    City => Their City,
-              Venue_Date => Their Favorite Venue 9-30-17,
-         Name_Venue_City => Band 9 Their Favorite Venue Their City,
-          Name_City_Date => Band 9 Their City 9-30-17,
-         Name_Venue_Date => Band 9 Their Favorite Venue 9-30-17,
-                    Name => Band 9,
-    Name_Venue_Date_Live => Band 9 Live Their Favorite Venue 9-30-17,
-                   State => Their State/Prov,
-                   Venue => Their Favorite Venue,
-                    Date => 9-30-17,
-               Name_City => Band 9 Their City,
-               City_Date => Their City 9-30-17,
-         Name_Venue_Live => Band 9 Live Their Favorite Venue,
-               Name_Date => Band 9 9-30-17,
-}
-tags = [Band 9 Live 9-30-17,Band 9 Their Favorite Venue,Band 9 At Their Favorite Venue, Their City, Their State/Prov 9-30-17 More Stuff,More Stuff,Band 9 Live Their City,Their City,Their Favorite Venue 9-30-17,Band 9 Their Favorite Venue Their City,Band 9 Their City 9-30-17,Band 9 Their Favorite Venue 9-30-17,Band 9,Band 9 Live Their Favorite Venue 9-30-17,Their State/Prov,Their Favorite Venue,9-30-17,Band 9 Their City,Their City 9-30-17,Band 9 Live Their Favorite Venue,Band 9 9-30-17,]
+tags = [
+                   Title[ 1:79: 79] Band 9 At Their Favorite Venue, Their City, Their State/Prov 9-30-17 More Stuff
+                    Name[ 2: 6: 85] Band 9
+                   Venue[ 3:20:105] Their Favorite Venue
+                    City[ 4:10:115] Their City
+                   State[ 5:16:131] Their State/Prov
+                    Date[ 6: 7:138] 9-30-17
+                   Other[ 7:10:148] More Stuff
+               Name_Date[ 8:14:162] Band 9 9-30-17
+              Name_Venue[ 9:27:189] Band 9 Their Favorite Venue
+               Name_City[10:17:206] Band 9 Their City
+         Name_Venue_Date[11:35:241] Band 9 Their Favorite Venue 9-30-17
+         Name_Venue_City[12:38:279] Band 9 Their Favorite Venue Their City
+          Name_City_Date[13:25:304] Band 9 Their City 9-30-17
+               City_Date[14:18:322] Their City 9-30-17
+              Venue_Date[15:28:350] Their Favorite Venue 9-30-17
+          Name_City_Live[16:22:372] Band 9 Live Their City
+          Name_Date_Live[17:19:391] Band 9 Live 9-30-17
+         Name_Venue_Live[18:32:423] Band 9 Live Their Favorite Venue
+    Name_Venue_Date_Live[19:40:463] Band 9 Live Their Favorite Venue 9-30-17
+]
+tags(463) = [Band 9 At Their Favorite Venue, Their City, Their State/Prov 9-30-17 More Stuff,Band 9,Their Favorite Venue,Their City,Their State/Prov,9-30-17,More Stuff,Band 9 9-30-17,Band 9 Their Favorite Venue,Band 9 Their City,Band 9 Their Favorite Venue 9-30-17,Band 9 Their Favorite Venue Their City,Band 9 Their City 9-30-17,Their City 9-30-17,Their Favorite Venue 9-30-17,Band 9 Live Their City,Band 9 Live 9-30-17,Band 9 Live Their Favorite Venue,Band 9 Live Their Favorite Venue 9-30-17,]
 line = band a at their favorite venue, their city, their state/prov 10-10-17 more stuff
 parse([Band A At Their Favorite Venue, Their City, Their State/Prov 10-10-17 More Stuff], delim = [ At ], keys = [ Name])
     [0], Name = Band A
@@ -186,28 +216,28 @@ parse([Their Favorite Venue, Their City, Their State/Prov 10-10-17 More Stuff], 
     [0], Venue = Their Favorite Venue
     [1], City = Their City
     [2], Remainder = Their State/Prov 10-10-17 More Stuff
-tags = {
-          Name_Date_Live => Band A Live 10-10-17,
-              Name_Venue => Band A Their Favorite Venue,
-                   Title => Band A At Their Favorite Venue, Their City, Their State/Prov 10-10-17 More Stuff,
-                   Other => More Stuff,
-          Name_City_Live => Band A Live Their City,
-                    City => Their City,
-              Venue_Date => Their Favorite Venue 10-10-17,
-         Name_Venue_City => Band A Their Favorite Venue Their City,
-          Name_City_Date => Band A Their City 10-10-17,
-         Name_Venue_Date => Band A Their Favorite Venue 10-10-17,
-                    Name => Band A,
-    Name_Venue_Date_Live => Band A Live Their Favorite Venue 10-10-17,
-                   State => Their State/Prov,
-                   Venue => Their Favorite Venue,
-                    Date => 10-10-17,
-               Name_City => Band A Their City,
-               City_Date => Their City 10-10-17,
-         Name_Venue_Live => Band A Live Their Favorite Venue,
-               Name_Date => Band A 10-10-17,
-}
-tags = [Band A Live 10-10-17,Band A Their Favorite Venue,Band A At Their Favorite Venue, Their City, Their State/Prov 10-10-17 More Stuff,More Stuff,Band A Live Their City,Their City,Their Favorite Venue 10-10-17,Band A Their Favorite Venue Their City,Band A Their City 10-10-17,Band A Their Favorite Venue 10-10-17,Band A,Band A Live Their Favorite Venue 10-10-17,Their State/Prov,Their Favorite Venue,10-10-17,Band A Their City,Their City 10-10-17,Band A Live Their Favorite Venue,Band A 10-10-17,]
+tags = [
+                   Title[ 1:80: 80] Band A At Their Favorite Venue, Their City, Their State/Prov 10-10-17 More Stuff
+                    Name[ 2: 6: 86] Band A
+                   Venue[ 3:20:106] Their Favorite Venue
+                    City[ 4:10:116] Their City
+                   State[ 5:16:132] Their State/Prov
+                    Date[ 6: 8:140] 10-10-17
+                   Other[ 7:10:150] More Stuff
+               Name_Date[ 8:15:165] Band A 10-10-17
+              Name_Venue[ 9:27:192] Band A Their Favorite Venue
+               Name_City[10:17:209] Band A Their City
+         Name_Venue_Date[11:36:245] Band A Their Favorite Venue 10-10-17
+         Name_Venue_City[12:38:283] Band A Their Favorite Venue Their City
+          Name_City_Date[13:26:309] Band A Their City 10-10-17
+               City_Date[14:19:328] Their City 10-10-17
+              Venue_Date[15:29:357] Their Favorite Venue 10-10-17
+          Name_City_Live[16:22:379] Band A Live Their City
+          Name_Date_Live[17:20:399] Band A Live 10-10-17
+         Name_Venue_Live[18:32:431] Band A Live Their Favorite Venue
+    Name_Venue_Date_Live[19:41:472] Band A Live Their Favorite Venue 10-10-17
+]
+tags(472) = [Band A At Their Favorite Venue, Their City, Their State/Prov 10-10-17 More Stuff,Band A,Their Favorite Venue,Their City,Their State/Prov,10-10-17,More Stuff,Band A 10-10-17,Band A Their Favorite Venue,Band A Their City,Band A Their Favorite Venue 10-10-17,Band A Their Favorite Venue Their City,Band A Their City 10-10-17,Their City 10-10-17,Their Favorite Venue 10-10-17,Band A Live Their City,Band A Live 10-10-17,Band A Live Their Favorite Venue,Band A Live Their Favorite Venue 10-10-17,]
 line = band b at their favorite venue, their city, their state/prov 11-20-17 more stuff
 parse([Band B At Their Favorite Venue, Their City, Their State/Prov 11-20-17 More Stuff], delim = [ At ], keys = [ Name])
     [0], Name = Band B
@@ -216,28 +246,28 @@ parse([Their Favorite Venue, Their City, Their State/Prov 11-20-17 More Stuff], 
     [0], Venue = Their Favorite Venue
     [1], City = Their City
     [2], Remainder = Their State/Prov 11-20-17 More Stuff
-tags = {
-          Name_Date_Live => Band B Live 11-20-17,
-              Name_Venue => Band B Their Favorite Venue,
-                   Title => Band B At Their Favorite Venue, Their City, Their State/Prov 11-20-17 More Stuff,
-                   Other => More Stuff,
-          Name_City_Live => Band B Live Their City,
-                    City => Their City,
-              Venue_Date => Their Favorite Venue 11-20-17,
-         Name_Venue_City => Band B Their Favorite Venue Their City,
-          Name_City_Date => Band B Their City 11-20-17,
-         Name_Venue_Date => Band B Their Favorite Venue 11-20-17,
-                    Name => Band B,
-    Name_Venue_Date_Live => Band B Live Their Favorite Venue 11-20-17,
-                   State => Their State/Prov,
-                   Venue => Their Favorite Venue,
-                    Date => 11-20-17,
-               Name_City => Band B Their City,
-               City_Date => Their City 11-20-17,
-         Name_Venue_Live => Band B Live Their Favorite Venue,
-               Name_Date => Band B 11-20-17,
-}
-tags = [Band B Live 11-20-17,Band B Their Favorite Venue,Band B At Their Favorite Venue, Their City, Their State/Prov 11-20-17 More Stuff,More Stuff,Band B Live Their City,Their City,Their Favorite Venue 11-20-17,Band B Their Favorite Venue Their City,Band B Their City 11-20-17,Band B Their Favorite Venue 11-20-17,Band B,Band B Live Their Favorite Venue 11-20-17,Their State/Prov,Their Favorite Venue,11-20-17,Band B Their City,Their City 11-20-17,Band B Live Their Favorite Venue,Band B 11-20-17,]
+tags = [
+                   Title[ 1:80: 80] Band B At Their Favorite Venue, Their City, Their State/Prov 11-20-17 More Stuff
+                    Name[ 2: 6: 86] Band B
+                   Venue[ 3:20:106] Their Favorite Venue
+                    City[ 4:10:116] Their City
+                   State[ 5:16:132] Their State/Prov
+                    Date[ 6: 8:140] 11-20-17
+                   Other[ 7:10:150] More Stuff
+               Name_Date[ 8:15:165] Band B 11-20-17
+              Name_Venue[ 9:27:192] Band B Their Favorite Venue
+               Name_City[10:17:209] Band B Their City
+         Name_Venue_Date[11:36:245] Band B Their Favorite Venue 11-20-17
+         Name_Venue_City[12:38:283] Band B Their Favorite Venue Their City
+          Name_City_Date[13:26:309] Band B Their City 11-20-17
+               City_Date[14:19:328] Their City 11-20-17
+              Venue_Date[15:29:357] Their Favorite Venue 11-20-17
+          Name_City_Live[16:22:379] Band B Live Their City
+          Name_Date_Live[17:20:399] Band B Live 11-20-17
+         Name_Venue_Live[18:32:431] Band B Live Their Favorite Venue
+    Name_Venue_Date_Live[19:41:472] Band B Live Their Favorite Venue 11-20-17
+]
+tags(472) = [Band B At Their Favorite Venue, Their City, Their State/Prov 11-20-17 More Stuff,Band B,Their Favorite Venue,Their City,Their State/Prov,11-20-17,More Stuff,Band B 11-20-17,Band B Their Favorite Venue,Band B Their City,Band B Their Favorite Venue 11-20-17,Band B Their Favorite Venue Their City,Band B Their City 11-20-17,Their City 11-20-17,Their Favorite Venue 11-20-17,Band B Live Their City,Band B Live 11-20-17,Band B Live Their Favorite Venue,Band B Live Their Favorite Venue 11-20-17,]
 line = band c at their favorite venue, their city, their state/prov 12-20-17 more stuff
 parse([Band C At Their Favorite Venue, Their City, Their State/Prov 12-20-17 More Stuff], delim = [ At ], keys = [ Name])
     [0], Name = Band C
@@ -246,28 +276,28 @@ parse([Their Favorite Venue, Their City, Their State/Prov 12-20-17 More Stuff], 
     [0], Venue = Their Favorite Venue
     [1], City = Their City
     [2], Remainder = Their State/Prov 12-20-17 More Stuff
-tags = {
-          Name_Date_Live => Band C Live 12-20-17,
-              Name_Venue => Band C Their Favorite Venue,
-                   Title => Band C At Their Favorite Venue, Their City, Their State/Prov 12-20-17 More Stuff,
-                   Other => More Stuff,
-          Name_City_Live => Band C Live Their City,
-                    City => Their City,
-              Venue_Date => Their Favorite Venue 12-20-17,
-         Name_Venue_City => Band C Their Favorite Venue Their City,
-          Name_City_Date => Band C Their City 12-20-17,
-         Name_Venue_Date => Band C Their Favorite Venue 12-20-17,
-                    Name => Band C,
-    Name_Venue_Date_Live => Band C Live Their Favorite Venue 12-20-17,
-                   State => Their State/Prov,
-                   Venue => Their Favorite Venue,
-                    Date => 12-20-17,
-               Name_City => Band C Their City,
-               City_Date => Their City 12-20-17,
-         Name_Venue_Live => Band C Live Their Favorite Venue,
-               Name_Date => Band C 12-20-17,
-}
-tags = [Band C Live 12-20-17,Band C Their Favorite Venue,Band C At Their Favorite Venue, Their City, Their State/Prov 12-20-17 More Stuff,More Stuff,Band C Live Their City,Their City,Their Favorite Venue 12-20-17,Band C Their Favorite Venue Their City,Band C Their City 12-20-17,Band C Their Favorite Venue 12-20-17,Band C,Band C Live Their Favorite Venue 12-20-17,Their State/Prov,Their Favorite Venue,12-20-17,Band C Their City,Their City 12-20-17,Band C Live Their Favorite Venue,Band C 12-20-17,]
+tags = [
+                   Title[ 1:80: 80] Band C At Their Favorite Venue, Their City, Their State/Prov 12-20-17 More Stuff
+                    Name[ 2: 6: 86] Band C
+                   Venue[ 3:20:106] Their Favorite Venue
+                    City[ 4:10:116] Their City
+                   State[ 5:16:132] Their State/Prov
+                    Date[ 6: 8:140] 12-20-17
+                   Other[ 7:10:150] More Stuff
+               Name_Date[ 8:15:165] Band C 12-20-17
+              Name_Venue[ 9:27:192] Band C Their Favorite Venue
+               Name_City[10:17:209] Band C Their City
+         Name_Venue_Date[11:36:245] Band C Their Favorite Venue 12-20-17
+         Name_Venue_City[12:38:283] Band C Their Favorite Venue Their City
+          Name_City_Date[13:26:309] Band C Their City 12-20-17
+               City_Date[14:19:328] Their City 12-20-17
+              Venue_Date[15:29:357] Their Favorite Venue 12-20-17
+          Name_City_Live[16:22:379] Band C Live Their City
+          Name_Date_Live[17:20:399] Band C Live 12-20-17
+         Name_Venue_Live[18:32:431] Band C Live Their Favorite Venue
+    Name_Venue_Date_Live[19:41:472] Band C Live Their Favorite Venue 12-20-17
+]
+tags(472) = [Band C At Their Favorite Venue, Their City, Their State/Prov 12-20-17 More Stuff,Band C,Their Favorite Venue,Their City,Their State/Prov,12-20-17,More Stuff,Band C 12-20-17,Band C Their Favorite Venue,Band C Their City,Band C Their Favorite Venue 12-20-17,Band C Their Favorite Venue Their City,Band C Their City 12-20-17,Their City 12-20-17,Their Favorite Venue 12-20-17,Band C Live Their City,Band C Live 12-20-17,Band C Live Their Favorite Venue,Band C Live Their Favorite Venue 12-20-17,]
 line = Palm at the House Cafe, Dekalb, IL 10-10-17
 parse([Palm At The House Cafe, Dekalb, Il 10-10-17], delim = [ At ], keys = [ Name])
     [0], Name = Palm
@@ -276,57 +306,57 @@ parse([The House Cafe, Dekalb, Il 10-10-17], delim = [, ], keys = [ Venue City])
     [0], Venue = The House Cafe
     [1], City = Dekalb
     [2], Remainder = Il 10-10-17
-tags = {
-          Name_Date_Live => Palm Live 10-10-17,
-              Name_Venue => Palm The House Cafe,
-                   Title => Palm At The House Cafe, Dekalb, Il 10-10-17,
-          Name_City_Live => Palm Live Dekalb,
-                    City => Dekalb,
-              Venue_Date => The House Cafe 10-10-17,
-         Name_Venue_City => Palm The House Cafe Dekalb,
-          Name_City_Date => Palm Dekalb 10-10-17,
-         Name_Venue_Date => Palm The House Cafe 10-10-17,
-                    Name => Palm,
-    Name_Venue_Date_Live => Palm Live The House Cafe 10-10-17,
-                   State => Il,
-                   Venue => The House Cafe,
-                    Date => 10-10-17,
-               Name_City => Palm Dekalb,
-               City_Date => Dekalb 10-10-17,
-         Name_Venue_Live => Palm Live The House Cafe,
-               Name_Date => Palm 10-10-17,
-}
-tags = [Palm Live 10-10-17,Palm The House Cafe,Palm At The House Cafe, Dekalb, Il 10-10-17,Palm Live Dekalb,Dekalb,The House Cafe 10-10-17,Palm The House Cafe Dekalb,Palm Dekalb 10-10-17,Palm The House Cafe 10-10-17,Palm,Palm Live The House Cafe 10-10-17,Il,The House Cafe,10-10-17,Palm Dekalb,Dekalb 10-10-17,Palm Live The House Cafe,Palm 10-10-17,]
+tags = [
+                   Title[ 1:43: 43] Palm At The House Cafe, Dekalb, Il 10-10-17
+                    Name[ 2: 4: 47] Palm
+                   Venue[ 3:14: 61] The House Cafe
+                    City[ 4: 6: 67] Dekalb
+                   State[ 5: 2: 69] Il
+                    Date[ 6: 8: 77] 10-10-17
+               Name_Date[ 7:13: 90] Palm 10-10-17
+              Name_Venue[ 8:19:109] Palm The House Cafe
+               Name_City[ 9:11:120] Palm Dekalb
+         Name_Venue_Date[10:28:148] Palm The House Cafe 10-10-17
+         Name_Venue_City[11:26:174] Palm The House Cafe Dekalb
+          Name_City_Date[12:20:194] Palm Dekalb 10-10-17
+               City_Date[13:15:209] Dekalb 10-10-17
+              Venue_Date[14:23:232] The House Cafe 10-10-17
+          Name_City_Live[15:16:248] Palm Live Dekalb
+          Name_Date_Live[16:18:266] Palm Live 10-10-17
+         Name_Venue_Live[17:24:290] Palm Live The House Cafe
+    Name_Venue_Date_Live[18:33:323] Palm Live The House Cafe 10-10-17
+]
+tags(323) = [Palm At The House Cafe, Dekalb, Il 10-10-17,Palm,The House Cafe,Dekalb,Il,10-10-17,Palm 10-10-17,Palm The House Cafe,Palm Dekalb,Palm The House Cafe 10-10-17,Palm The House Cafe Dekalb,Palm Dekalb 10-10-17,Dekalb 10-10-17,The House Cafe 10-10-17,Palm Live Dekalb,Palm Live 10-10-17,Palm Live The House Cafe,Palm Live The House Cafe 10-10-17,]
 line = Funktional Family At Kiss The Sky, Batavia, IL 12-03-17 (Camera 1)
-parse([Funktional Family At Kiss The Sky, Batavia, Il 12-03-17 (Camera 1)], delim = [ At ], keys = [ Name])
+parse([Funktional Family At Kiss The Sky, Batavia, Il 12-03-17 Camera 1], delim = [ At ], keys = [ Name])
     [0], Name = Funktional Family
-    [1], Remainder = Kiss The Sky, Batavia, Il 12-03-17 (Camera 1)
-parse([Kiss The Sky, Batavia, Il 12-03-17 (Camera 1)], delim = [, ], keys = [ Venue City])
+    [1], Remainder = Kiss The Sky, Batavia, Il 12-03-17 Camera 1
+parse([Kiss The Sky, Batavia, Il 12-03-17 Camera 1], delim = [, ], keys = [ Venue City])
     [0], Venue = Kiss The Sky
     [1], City = Batavia
-    [2], Remainder = Il 12-03-17 (Camera 1)
-tags = {
-          Name_Date_Live => Funktional Family Live 12-03-17,
-              Name_Venue => Funktional Family Kiss The Sky,
-                   Title => Funktional Family At Kiss The Sky, Batavia, Il 12-03-17 (Camera 1),
-                   Other => (Camera 1),
-          Name_City_Live => Funktional Family Live Batavia,
-                    City => Batavia,
-              Venue_Date => Kiss The Sky 12-03-17,
-         Name_Venue_City => Funktional Family Kiss The Sky Batavia,
-          Name_City_Date => Funktional Family Batavia 12-03-17,
-         Name_Venue_Date => Funktional Family Kiss The Sky 12-03-17,
-                    Name => Funktional Family,
-    Name_Venue_Date_Live => Funktional Family Live Kiss The Sky 12-03-17,
-                   State => Il,
-                   Venue => Kiss The Sky,
-                    Date => 12-03-17,
-               Name_City => Funktional Family Batavia,
-               City_Date => Batavia 12-03-17,
-         Name_Venue_Live => Funktional Family Live Kiss The Sky,
-               Name_Date => Funktional Family 12-03-17,
-}
-tags = [Funktional Family Live 12-03-17,Funktional Family Kiss The Sky,Funktional Family At Kiss The Sky, Batavia, Il 12-03-17 (Camera 1),(Camera 1),Funktional Family Live Batavia,Batavia,Kiss The Sky 12-03-17,Funktional Family Kiss The Sky Batavia,Funktional Family Batavia 12-03-17,Funktional Family Kiss The Sky 12-03-17,Funktional Family,Funktional Family Live Kiss The Sky 12-03-17,Il,Kiss The Sky,12-03-17,Funktional Family Batavia,Batavia 12-03-17,Funktional Family Live Kiss The Sky,Funktional Family 12-03-17,]
+    [2], Remainder = Il 12-03-17 Camera 1
+tags = [
+                   Title[ 1:64: 64] Funktional Family At Kiss The Sky, Batavia, Il 12-03-17 Camera 1
+                    Name[ 2:17: 81] Funktional Family
+                   Venue[ 3:12: 93] Kiss The Sky
+                    City[ 4: 7:100] Batavia
+                   State[ 5: 2:102] Il
+                    Date[ 6: 8:110] 12-03-17
+                   Other[ 7: 8:118] Camera 1
+               Name_Date[ 8:26:144] Funktional Family 12-03-17
+              Name_Venue[ 9:30:174] Funktional Family Kiss The Sky
+               Name_City[10:25:199] Funktional Family Batavia
+         Name_Venue_Date[11:39:238] Funktional Family Kiss The Sky 12-03-17
+         Name_Venue_City[12:38:276] Funktional Family Kiss The Sky Batavia
+          Name_City_Date[13:34:310] Funktional Family Batavia 12-03-17
+               City_Date[14:16:326] Batavia 12-03-17
+              Venue_Date[15:21:347] Kiss The Sky 12-03-17
+          Name_City_Live[16:30:377] Funktional Family Live Batavia
+          Name_Date_Live[17:31:408] Funktional Family Live 12-03-17
+         Name_Venue_Live[18:35:443] Funktional Family Live Kiss The Sky
+    Name_Venue_Date_Live[19:44:487] Funktional Family Live Kiss The Sky 12-03-17
+]
+tags(487) = [Funktional Family At Kiss The Sky, Batavia, Il 12-03-17 Camera 1,Funktional Family,Kiss The Sky,Batavia,Il,12-03-17,Camera 1,Funktional Family 12-03-17,Funktional Family Kiss The Sky,Funktional Family Batavia,Funktional Family Kiss The Sky 12-03-17,Funktional Family Kiss The Sky Batavia,Funktional Family Batavia 12-03-17,Batavia 12-03-17,Kiss The Sky 12-03-17,Funktional Family Live Batavia,Funktional Family Live 12-03-17,Funktional Family Live Kiss The Sky,Funktional Family Live Kiss The Sky 12-03-17,]
 line = Some Show At Local Venue, City, IL 12-15-17
 parse([Some Show At Local Venue, City, Il 12-15-17], delim = [ At ], keys = [ Name])
     [0], Name = Some Show
@@ -335,85 +365,85 @@ parse([Local Venue, City, Il 12-15-17], delim = [, ], keys = [ Venue City])
     [0], Venue = Local Venue
     [1], City = City
     [2], Remainder = Il 12-15-17
-tags = {
-          Name_Date_Live => Some Show Live 12-15-17,
-              Name_Venue => Some Show Local Venue,
-                   Title => Some Show At Local Venue, City, Il 12-15-17,
-          Name_City_Live => Some Show Live City,
-                    City => City,
-              Venue_Date => Local Venue 12-15-17,
-         Name_Venue_City => Some Show Local Venue City,
-          Name_City_Date => Some Show City 12-15-17,
-         Name_Venue_Date => Some Show Local Venue 12-15-17,
-                    Name => Some Show,
-    Name_Venue_Date_Live => Some Show Live Local Venue 12-15-17,
-                   State => Il,
-                   Venue => Local Venue,
-                    Date => 12-15-17,
-               Name_City => Some Show City,
-               City_Date => City 12-15-17,
-         Name_Venue_Live => Some Show Live Local Venue,
-               Name_Date => Some Show 12-15-17,
-}
-tags = [Some Show Live 12-15-17,Some Show Local Venue,Some Show At Local Venue, City, Il 12-15-17,Some Show Live City,City,Local Venue 12-15-17,Some Show Local Venue City,Some Show City 12-15-17,Some Show Local Venue 12-15-17,Some Show,Some Show Live Local Venue 12-15-17,Il,Local Venue,12-15-17,Some Show City,City 12-15-17,Some Show Live Local Venue,Some Show 12-15-17,]
-line = Three word show At Joe's Park, Michigan City, IL 1-1-18
-parse([Three Word Show At Joe's Park, Michigan City, Il 1-1-18], delim = [ At ], keys = [ Name])
-    [0], Name = Three Word Show
+tags = [
+                   Title[ 1:43: 43] Some Show At Local Venue, City, Il 12-15-17
+                    Name[ 2: 9: 52] Some Show
+                   Venue[ 3:11: 63] Local Venue
+                    City[ 4: 4: 67] City
+                   State[ 5: 2: 69] Il
+                    Date[ 6: 8: 77] 12-15-17
+               Name_Date[ 7:18: 95] Some Show 12-15-17
+              Name_Venue[ 8:21:116] Some Show Local Venue
+               Name_City[ 9:14:130] Some Show City
+         Name_Venue_Date[10:30:160] Some Show Local Venue 12-15-17
+         Name_Venue_City[11:26:186] Some Show Local Venue City
+          Name_City_Date[12:23:209] Some Show City 12-15-17
+               City_Date[13:13:222] City 12-15-17
+              Venue_Date[14:20:242] Local Venue 12-15-17
+          Name_City_Live[15:19:261] Some Show Live City
+          Name_Date_Live[16:23:284] Some Show Live 12-15-17
+         Name_Venue_Live[17:26:310] Some Show Live Local Venue
+    Name_Venue_Date_Live[18:35:345] Some Show Live Local Venue 12-15-17
+]
+tags(345) = [Some Show At Local Venue, City, Il 12-15-17,Some Show,Local Venue,City,Il,12-15-17,Some Show 12-15-17,Some Show Local Venue,Some Show City,Some Show Local Venue 12-15-17,Some Show Local Venue City,Some Show City 12-15-17,City 12-15-17,Local Venue 12-15-17,Some Show Live City,Some Show Live 12-15-17,Some Show Live Local Venue,Some Show Live Local Venue 12-15-17,]
+line = Three word act At Joe's Park, Michigan City, IL 1-1-18
+parse([Three Word Act At Joe's Park, Michigan City, Il 1-1-18], delim = [ At ], keys = [ Name])
+    [0], Name = Three Word Act
     [1], Remainder = Joe's Park, Michigan City, Il 1-1-18
 parse([Joe's Park, Michigan City, Il 1-1-18], delim = [, ], keys = [ Venue City])
     [0], Venue = Joe's Park
     [1], City = Michigan City
     [2], Remainder = Il 1-1-18
-tags = {
-          Name_Date_Live => Three Word Show Live 1-1-18,
-              Name_Venue => Three Word Show Joe's Park,
-                   Title => Three Word Show At Joe's Park, Michigan City, Il 1-1-18,
-          Name_City_Live => Three Word Show Live Michigan City,
-                    City => Michigan City,
-              Venue_Date => Joe's Park 1-1-18,
-         Name_Venue_City => Three Word Show Joe's Park Michigan City,
-          Name_City_Date => Three Word Show Michigan City 1-1-18,
-         Name_Venue_Date => Three Word Show Joe's Park 1-1-18,
-                    Name => Three Word Show,
-    Name_Venue_Date_Live => Three Word Show Live Joe's Park 1-1-18,
-                   State => Il,
-                   Venue => Joe's Park,
-                    Date => 1-1-18,
-               Name_City => Three Word Show Michigan City,
-               City_Date => Michigan City 1-1-18,
-         Name_Venue_Live => Three Word Show Live Joe's Park,
-               Name_Date => Three Word Show 1-1-18,
-}
-tags = [Three Word Show Live 1-1-18,Three Word Show Joe's Park,Three Word Show At Joe's Park, Michigan City, Il 1-1-18,Three Word Show Live Michigan City,Michigan City,Joe's Park 1-1-18,Three Word Show Joe's Park Michigan City,Three Word Show Michigan City 1-1-18,Three Word Show Joe's Park 1-1-18,Three Word Show,Three Word Show Live Joe's Park 1-1-18,Il,Joe's Park,1-1-18,Three Word Show Michigan City,Michigan City 1-1-18,Three Word Show Live Joe's Park,Three Word Show 1-1-18,]
-line = Four Word cool SHOW at my cafe, Grand Rapids, MI 2-2-18
-parse([Four Word Cool Show At My Cafe, Grand Rapids, Mi 2-2-18], delim = [ At ], keys = [ Name])
-    [0], Name = Four Word Cool Show
+tags = [
+                   Title[ 1:54: 54] Three Word Act At Joe's Park, Michigan City, Il 1-1-18
+                    Name[ 2:14: 68] Three Word Act
+                   Venue[ 3:10: 78] Joe's Park
+                    City[ 4:13: 91] Michigan City
+                   State[ 5: 2: 93] Il
+                    Date[ 6: 6: 99] 1-1-18
+               Name_Date[ 7:21:120] Three Word Act 1-1-18
+              Name_Venue[ 8:25:145] Three Word Act Joe's Park
+               Name_City[ 9:28:173] Three Word Act Michigan City
+         Name_Venue_Date[10:32:205] Three Word Act Joe's Park 1-1-18
+         Name_Venue_City[11:39:244] Three Word Act Joe's Park Michigan City
+          Name_City_Date[12:35:279] Three Word Act Michigan City 1-1-18
+               City_Date[13:20:299] Michigan City 1-1-18
+              Venue_Date[14:17:316] Joe's Park 1-1-18
+          Name_City_Live[15:33:349] Three Word Act Live Michigan City
+          Name_Date_Live[16:26:375] Three Word Act Live 1-1-18
+         Name_Venue_Live[17:30:405] Three Word Act Live Joe's Park
+    Name_Venue_Date_Live[18:37:442] Three Word Act Live Joe's Park 1-1-18
+]
+tags(442) = [Three Word Act At Joe's Park, Michigan City, Il 1-1-18,Three Word Act,Joe's Park,Michigan City,Il,1-1-18,Three Word Act 1-1-18,Three Word Act Joe's Park,Three Word Act Michigan City,Three Word Act Joe's Park 1-1-18,Three Word Act Joe's Park Michigan City,Three Word Act Michigan City 1-1-18,Michigan City 1-1-18,Joe's Park 1-1-18,Three Word Act Live Michigan City,Three Word Act Live 1-1-18,Three Word Act Live Joe's Park,Three Word Act Live Joe's Park 1-1-18,]
+line = Four Word cool act at my cafe, Grand Rapids, MI 2-2-18
+parse([Four Word Cool Act At My Cafe, Grand Rapids, Mi 2-2-18], delim = [ At ], keys = [ Name])
+    [0], Name = Four Word Cool Act
     [1], Remainder = My Cafe, Grand Rapids, Mi 2-2-18
 parse([My Cafe, Grand Rapids, Mi 2-2-18], delim = [, ], keys = [ Venue City])
     [0], Venue = My Cafe
     [1], City = Grand Rapids
     [2], Remainder = Mi 2-2-18
-tags = {
-          Name_Date_Live => Four Word Cool Show Live 2-2-18,
-              Name_Venue => Four Word Cool Show My Cafe,
-                   Title => Four Word Cool Show At My Cafe, Grand Rapids, Mi 2-2-18,
-          Name_City_Live => Four Word Cool Show Live Grand Rapids,
-                    City => Grand Rapids,
-              Venue_Date => My Cafe 2-2-18,
-         Name_Venue_City => Four Word Cool Show My Cafe Grand Rapids,
-          Name_City_Date => Four Word Cool Show Grand Rapids 2-2-18,
-         Name_Venue_Date => Four Word Cool Show My Cafe 2-2-18,
-                    Name => Four Word Cool Show,
-    Name_Venue_Date_Live => Four Word Cool Show Live My Cafe 2-2-18,
-                   State => Mi,
-                   Venue => My Cafe,
-                    Date => 2-2-18,
-               Name_City => Four Word Cool Show Grand Rapids,
-               City_Date => Grand Rapids 2-2-18,
-         Name_Venue_Live => Four Word Cool Show Live My Cafe,
-               Name_Date => Four Word Cool Show 2-2-18,
-}
-tags = [Four Word Cool Show Live 2-2-18,Four Word Cool Show My Cafe,Four Word Cool Show At My Cafe, Grand Rapids, Mi 2-2-18,Four Word Cool Show Live Grand Rapids,Grand Rapids,My Cafe 2-2-18,Four Word Cool Show My Cafe Grand Rapids,Four Word Cool Show Grand Rapids 2-2-18,Four Word Cool Show My Cafe 2-2-18,Four Word Cool Show,Four Word Cool Show Live My Cafe 2-2-18,Mi,My Cafe,2-2-18,Four Word Cool Show Grand Rapids,Grand Rapids 2-2-18,Four Word Cool Show Live My Cafe,Four Word Cool Show 2-2-18,]
+tags = [
+                   Title[ 1:54: 54] Four Word Cool Act At My Cafe, Grand Rapids, Mi 2-2-18
+                    Name[ 2:18: 72] Four Word Cool Act
+                   Venue[ 3: 7: 79] My Cafe
+                    City[ 4:12: 91] Grand Rapids
+                   State[ 5: 2: 93] Mi
+                    Date[ 6: 6: 99] 2-2-18
+               Name_Date[ 7:25:124] Four Word Cool Act 2-2-18
+              Name_Venue[ 8:26:150] Four Word Cool Act My Cafe
+               Name_City[ 9:31:181] Four Word Cool Act Grand Rapids
+         Name_Venue_Date[10:33:214] Four Word Cool Act My Cafe 2-2-18
+         Name_Venue_City[11:39:253] Four Word Cool Act My Cafe Grand Rapids
+          Name_City_Date[12:38:291] Four Word Cool Act Grand Rapids 2-2-18
+               City_Date[13:19:310] Grand Rapids 2-2-18
+              Venue_Date[14:14:324] My Cafe 2-2-18
+          Name_City_Live[15:36:360] Four Word Cool Act Live Grand Rapids
+          Name_Date_Live[16:30:390] Four Word Cool Act Live 2-2-18
+         Name_Venue_Live[17:31:421] Four Word Cool Act Live My Cafe
+    Name_Venue_Date_Live[18:38:459] Four Word Cool Act Live My Cafe 2-2-18
+]
+tags(459) = [Four Word Cool Act At My Cafe, Grand Rapids, Mi 2-2-18,Four Word Cool Act,My Cafe,Grand Rapids,Mi,2-2-18,Four Word Cool Act 2-2-18,Four Word Cool Act My Cafe,Four Word Cool Act Grand Rapids,Four Word Cool Act My Cafe 2-2-18,Four Word Cool Act My Cafe Grand Rapids,Four Word Cool Act Grand Rapids 2-2-18,Grand Rapids 2-2-18,My Cafe 2-2-18,Four Word Cool Act Live Grand Rapids,Four Word Cool Act Live 2-2-18,Four Word Cool Act Live My Cafe,Four Word Cool Act Live My Cafe 2-2-18,]
 line = SomeLongSingleWordName at Grease & Spoon, my town, MI 3-3-18
 parse([Somelongsinglewordname At Grease & Spoon, My Town, Mi 3-3-18], delim = [ At ], keys = [ Name])
     [0], Name = Somelongsinglewordname
@@ -422,24 +452,24 @@ parse([Grease & Spoon, My Town, Mi 3-3-18], delim = [, ], keys = [ Venue City])
     [0], Venue = Grease & Spoon
     [1], City = My Town
     [2], Remainder = Mi 3-3-18
-tags = {
-          Name_Date_Live => Somelongsinglewordname Live 3-3-18,
-              Name_Venue => Somelongsinglewordname Grease & Spoon,
-                   Title => Somelongsinglewordname At Grease & Spoon, My Town, Mi 3-3-18,
-          Name_City_Live => Somelongsinglewordname Live My Town,
-                    City => My Town,
-              Venue_Date => Grease & Spoon 3-3-18,
-         Name_Venue_City => Somelongsinglewordname Grease & Spoon My Town,
-          Name_City_Date => Somelongsinglewordname My Town 3-3-18,
-         Name_Venue_Date => Somelongsinglewordname Grease & Spoon 3-3-18,
-                    Name => Somelongsinglewordname,
-    Name_Venue_Date_Live => Somelongsinglewordname Live Grease & Spoon 3-3-18,
-                   State => Mi,
-                   Venue => Grease & Spoon,
-                    Date => 3-3-18,
-               Name_City => Somelongsinglewordname My Town,
-               City_Date => My Town 3-3-18,
-         Name_Venue_Live => Somelongsinglewordname Live Grease & Spoon,
-               Name_Date => Somelongsinglewordname 3-3-18,
-}
-tags = [Somelongsinglewordname Live 3-3-18,Somelongsinglewordname Grease & Spoon,Somelongsinglewordname At Grease & Spoon, My Town, Mi 3-3-18,Somelongsinglewordname Live My Town,My Town,Grease & Spoon 3-3-18,Somelongsinglewordname Grease & Spoon My Town,Somelongsinglewordname My Town 3-3-18,Somelongsinglewordname Grease & Spoon 3-3-18,Somelongsinglewordname,Somelongsinglewordname Live Grease & Spoon 3-3-18,Mi,Grease & Spoon,3-3-18,Somelongsinglewordname My Town,My Town 3-3-18,Somelongsinglewordname Live Grease & Spoon,Somelongsinglewordname 3-3-18,]
+tags = [
+                   Title[ 1:60: 60] Somelongsinglewordname At Grease & Spoon, My Town, Mi 3-3-18
+                    Name[ 2:22: 82] Somelongsinglewordname
+                   Venue[ 3:14: 96] Grease & Spoon
+                    City[ 4: 7:103] My Town
+                   State[ 5: 2:105] Mi
+                    Date[ 6: 6:111] 3-3-18
+               Name_Date[ 7:29:140] Somelongsinglewordname 3-3-18
+              Name_Venue[ 8:37:177] Somelongsinglewordname Grease & Spoon
+               Name_City[ 9:30:207] Somelongsinglewordname My Town
+         Name_Venue_Date[10:44:251] Somelongsinglewordname Grease & Spoon 3-3-18
+         Name_Venue_City[11:45:296] Somelongsinglewordname Grease & Spoon My Town
+          Name_City_Date[12:37:333] Somelongsinglewordname My Town 3-3-18
+               City_Date[13:14:347] My Town 3-3-18
+              Venue_Date[14:21:368] Grease & Spoon 3-3-18
+          Name_City_Live[15:35:403] Somelongsinglewordname Live My Town
+          Name_Date_Live[16:34:437] Somelongsinglewordname Live 3-3-18
+         Name_Venue_Live[17:42:479] Somelongsinglewordname Live Grease & Spoon
+    Name_Venue_Date_Live[18:49:528] Somelongsinglewordname Live Grease & Spoon 3-3-18
+]
+tags(528) = [Somelongsinglewordname At Grease & Spoon, My Town, Mi 3-3-18,Somelongsinglewordname,Grease & Spoon,My Town,Mi,3-3-18,Somelongsinglewordname 3-3-18,Somelongsinglewordname Grease & Spoon,Somelongsinglewordname My Town,Somelongsinglewordname Grease & Spoon 3-3-18,Somelongsinglewordname Grease & Spoon My Town,Somelongsinglewordname My Town 3-3-18,My Town 3-3-18,Grease & Spoon 3-3-18,Somelongsinglewordname Live My Town,Somelongsinglewordname Live 3-3-18,Somelongsinglewordname Live Grease & Spoon,Somelongsinglewordname Live Grease & Spoon 3-3-18,]
