@@ -1,33 +1,33 @@
-line = Bent Knee (Ben Courtney) at the House Cafe, Dekalb, IL 7-23-17 (part 2)
-parse([Bent Knee Ben Courtney At The House Cafe, Dekalb, Il 7-23-17 Part 2], delim = [ At ], keys = [ Name])
-    [0], Name = Bent Knee Ben Courtney
+line = Bent Knee ()at (the) House Cafe, Dekalb, IL 7-23-17 (part 2)
+parse([Bent Knee At The House Cafe, Dekalb, Il 7-23-17 Part 2], delim = [ At ], keys = [ Name])
+    [0], Name = Bent Knee
     [1], Remainder = The House Cafe, Dekalb, Il 7-23-17 Part 2
 parse([The House Cafe, Dekalb, Il 7-23-17 Part 2], delim = [, ], keys = [ Venue City])
     [0], Venue = The House Cafe
     [1], City = Dekalb
     [2], Remainder = Il 7-23-17 Part 2
 tags = [
-                   Title[ 1:67: 67] Bent Knee Ben Courtney At The House Cafe, Dekalb, Il 7-23-17 Part 2
-                    Name[ 2:22: 89] Bent Knee Ben Courtney
-                   Venue[ 3:14:103] The House Cafe
-                    City[ 4: 6:109] Dekalb
-                   State[ 5: 2:111] Il
-                    Date[ 6: 7:118] 7-23-17
-                   Other[ 7: 6:124] Part 2
-               Name_Date[ 8:30:154] Bent Knee Ben Courtney 7-23-17
-              Name_Venue[ 9:37:191] Bent Knee Ben Courtney The House Cafe
-               Name_City[10:29:220] Bent Knee Ben Courtney Dekalb
-         Name_Venue_Date[11:45:265] Bent Knee Ben Courtney The House Cafe 7-23-17
-         Name_Venue_City[12:44:309] Bent Knee Ben Courtney The House Cafe Dekalb
-          Name_City_Date[13:37:346] Bent Knee Ben Courtney Dekalb 7-23-17
-               City_Date[14:14:360] Dekalb 7-23-17
-              Venue_Date[15:22:382] The House Cafe 7-23-17
-          Name_City_Live[16:34:416] Bent Knee Ben Courtney Live Dekalb
-          Name_Date_Live[17:35:451] Bent Knee Ben Courtney Live 7-23-17
-         Name_Venue_Live[18:42:493] Bent Knee Ben Courtney Live The House Cafe
-    Name_Venue_Date_Live[19:50:543] Bent Knee Ben Courtney Live The House Cafe 7-23-17
+                   Title[ 1:54: 54] Bent Knee At The House Cafe, Dekalb, Il 7-23-17 Part 2
+                    Name[ 2: 9: 63] Bent Knee
+                   Venue[ 3:14: 77] The House Cafe
+                    City[ 4: 6: 83] Dekalb
+                   State[ 5: 2: 85] Il
+                    Date[ 6: 7: 92] 7-23-17
+                   Other[ 7: 6: 98] Part 2
+               Name_Date[ 8:17:115] Bent Knee 7-23-17
+              Name_Venue[ 9:24:139] Bent Knee The House Cafe
+               Name_City[10:16:155] Bent Knee Dekalb
+         Name_Venue_Date[11:32:187] Bent Knee The House Cafe 7-23-17
+         Name_Venue_City[12:31:218] Bent Knee The House Cafe Dekalb
+          Name_City_Date[13:24:242] Bent Knee Dekalb 7-23-17
+               City_Date[14:14:256] Dekalb 7-23-17
+              Venue_Date[15:22:278] The House Cafe 7-23-17
+          Name_City_Live[16:21:299] Bent Knee Live Dekalb
+          Name_Date_Live[17:22:321] Bent Knee Live 7-23-17
+         Name_Venue_Live[18:29:350] Bent Knee Live The House Cafe
+    Name_Venue_Date_Live[19:37:387] Bent Knee Live The House Cafe 7-23-17
 ]
-tags(543) = [Bent Knee Ben Courtney At The House Cafe, Dekalb, Il 7-23-17 Part 2,Bent Knee Ben Courtney,The House Cafe,Dekalb,Il,7-23-17,Part 2,Bent Knee Ben Courtney 7-23-17,Bent Knee Ben Courtney The House Cafe,Bent Knee Ben Courtney Dekalb,Bent Knee Ben Courtney The House Cafe 7-23-17,Bent Knee Ben Courtney The House Cafe Dekalb,Bent Knee Ben Courtney Dekalb 7-23-17,Dekalb 7-23-17,The House Cafe 7-23-17,Bent Knee Ben Courtney Live Dekalb,Bent Knee Ben Courtney Live 7-23-17,Bent Knee Ben Courtney Live The House Cafe,Bent Knee Ben Courtney Live The House Cafe 7-23-17,]
+tags(387) = [Bent Knee At The House Cafe, Dekalb, Il 7-23-17 Part 2,Bent Knee,The House Cafe,Dekalb,Il,7-23-17,Part 2,Bent Knee 7-23-17,Bent Knee The House Cafe,Bent Knee Dekalb,Bent Knee The House Cafe 7-23-17,Bent Knee The House Cafe Dekalb,Bent Knee Dekalb 7-23-17,Dekalb 7-23-17,The House Cafe 7-23-17,Bent Knee Live Dekalb,Bent Knee Live 7-23-17,Bent Knee Live The House Cafe,Bent Knee Live The House Cafe 7-23-17,]
 line = Bent Knee at the House Cafe, Dekalb, IL 7-23-17 (part 1)
 parse([Bent Knee At The House Cafe, Dekalb, Il 7-23-17 Part 1], delim = [ At ], keys = [ Name])
     [0], Name = Bent Knee

@@ -43,8 +43,7 @@ class Tags(object):
     def getTags(self, line):
         printn('line = {}'.format(line), file=self.outFile)
         self.tags = collections.OrderedDict()
-        title = self.titleCase(line)
-        title = self.prepare(title)
+        title = self.getTitle(line)
         self.addTag('Title', title)
         remainder = self.parse(title, ' At ', ['Name'])
         remainder = self.parse(remainder, ', ', ['Venue', 'City'])
@@ -97,16 +96,9 @@ class Tags(object):
             self.cres[key] = re.compile(pattern)
         return self.cres[key].search(s)
 
-    def titleCase(self, s):
-        return re.sub(r"[A-Za-z]+('[A-Za-z]+)?", lambda mo: mo.group(0)[0].upper() + mo.group(0)[1:].lower(), s)
-
-    def prepare(self, s):
+    def getTitle(self, s):
+        s = re.sub(r"[A-Za-z]+('[A-Za-z]+)?", lambda mo: mo.group(0)[0].upper() + mo.group(0)[1:].lower(), s)
         return re.sub(r'\((.*?)\)', r'\1', s)
-#        rePrepare = r'\((.*)\)'
-#        m = self.reSearch(s, 'prepare', rePrepare)
-#        if m: printn('prepare m = {}, m[0] = {},  m[1] = {}'.format(m.groups(), m.group(0), m.group(1)), file=self.outFile)
-#        else: printn('prepare no match for s = {}'.format(s), file=self.outFile)
-#        return re.sub(rePrepare, r'\1', s)
 
 def printn(msg='', sep=' ', end='\n', file=sys.stdout, flush=False):
     print(msg, sep=sep, end=end, file=file, flush=flush)
