@@ -45,9 +45,8 @@ class Tags(object):
         self.tags = collections.OrderedDict()
         title = self.getTitle(line)
         self.addTag('Title', title)
-        remainder = self.parse(title, ' At ', ['Name'])
-        remainder = self.parse(remainder, ', ', ['Venue', 'City'])
-        remainder = self.getStateDateOther(remainder)
+        remainder = self.parse(title, ', ', ['Name', 'Venue', 'City', 'State'])
+        remainder = self.getDateAndOther(remainder)
         self.group()
 
     def addTag(self, key, value):
@@ -68,12 +67,12 @@ class Tags(object):
         printn('    [{}], {} = {}'.format(i, 'Remainder', tokens[i]), file=self.outFile)
         return remainder
 
-    def getStateDateOther(self, s):
+    def getDateAndOther(self, s):
         m = self.reSearch(s, 'reDate', self.reDate)
-        self.addTag('State', s[:m.start()])
+        self.addTag('Other1', s[:m.start()])
         self.addTag('Date', m.group(1) + '-' + m.group(2) + '-' + m.group(3))
         remainder = s[m.end():]
-        if remainder: self.tags['Other'] = remainder
+        if remainder: self.tags['Other2'] = remainder
         return remainder
 
     def group(self):
