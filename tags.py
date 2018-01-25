@@ -69,7 +69,7 @@ class Tags(object):
 
     def getDateAndOther(self, s):
         m = self.reSearch(s, 'reDate', self.reDate)
-        self.addTag('Other1', s[:m.start()])
+        if m.start() != 0: self.addTag('Other1', s[:m.start()])
         self.addTag('Date', m.group(1) + '-' + m.group(2) + '-' + m.group(3))
         remainder = s[m.end():]
         if remainder: self.tags['Other2'] = remainder
