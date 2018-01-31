@@ -28,20 +28,20 @@ class Tags(object):
         i = 0
         for line in self.inFile:
             self.getTags(line.strip())
-            printn('tags = [', file=self.outFile)
+            self.printn('tags = [', file=self.outFile)
             for k, v in self.tags.items():
                 i += 1
                 length = len(v)
                 self.len += length
-                printn('    {:>20}[{:>2}:{:>2}:{:>3}] {}'.format(k, i, length, self.len, v), file=self.outFile)
-            printn(']\ntags({}) = ['.format(self.len), file=self.outFile, end='')
-            for k in self.tags.keys(): printn('{}'.format(self.tags[k]), file=self.outFile, end=',')
-            printn("]", file=self.outFile)
+                self.printn('    {:>20}[{:>2}:{:>2}:{:>3}] {}'.format(k, i, length, self.len, v), file=self.outFile)
+            self.printn(']\ntags({}) = ['.format(self.len), file=self.outFile, end='')
+            for k in self.tags.keys(): self.printn('{}'.format(self.tags[k]), file=self.outFile, end=',')
+            self.printn("]", file=self.outFile)
             i = 0
             self.len = 0
 
     def getTags(self, line):
-        printn('line = {}'.format(line), file=self.outFile)
+        self.printn('line = {}'.format(line), file=self.outFile)
         self.tags = collections.OrderedDict()
         title = self.getTitle(line)
         self.addTag('Title', title)
@@ -55,16 +55,16 @@ class Tags(object):
     def parse(self, s, delim, keys):
         max = len(keys)
         tokens = s.split(delim, max+1)
-        printn('parse([{}], delim = [{}], keys = ['.format(s, delim), file=self.outFile, end='')
+        self.printn('parse([{}], delim = [{}], keys = ['.format(s, delim), file=self.outFile, end='')
         for i in range(0, max):
             self.addTag(keys[i], tokens[i])
-            printn(' {}'.format(keys[i]), file=self.outFile, end='')
-        printn('])', file=self.outFile)
+            self.printn(' {}'.format(keys[i]), file=self.outFile, end='')
+        self.printn('])', file=self.outFile)
         for i in range(0, max):
-            printn('    [{}], {} = {}'.format(i, keys[i], tokens[i]), file=self.outFile)
+            self.printn('    [{}], {} = {}'.format(i, keys[i], tokens[i]), file=self.outFile)
         i += 1
         remainder = tokens[-1]
-        printn('    [{}], {} = {}'.format(i, 'Remainder', tokens[i]), file=self.outFile)
+        self.printn('    [{}], {} = {}'.format(i, 'Remainder', tokens[i]), file=self.outFile)
         return remainder
 
     def getDateAndOther(self, s):
@@ -96,11 +96,17 @@ class Tags(object):
         return self.cres[key].search(s)
 
     def getTitle(self, s):
-        s = re.sub(r"[A-Za-z]+('[A-Za-z]+)?", lambda mo: mo.group(0)[0].upper() + mo.group(0)[1:].lower(), s)
+#        s = re.sub(r"[A-Za-z]+('[A-Za-z]+)?", lambda mo: mo.group(0)[0].upper() + mo.group(0)[1:].lower(), s)
+        s = re.sub(r"[A-Za-z]+('[A-Za-z]+)?", self.titleCase, s)
         return re.sub(r'\((.*?)\)', r'\1', s)
 
-def printn(msg='', sep=' ', end='\n', file=sys.stdout, flush=False):
-    print(msg, sep=sep, end=end, file=file, flush=flush)
+    def titleCase(self, mo):
+        if mo.group(0).isupper(): return mo.group(0)
+        else: return mo.group(0)[0].upper() + mo.group(0)[1:].lower()
+
+    @staticmethod
+    def printn(msg='', sep=' ', end='\n', file=sys.stdout, flush=False):
+        print(msg, sep=sep, end=end, file=file, flush=flush)
 
 if __name__ == "__main__":
     main()
