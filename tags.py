@@ -1,4 +1,4 @@
-import os, sys, re, collections
+import os, sys, re, collections, inspect
 
 def main():
     tags = Tags(inFileName='titles.txt', outFileName='tags.txt')
@@ -12,9 +12,27 @@ class Tags(object):
         self.inFileName = inFileName
         self.outFileName = outFileName
         self.reDate = r'\s*(?P<reDate>1[0-2]|0[1-9]|[1-9])-(1[0-9]|2[0-9]|3[0-1]|0[1-9]|[1-9])-(\d{2})\s*'
+        self.initMyLib()
+
+    def initMyLib(self):
+        file = inspect.getfile(inspect.currentframe())
+        filePath = os.path.abspath(file)
+        splitFilePath = os.path.split(filePath)[0]
+        myLibPath = splitFilePath.replace('tags', 'lib')
+        print('file={}\nfilePath={}\nsplitFilePath={}\nmyLibPath={}'.format(file, filePath, splitFilePath, myLibPath))
+        if myLibPath not in sys.path:
+            sys.path.insert(0, myLibPath)
+        import jwc_cmdArgs
+        self.argMap = {}
+        jwc_cmdArgs.parse_cmd_line(self.argMap)
+        print('argMap={}'.format(self.argMap))
+        if 'i' in self.argMap and len(self.argMap['i']) > 0:
+            self.inFileName = self.argMap['i'][0]
+        if 'o' in self.argMap and len(self.argMap['o']) > 0:
+            self.outFileName = self.argMap['o'][0]
 
     def run(self):
-        with open(self.outFileName, 'w') as self.outFile, open(self.inFileName, 'r') as self.inFile:
+        with open(self.outFileName, 'w+') as self.outFile, open(self.inFileName, 'r') as self.inFile:
             self.readFile()
         self.close(self.inFileName, self.inFile)
         self.close(self.outFileName, self.outFile)
