@@ -1,11 +1,10 @@
 import os, sys, re, collections, inspect
 libPath = os.path.abspath('..\lib')
 if libPath not in sys.path: sys.path.insert(0, libPath)
-import jwc_cmdArgs
+import jwcCmdArgs
 
 def main():
     tags = Tags(inFileName='titles.txt', outFileName='tags.txt')
-    tags.run()
 
 class Tags(object):
     def __init__(self, inFileName = 'titles.txt', outFileName='tags.txt'):
@@ -16,26 +15,16 @@ class Tags(object):
         self.outFileName = outFileName
         self.reDate = r'\s*(?P<reDate>1[0-2]|0[1-9]|[1-9])-(1[0-9]|2[0-9]|3[0-1]|0[1-9]|[1-9])-(\d{2})\s*'
         self.getCmdArgs()
+        with open(self.outFileName, 'w+') as self.outFile, open(self.inFileName, 'r') as self.inFile: self.readFile()
+        self.inFile, self.outFile = None, None
 
     def getCmdArgs(self):
-        self.argMap = {}
-        jwc_cmdArgs.parse_cmd_line(self.argMap)
+        self.argMap = jwcCmdArgs.parseCmdLine()
         print('argMap={}'.format(self.argMap))
         if 'i' in self.argMap and len(self.argMap['i']) > 0:
             self.inFileName = self.argMap['i'][0]
         if 'o' in self.argMap and len(self.argMap['o']) > 0:
             self.outFileName = self.argMap['o'][0]
-
-    def run(self):
-        with open(self.outFileName, 'w+') as self.outFile, open(self.inFileName, 'r') as self.inFile:
-            self.readFile()
-        self.close(self.inFileName, self.inFile)
-        self.close(self.outFileName, self.outFile)
-
-    def close(self, fileName, file):
-        print('{}={}'.format(fileName, file))
-        file = None
-        print('{}={}'.format(fileName, file))
 
     def readFile(self):
         i = 0
