@@ -1,13 +1,12 @@
-import os, sys, re, collections, inspect
-libPath = os.path.abspath('..\lib')
-if libPath not in sys.path: sys.path.insert(0, libPath)
+import os, sys, re, collections
+sys.path.insert(0, os.path.abspath('..\lib'))
 import jwcCmdArgs
 
 def main():
-    tags = Tags(inFileName='titles.txt', outFileName='tags.txt')
+    Tags()
 
 class Tags(object):
-    def __init__(self, inFileName = 'titles.txt', outFileName='tags.txt'):
+    def __init__(self, inFileName = 'in.txt', outFileName='out.txt'):
         self.tags = None
         self.len = 0
         self.cres = {}
@@ -27,8 +26,8 @@ class Tags(object):
             self.outFileName = self.argMap['o'][0]
 
     def readFile(self):
-        i = 0
         for line in self.inFile:
+            i = 0
             self.getTags(line.strip())
             self.printn('tags = [', file=self.outFile)
             for k, v in self.tags.items():
@@ -39,7 +38,6 @@ class Tags(object):
             self.printn(']\ntags({}) = ['.format(self.len), file=self.outFile, end='')
             for k in self.tags.keys(): self.printn('{}'.format(self.tags[k]), file=self.outFile, end=',')
             self.printn("]", file=self.outFile)
-            i = 0
             self.len = 0
 
     def getTags(self, line):
@@ -48,7 +46,7 @@ class Tags(object):
         title = self.getTitle(line)
         self.addTag('Title', title)
         remainder = self.parse(title, ', ', ['Name', 'Venue', 'City', 'State'])
-        remainder = self.getDateAndOther(remainder)
+        self.getDateAndOther(remainder)
         self.group()
 
     def addTag(self, key, value):
@@ -75,7 +73,6 @@ class Tags(object):
         self.addTag('Date', m.group(1) + '-' + m.group(2) + '-' + m.group(3))
         remainder = s[m.end():]
         if remainder: self.tags['Other2'] = remainder
-        return remainder
 
     def group(self):
         self.addTag('Name_Date', self.tags['Name'] + " " + self.tags['Date'])
