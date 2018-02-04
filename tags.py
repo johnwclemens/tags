@@ -47,6 +47,10 @@ class Tags(object):
         self.getDateAndOther(remainder)
         self.group()
 
+    def getTitle(self, s):
+        s = re.sub(r"[A-Za-z]+('[A-Za-z]+)?", lambda mo: mo.group(0)[0].upper() + mo.group(0)[1:], s)
+        return re.sub(r'\((.*?)\)', r'\1', s)
+
     def addTag(self, key, value):
         self.tags[key] = value
 
@@ -87,12 +91,8 @@ class Tags(object):
         self.addTag('Name_Venue_Live', self.tags['Name'] + " Live " + self.tags['Venue'])
         self.addTag('Name_Venue_Date_Live', self.tags['Name'] + " Live " + self.tags['Venue'] + " " + self.tags['Date'])
 
-    def getTitle(self, s):
-        s = re.sub(r"[A-Za-z]+('[A-Za-z]+)?", lambda mo: mo.group(0)[0].upper() + mo.group(0)[1:], s)
-        return re.sub(r'\((.*?)\)', r'\1', s)
-
     @staticmethod
-    def printn(msg='', sep=' ', end='\n', file=sys.stdout, flush=False):
+    def printn(msg='', sep=' ', end='\n', file=sys.stdout, flush=True):
         print(msg, sep=sep, end=end, file=file, flush=flush)
 
 if __name__ == "__main__":
