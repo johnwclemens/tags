@@ -2,14 +2,12 @@ import os, sys, re, collections
 sys.path.insert(0, os.path.abspath('..\lib'))
 import jwcCmdArgs
 
-def main():
-    Tags()
+def main(): Tags()
 
 class Tags(object):
     def __init__(self, inFileName = 'in.txt', outFileName='out.txt'):
         self.tags = None
         self.len = 0
-        self.cres = {}
         self.inFileName = inFileName
         self.outFileName = outFileName
         self.reDate = r'\s*(?P<reDate>1[0-2]|0[1-9]|[1-9])-(1[0-9]|2[0-9]|3[0-1]|0[1-9]|[1-9])-(\d{2})\s*'
@@ -44,7 +42,7 @@ class Tags(object):
         self.printn('line = {}'.format(line), file=self.outFile)
         self.tags = collections.OrderedDict()
         title = self.getTitle(line)
-        self.addTag('Title', title)
+        self.addTag('Title', ''.join(title.split(',')))
         remainder = self.parse(title, ', ', ['Name', 'Venue', 'City', 'State'])
         self.getDateAndOther(remainder)
         self.group()
@@ -68,7 +66,7 @@ class Tags(object):
         return remainder
 
     def getDateAndOther(self, s):
-        m = self.reSearch(s, 'reDate', self.reDate)
+        m = re.search(self.reDate, s)
         if m.start() != 0: self.addTag('Other1', s[:m.start()])
         self.addTag('Date', m.group(1) + '-' + m.group(2) + '-' + m.group(3))
         remainder = s[m.end():]
@@ -89,19 +87,9 @@ class Tags(object):
         self.addTag('Name_Venue_Live', self.tags['Name'] + " Live " + self.tags['Venue'])
         self.addTag('Name_Venue_Date_Live', self.tags['Name'] + " Live " + self.tags['Venue'] + " " + self.tags['Date'])
 
-    def reSearch(self, s, key, pattern):
-        if key not in self.cres:
-            self.cres[key] = re.compile(pattern)
-        return self.cres[key].search(s)
-
     def getTitle(self, s):
-#        s = re.sub(r"[A-Za-z]+('[A-Za-z]+)?", lambda mo: mo.group(0)[0].upper() + mo.group(0)[1:].lower(), s)
-        s = re.sub(r"[A-Za-z]+('[A-Za-z]+)?", self.titleCase, s)
+        s = re.sub(r"[A-Za-z]+('[A-Za-z]+)?", lambda mo: mo.group(0)[0].upper() + mo.group(0)[1:], s)
         return re.sub(r'\((.*?)\)', r'\1', s)
-
-    def titleCase(self, mo):
-        if mo.group(0).isupper(): return mo.group(0)
-        else: return mo.group(0)[0].upper() + mo.group(0)[1:].lower()
 
     @staticmethod
     def printn(msg='', sep=' ', end='\n', file=sys.stdout, flush=False):
