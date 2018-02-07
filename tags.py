@@ -1,18 +1,21 @@
-import os, sys, re, collections
+import os, sys, re, collections, time, timeit
 sys.path.insert(0, os.path.abspath('..\lib'))
 import jwcCmdArgs
 
-def main(): Tags()
+def main(): 
+    Tags()
 
 class Tags(object):
     def __init__(self, inFileName = 'in.txt', outFileName='out.txt'):
         self.tags = None
+        self.dt = 0
         self.len = 0
         self.inFileName = inFileName
         self.outFileName = outFileName
         self.reDate = r'\s*(?P<reDate>1[0-2]|0[1-9]|[1-9])-(1[0-9]|2[0-9]|3[0-1]|0[1-9]|[1-9])-(\d{2})\s*'
         self.getCmdArgs()
         with open(self.outFileName, 'w+') as self.outFile, open(self.inFileName, 'r') as self.inFile: self.readFile()
+        print('self.dt={}'.format(self.dt))
         self.inFile, self.outFile = None, None
 
     def getCmdArgs(self):
@@ -27,27 +30,51 @@ class Tags(object):
         for line in self.inFile:
             i = 0
             self.getTags(line.strip())
-            self.printn('tags = [', file=self.outFile)
+            self.printn('tags = [')
             for k, v in self.tags.items():
                 i += 1
                 length = len(v)
                 self.len += length
-                self.printn('    {:>20}[{:>2}:{:>2}:{:>3}] {}'.format(k, i, length, self.len, v), file=self.outFile)
-            self.printn(']\ntags({}) = ['.format(self.len), file=self.outFile, end='')
-            for k in self.tags.keys(): self.printn('{}'.format(self.tags[k]), file=self.outFile, end=',')
-            self.printn("]", file=self.outFile)
+                self.printn('    {:>20}[{:>2}:{:>2}:{:>3}] {}'.format(k, i, length, self.len, v))
+            self.printn(']\ntags({}) = ['.format(self.len), end='')
+            for k in self.tags.keys(): self.printn('{}'.format(self.tags[k]), end=',')
+            self.printn("]")
             self.len = 0
 
-    def getTags(self, line):
-        self.printn('line = {}'.format(line), file=self.outFile)
+    def getTags(self, line, ln=[0]):
+        n = ln[0]
+        ln[0] += 1
+        self.printn('line[{}] = {}'.format(ln[0], line))
         self.tags = collections.OrderedDict()
-        title = self.getTitle(line)
+        count, type = 10000, 'A'
+        t1 = time.time()
+        for i in range(0, count):
+            title = self.getTitle(line, type)
+        dt = 1000000000 * (time.time() - t1) / (count * len(line))
+        self.dt = (n * self.dt + dt) / ln[0]
+        self.printn('dt={:7.3f} nsec, self.dt={:7.3f} nsec, len line={}'.format(dt, self.dt, len(line)))
         self.addTag('Title', ''.join(title.split(',')))
         remainder = self.parse(title, ', ', ['Name', 'Venue', 'City', 'State'])
         self.getDateAndOther(remainder)
         self.group()
 
-    def getTitle(self, s):
+    def getTitle(self, s, type):
+        if type.upper() == 'A': self.getTitleA(s)
+        elif type.upper() == 'B': self.getTitleB(s)
+        else: self.printn('getTitle() ERROR'.format())
+
+    def getTitleA(self, s):
+        t = ''
+#        self.printn('getTiitle(): ', end='')
+        for w in s.split():
+            if w[0] not in {'(', ')'}: t += w[0].upper()
+            for i in range(1, len(w)):
+                if w[i] not in {'(', ')'}: t += w[i]
+            t += ' ' 
+#        self.printn(t)
+        return t
+
+    def getTitleB(self, s):
         s = re.sub(r"[A-Za-z]+('[A-Za-z]+)?", lambda mo: mo.group(0)[0].upper() + mo.group(0)[1:], s)
         return re.sub(r'\((.*?)\)', r'\1', s)
 
@@ -57,16 +84,16 @@ class Tags(object):
     def parse(self, s, delim, keys):
         max = len(keys)
         tokens = s.split(delim, max+1)
-        self.printn('parse([{}], delim = [{}], keys = ['.format(s, delim), file=self.outFile, end='')
+        self.printn('parse([{}], delim = [{}], keys = ['.format(s, delim), end='')
         for i in range(0, max):
             self.addTag(keys[i], tokens[i])
-            self.printn(' {}'.format(keys[i]), file=self.outFile, end='')
-        self.printn('])', file=self.outFile)
+            self.printn(' {}'.format(keys[i]), end='')
+        self.printn('])')
         for i in range(0, max):
-            self.printn('    [{}], {} = {}'.format(i, keys[i], tokens[i]), file=self.outFile)
+            self.printn('    [{}], {} = {}'.format(i, keys[i], tokens[i]))
         i += 1
         remainder = tokens[-1]
-        self.printn('    [{}], {} = {}'.format(i, 'Remainder', tokens[i]), file=self.outFile)
+        self.printn('    [{}], {} = {}'.format(i, 'Remainder', tokens[i]))
         return remainder
 
     def getDateAndOther(self, s):
@@ -91,9 +118,14 @@ class Tags(object):
         self.addTag('Name_Venue_Live', self.tags['Name'] + " Live " + self.tags['Venue'])
         self.addTag('Name_Venue_Date_Live', self.tags['Name'] + " Live " + self.tags['Venue'] + " " + self.tags['Date'])
 
-    @staticmethod
-    def printn(msg='', sep=' ', end='\n', file=sys.stdout, flush=True):
-        print(msg, sep=sep, end=end, file=file, flush=flush)
+    def printn(self, msg='', sep=' ', end='\n', file=None, flush=True):
+        if not file: print(msg, sep=sep, end=end, file=self.outFile, flush=flush)
+        else: print(msg, sep=sep, end=end, file=file, flush=flush)
 
 if __name__ == "__main__":
     main()
+
+#    def wrapper(self, func, *args, **kwargs):
+#        def wrapper():
+#            return func(*args, **kwargs)
+#        return wrapper
