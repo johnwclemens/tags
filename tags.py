@@ -8,6 +8,8 @@ def main():
 class Tags(object):
     def __init__(self, inFileName = 'in.txt', outFileName='out.txt'):
         self.tags = None
+        self.type = 'R'
+        self.NANOS_PER_SEC = 1000000000
         self.dt = 0
         self.len = 0
         self.inFileName = inFileName
@@ -15,7 +17,7 @@ class Tags(object):
         self.reDate = r'\s*(?P<reDate>1[0-2]|0[1-9]|[1-9])-(1[0-9]|2[0-9]|3[0-1]|0[1-9]|[1-9])-(\d{2})\s*'
         self.getCmdArgs()
         with open(self.outFileName, 'w+') as self.outFile, open(self.inFileName, 'r') as self.inFile: self.readFile()
-        print('self.dt={}'.format(self.dt))
+        print('Avg time per char of title = {:7.3f} nano seconds, type = {}'.format(self.dt, self.type))
         self.inFile, self.outFile = None, None
 
     def getCmdArgs(self):
@@ -25,6 +27,8 @@ class Tags(object):
             self.inFileName = self.argMap['i'][0]
         if 'o' in self.argMap and len(self.argMap['o']) > 0:
             self.outFileName = self.argMap['o'][0]
+        if 't' in self.argMap and len(self.argMap['t']) > 0:
+            self.type = self.argMap['t'][0].upper()
 
     def readFile(self):
         for line in self.inFile:
@@ -44,37 +48,50 @@ class Tags(object):
     def getTags(self, line, ln=[0]):
         n = ln[0]
         ln[0] += 1
+        count = 100000
         self.printn('line[{}] = {}'.format(ln[0], line))
         self.tags = collections.OrderedDict()
-        count, type = 10000, 'A'
         t1 = time.time()
         for i in range(0, count):
-            title = self.getTitle(line, type)
-        dt = 1000000000 * (time.time() - t1) / (count * len(line))
+            title = self.getTitle(line)
+        dt = self.NANOS_PER_SEC * (time.time() - t1) / (count * len(line))
         self.dt = (n * self.dt + dt) / ln[0]
-        self.printn('dt={:7.3f} nsec, self.dt={:7.3f} nsec, len line={}'.format(dt, self.dt, len(line)))
+        self.printn('dt={:7.3f} nsec, self.dt={:7.3f} nsec, line len={}, type={}'.format(dt, self.dt, len(line), self.type))
         self.addTag('Title', ''.join(title.split(',')))
         remainder = self.parse(title, ', ', ['Name', 'Venue', 'City', 'State'])
         self.getDateAndOther(remainder)
         self.group()
 
-    def getTitle(self, s, type):
-        if type.upper() == 'A': self.getTitleA(s)
-        elif type.upper() == 'B': self.getTitleB(s)
-        else: self.printn('getTitle() ERROR'.format())
+    def getTitle(self, s):
+        if self.type == 'R': return self.getTitleR(s)
+        elif self.type == 'A': return self.getTitleA(s)
+        elif self.type == 'B': return self.getTitleB(s)
+        else: 
+            self.printn('getTitle() ERROR unknown type={}'.format(self.type))
+            exit()
 
     def getTitleA(self, s):
         t = ''
-#        self.printn('getTiitle(): ', end='')
         for w in s.split():
             if w[0] not in {'(', ')'}: t += w[0].upper()
             for i in range(1, len(w)):
                 if w[i] not in {'(', ')'}: t += w[i]
             t += ' ' 
-#        self.printn(t)
         return t
 
     def getTitleB(self, s):
+        t = ''
+        isWord = True
+        for i in range(0, len(s)):
+            if s[i] not in {'(', ')'}:
+                if isWord:
+                    t += s[i].upper()
+                    isWord = False
+                else: t += s[i]
+                if s[i] == ' ': isWord = True
+        return t
+
+    def getTitleR(self, s):
         s = re.sub(r"[A-Za-z]+('[A-Za-z]+)?", lambda mo: mo.group(0)[0].upper() + mo.group(0)[1:], s)
         return re.sub(r'\((.*?)\)', r'\1', s)
 
@@ -124,8 +141,3 @@ class Tags(object):
 
 if __name__ == "__main__":
     main()
-
-#    def wrapper(self, func, *args, **kwargs):
-#        def wrapper():
-#            return func(*args, **kwargs)
-#        return wrapper
