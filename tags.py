@@ -8,6 +8,7 @@ def main():
 class Tags(object):
     def __init__(self, inFileName = 'in.txt', outFileName='out.txt'):
         self.tags = None
+        self.cres = {'Title1':re.compile(r"[A-Za-z]+('[A-Za-z]+)?"), 'Title2':re.compile('\((.*?)\)')}
         self.type = 'R'
         self.NANOS_PER_SEC = 1000000000
         self.dt = 0
@@ -63,7 +64,8 @@ class Tags(object):
         self.group()
 
     def getTitle(self, s):
-        if self.type == 'R': return self.getTitleR(s)
+        if   self.type == 'R': return self.getTitleR(s)
+        elif self.type == 'Q': return self.getTitleQ(s)
         elif self.type == 'A': return self.getTitleA(s)
         elif self.type == 'B': return self.getTitleB(s)
         else: 
@@ -90,6 +92,10 @@ class Tags(object):
                 else: t += s[i]
                 if s[i] == ' ': isWord = True
         return t
+
+    def getTitleQ(self, s):
+        s = self.cres['Title1'].sub(lambda mo: mo.group(0)[0].upper() + mo.group(0)[1:], s)
+        return self.cres['Title2'].sub(r'\1', s)
 
     def getTitleR(self, s):
         s = re.sub(r"[A-Za-z]+('[A-Za-z]+)?", lambda mo: mo.group(0)[0].upper() + mo.group(0)[1:], s)
