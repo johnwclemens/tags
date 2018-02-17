@@ -32,7 +32,9 @@ class Tags(object):
             self.type = self.argMap['t'][0].upper()
 
     def readFile(self):
+        self.printn('readFile(getTags={}) '.format(self.getTags))
         for line in self.inFile:
+#            foo = self.timer(1, self.getTags, line.strip())
             i = 0
             self.getTags(line.strip())
             self.printn('tags = [')
@@ -46,17 +48,27 @@ class Tags(object):
             self.printn("]")
             self.len = 0
 
-    def getTags(self, line, ln=[0]):
-        n = ln[0]
-        ln[0] += 1
-        count = 100000
-        self.printn('line[{}] = {}'.format(ln[0], line))
-        self.tags = collections.OrderedDict()
+    def timer(self, count, func, *args, **kwargs):
+#        self.printn('timer(count={}, func={}, args={}, kwargs={})'.format(count, func, args, kwargs))
         t1 = time.time()
         for i in range(0, count):
-            title = self.getTitle(line)
-        dt = self.NANOS_PER_SEC * (time.time() - t1) / (count * len(line))
-        self.dt = (n * self.dt + dt) / ln[0]
+            retVal = func(*args, **kwargs)
+#            self.printn('timer() retVal={}'.format(retVal))
+        dt = self.NANOS_PER_SEC * (time.time() - t1) / (count * len(args[0]))
+        return dt, retVal
+
+    def getTags(self, line, idx=[0]):
+        n = idx[0]
+        idx[0] += 1
+        count = 100000
+        self.printn('line[{}] = {}'.format(idx[0], line))
+        self.tags = collections.OrderedDict()
+        dt, title = self.timer(count, self.getTitle, line.strip())
+#        t1 = time.time()
+#        for i in range(0, count):
+#            title = self.getTitle(line)
+#        dt = self.NANOS_PER_SEC * (time.time() - t1) / (count * len(line))
+        self.dt = (n * self.dt + dt) / idx[0]
         self.printn('dt={:7.3f} nsec, self.dt={:7.3f} nsec, line len={}, type={}'.format(dt, self.dt, len(line), self.type))
         self.addTag('Title', ''.join(title.split(',')))
         remainder = self.parse(title, ', ', ['Name', 'Venue', 'City', 'State'])
