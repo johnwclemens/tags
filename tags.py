@@ -6,6 +6,15 @@ def main():
     Tags()
 
 class Tags(object):
+    def timer(self, count, func, *args, **kwargs):
+#        self.printn('timer(count={}, func={}, args={}, kwargs={})'.format(count, func, args, kwargs))
+        t1 = time.time()
+        for i in range(0, count):
+            retVal = func(*args, **kwargs)
+#            self.printn('timer() retVal={}'.format(retVal))
+        dt = self.NANOS_PER_SEC * (time.time() - t1) / (count * len(args[0]))
+        return dt, retVal
+
     def __init__(self, inFileName = 'in.txt', outFileName='out.txt'):
         self.tags = None
         self.cres = {'Title1':re.compile(r"[A-Za-z]+('[A-Za-z]+)?"), 'Title2':re.compile('\((.*?)\)')}
@@ -34,7 +43,6 @@ class Tags(object):
     def readFile(self):
         self.printn('readFile(getTags={}) '.format(self.getTags))
         for line in self.inFile:
-#            foo = self.timer(1, self.getTags, line.strip())
             i = 0
             self.getTags(line.strip())
             self.printn('tags = [')
@@ -48,22 +56,13 @@ class Tags(object):
             self.printn("]")
             self.len = 0
 
-    def timer(self, count, func, *args, **kwargs):
-#        self.printn('timer(count={}, func={}, args={}, kwargs={})'.format(count, func, args, kwargs))
-        t1 = time.time()
-        for i in range(0, count):
-            retVal = func(*args, **kwargs)
-#            self.printn('timer() retVal={}'.format(retVal))
-        dt = self.NANOS_PER_SEC * (time.time() - t1) / (count * len(args[0]))
-        return dt, retVal
-
     def getTags(self, line, idx=[0]):
         n = idx[0]
         idx[0] += 1
         count = 100000
         self.printn('line[{}] = {}'.format(idx[0], line))
         self.tags = collections.OrderedDict()
-        dt, title = self.timer(count, self.getTitle, line.strip())
+        dt, title = self.timer(count, self.getTitle, line)
 #        t1 = time.time()
 #        for i in range(0, count):
 #            title = self.getTitle(line)
@@ -119,7 +118,7 @@ class Tags(object):
     def parse(self, s, delim, keys):
         max = len(keys)
         tokens = s.split(delim, max+1)
-        self.printn('parse([{}], delim = [{}], keys = ['.format(s, delim), end='')
+#        self.printn('parse([{}], delim = [{}], keys = ['.format(s, delim), end='')
         for i in range(0, max):
             self.addTag(keys[i], tokens[i])
             self.printn(' {}'.format(keys[i]), end='')
