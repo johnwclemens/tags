@@ -7,11 +7,9 @@ def main():
 
 class Tags(object):
     def timer(self, count, func, *args, **kwargs):
-#        self.printn('timer(count={}, func={}, args={}, kwargs={})'.format(count, func, args, kwargs))
         t1 = time.time()
         for i in range(0, count):
             retVal = func(*args, **kwargs)
-#            self.printn('timer() retVal={}'.format(retVal))
         dt = self.NANOS_PER_SEC * (time.time() - t1) / (count * len(args[0]))
         return dt, retVal
 
@@ -63,10 +61,6 @@ class Tags(object):
         self.printn('line[{}] = {}'.format(idx[0], line))
         self.tags = collections.OrderedDict()
         dt, title = self.timer(count, self.getTitle, line)
-#        t1 = time.time()
-#        for i in range(0, count):
-#            title = self.getTitle(line)
-#        dt = self.NANOS_PER_SEC * (time.time() - t1) / (count * len(line))
         self.dt = (n * self.dt + dt) / idx[0]
         self.printn('dt={:7.3f} nsec, self.dt={:7.3f} nsec, line len={}, type={}'.format(dt, self.dt, len(line), self.type))
         self.addTag('Title', ''.join(title.split(',')))
@@ -118,16 +112,10 @@ class Tags(object):
     def parse(self, s, delim, keys):
         max = len(keys)
         tokens = s.split(delim, max+1)
-#        self.printn('parse([{}], delim = [{}], keys = ['.format(s, delim), end='')
         for i in range(0, max):
             self.addTag(keys[i], tokens[i])
-            self.printn(' {}'.format(keys[i]), end='')
-        self.printn('])')
-        for i in range(0, max):
-            self.printn('    [{}], {} = {}'.format(i, keys[i], tokens[i]))
         i += 1
         remainder = tokens[-1]
-        self.printn('    [{}], {} = {}'.format(i, 'Remainder', tokens[i]))
         return remainder
 
     def getDateAndOther(self, s):
