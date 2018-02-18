@@ -19,6 +19,7 @@ class Tags(object):
         self.type = 'R'
         self.tfmap = {'R':self.getTitleR, 'A':self.getTitleA, 'B':self.getTitleB, 'Q':self.getTitleQ}
         self.NANOS_PER_SEC = 1000000000
+        self.count = 1000
         self.dt = 0
         self.len = 0
         self.inFileName = inFileName
@@ -32,6 +33,8 @@ class Tags(object):
     def getCmdArgs(self):
         self.argMap = jwcCmdArgs.parseCmdLine()
         print('argMap={}'.format(self.argMap))
+        if 'c' in self.argMap and len(self.argMap['c']) > 0:
+            self.count = int(self.argMap['c'][0].upper())
         if 'i' in self.argMap and len(self.argMap['i']) > 0:
             self.inFileName = self.argMap['i'][0]
         if 'o' in self.argMap and len(self.argMap['o']) > 0:
@@ -57,10 +60,9 @@ class Tags(object):
     def getTags(self, line, idx=[0]):
         n = idx[0]
         idx[0] += 1
-        count = 100000
         self.printn('line[{}] = {}'.format(idx[0], line))
         self.tags = collections.OrderedDict()
-        dt, title = self.timer(count, self.tfmap[self.type], line)
+        dt, title = self.timer(self.count, self.tfmap[self.type], line)
         self.dt = (n * self.dt + dt) / idx[0]
         self.printn('dt={:7.3f} nsec, self.dt={:7.3f} nsec, line len={}, type={}'.format(dt, self.dt, len(line), self.type))
         self.addTag('Title', ''.join(title.split(',')))
