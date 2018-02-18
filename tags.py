@@ -60,7 +60,6 @@ class Tags(object):
         count = 100000
         self.printn('line[{}] = {}'.format(idx[0], line))
         self.tags = collections.OrderedDict()
-#        dt, title = self.timer(count, self.getTitle, line)
         dt, title = self.timer(count, self.tfmap[self.type], line)
         self.dt = (n * self.dt + dt) / idx[0]
         self.printn('dt={:7.3f} nsec, self.dt={:7.3f} nsec, line len={}, type={}'.format(dt, self.dt, len(line), self.type))
@@ -68,15 +67,6 @@ class Tags(object):
         remainder = self.parse(title, ', ', ['Name', 'Venue', 'City', 'State'])
         self.getDateAndOther(remainder)
         self.group()
-
-#    def getTitle(self, s):
-#        if   self.type == 'R': return self.getTitleR(s)
-#        elif self.type == 'Q': return self.getTitleQ(s)
-#        elif self.type == 'A': return self.getTitleA(s)
-#        elif self.type == 'B': return self.getTitleB(s)
-#        else: 
-#            self.printn('getTitle() ERROR unknown type={}'.format(self.type))
-#            exit()
 
     def getTitleA(self, s):
         t = ''
