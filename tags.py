@@ -10,31 +10,32 @@ class Tags(object):
         t1 = time.time()
         for i in range(0, count):
             retVal = func(*args, **kwargs)
-        dt = self.NANOS_PER_SEC * (time.time() - t1) / (count * len(args[0]))
+        dt = self.NANOS_PER_SEC * (time.time() - t1) / (count)
         return dt, retVal
 
     def __init__(self, inFileName = 'in.txt', outFileName='out.txt'):
+        self.t0 = time.time()
         self.tags = None
         self.cres = {'Title1':re.compile(r"[A-Za-z]+('[A-Za-z]+)?"), 'Title2':re.compile('\((.*?)\)')}
         self.type = 'R'
         self.tfmap = {'R':self.getTitleR, 'A':self.getTitleA, 'B':self.getTitleB, 'Q':self.getTitleQ}
         self.NANOS_PER_SEC = 1000000000
-        self.count = 1000
+        self.timerCount = 1000
         self.dt = 0
         self.len = 0
+        self.fileSize = 0
+        self.charCount = 0
         self.inFileName = inFileName
         self.outFileName = outFileName
         self.reDate = r'\s*(?P<reDate>1[0-2]|0[1-9]|[1-9])-(1[0-9]|2[0-9]|3[0-1]|0[1-9]|[1-9])-(\d{2})\s*'
         self.getCmdArgs()
         with open(self.outFileName, 'w+') as self.outFile, open(self.inFileName, 'r') as self.inFile: self.readFile()
-        print('Avg time per char of title = {:7.3f} nano seconds, type = {}'.format(self.dt, self.type))
-        self.inFile, self.outFile = None, None
 
     def getCmdArgs(self):
         self.argMap = jwcCmdArgs.parseCmdLine()
         print('argMap={}'.format(self.argMap))
         if 'c' in self.argMap and len(self.argMap['c']) > 0:
-            self.count = int(self.argMap['c'][0].upper())
+            self.timerCount = int(self.argMap['c'][0].upper())
         if 'i' in self.argMap and len(self.argMap['i']) > 0:
             self.inFileName = self.argMap['i'][0]
         if 'o' in self.argMap and len(self.argMap['o']) > 0:
@@ -45,26 +46,29 @@ class Tags(object):
     def readFile(self):
         for line in self.inFile:
             i = 0
+            self.fileSize += len(line) + 1 #account for the line termination char
             self.getTags(line.strip())
-            self.printn('tags = [')
             for k, v in self.tags.items():
                 i += 1
                 length = len(v)
                 self.len += length
                 self.printn('    {:>20}[{:>2}:{:>2}:{:>3}] {}'.format(k, i, length, self.len, v))
-            self.printn(']\ntags({}) = ['.format(self.len), end='')
+            self.printn('tags({}) = ['.format(self.len), end='')
             for k in self.tags.keys(): self.printn('{}'.format(self.tags[k]), end=',')
             self.printn("]")
             self.len = 0
+        self.printn('Avg time per char of title = {:7.3f} nano seconds, type = {}, fileSize={}'.format(self.dt, self.type, self.fileSize), file = 'BOTH')
+        self.printn('Total time = {:.1f} seconds'.format(time.time() - self.t0), file = 'BOTH')
 
     def getTags(self, line, idx=[0]):
         n = idx[0]
         idx[0] += 1
         self.printn('line[{}] = {}'.format(idx[0], line))
         self.tags = collections.OrderedDict()
-        dt, title = self.timer(self.count, self.tfmap[self.type], line)
+        dt, title = self.timer(self.timerCount, self.tfmap[self.type], line)
+        dt = dt / len(line)
         self.dt = (n * self.dt + dt) / idx[0]
-        self.printn('dt={:7.3f} nsec, self.dt={:7.3f} nsec, line len={}, type={}'.format(dt, self.dt, len(line), self.type))
+        self.printn('dt[{}]={:7.3f} nsec, self.dt={:7.3f} nsec, line len={}, fileSize = {}, type={}'.format(idx[0], dt, self.dt, len(line), self.fileSize, self.type))
         self.addTag('Title', ''.join(title.split(',')))
         remainder = self.parse(title, ', ', ['Name', 'Venue', 'City', 'State'])
         self.getDateAndOther(remainder)
@@ -135,6 +139,9 @@ class Tags(object):
 
     def printn(self, msg='', sep=' ', end='\n', file=None, flush=True):
         if not file: print(msg, sep=sep, end=end, file=self.outFile, flush=flush)
+        elif file == 'BOTH':
+            print(msg, sep=sep, end=end, file=self.outFile, flush=flush)
+            print(msg, sep=sep, end=end, file=sys.stdout, flush=flush)
         else: print(msg, sep=sep, end=end, file=file, flush=flush)
 
 if __name__ == "__main__":
