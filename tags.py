@@ -15,20 +15,15 @@ class Tags(object):
 
     def __init__(self, inFileName = 'in.txt', outFileName='out.txt'):
         self.t0 = time.time()
-        self.tags = None
+        self.tags, self.type = None, 'R'
         self.reDate = r'\s*(?P<reDate>1[0-2]|0[1-9]|[1-9])-(1[0-9]|2[0-9]|3[0-1]|0[1-9]|[1-9])-(\d{2})\s*'
         self.cres = {'Title1':re.compile(r"[A-Za-z]+('[A-Za-z]+)?"), 'Title2':re.compile('\((.*?)\)'), 'Date':re.compile(self.reDate)}
-        self.type = 'R'
         self.titleFuncMap = {'A':self.getTitleA, 'B':self.getTitleB, 'Q':self.getTitleQ, 'R':self.getTitleR}
         self.dateFuncMap  = {'A':self.getDateR,  'B':self.getDateR,  'Q':self.getDateQ,  'R':self.getDateR}
-        self.NANOS_PER_SEC = 1000000000
-        self.timerCount = 1000
+        self.NANOS_PER_SEC, self.timerCount = 1000000000, 1000
         self.dtTitle, self.dtParse, self.dtDate = 0, 0, 0
-        self.len = 0
-        self.fileSize = 0
-        self.charCount = 0
-        self.inFileName = inFileName
-        self.outFileName = outFileName
+        self.len, self.fileSize, self.charCount = 0, 0, 0
+        self.inFileName, self.outFileName = inFileName, outFileName
         self.getCmdArgs()
         with open(self.outFileName, 'w+') as self.outFile, open(self.inFileName, 'r') as self.inFile: self.readFile()
 
@@ -67,15 +62,13 @@ class Tags(object):
         self.printn('line[{},{},{},{}] = {}'.format(idx[0], len(line), self.fileSize, self.type, line))
         self.tags = collections.OrderedDict()
         dtTitle, title = self.timer(self.timerCount, self.titleFuncMap[self.type], line)
-        dtTitle = dtTitle / len(line)
+        dtTitle /= len(line)
         self.dtTitle = (n * self.dtTitle + dtTitle) / idx[0]
         self.printn('dtTitle[{}]={:7.3f} nsec, self.dtTitle={:7.3f} nsec'.format(idx[0], dtTitle, self.dtTitle))
         self.addTag('Title', ''.join(title.split(',')))
-#        remainder =                                      self.parse( title, ', ', ['Name', 'Venue', 'City', 'State'])
         dtParse, remainder = self.timer(self.timerCount, self.parse, title, ', ', ['Name', 'Venue', 'City', 'State'])
         self.dtParse = (n * self.dtParse + dtParse) / idx[0]
         self.printn('dtParse={:.0f} nsec, self.dtParse = {:.0f} nsec'.format(dtParse, self.dtParse))
-#        self.getDateQ(remainder)
         dtDate, ret = self.timer(self.timerCount, self.dateFuncMap[self.type], remainder)
         self.dtDate = (n * self.dtDate + dtDate) / idx[0]
         self.printn('dtDate={:.0f} nsec, self.dtDate = {:.0f} nsec'.format(dtDate, self.dtDate))
