@@ -16,18 +16,19 @@ class Tags(object):
     def __init__(self, inFileName = 'in.txt', outFileName='out.txt'):
         self.t0 = time.time()
         self.tags = None
-        self.cres = {'Title1':re.compile(r"[A-Za-z]+('[A-Za-z]+)?"), 'Title2':re.compile('\((.*?)\)')}
+        self.reDate = r'\s*(?P<reDate>1[0-2]|0[1-9]|[1-9])-(1[0-9]|2[0-9]|3[0-1]|0[1-9]|[1-9])-(\d{2})\s*'
+        self.cres = {'Title1':re.compile(r"[A-Za-z]+('[A-Za-z]+)?"), 'Title2':re.compile('\((.*?)\)'), 'Date':re.compile(self.reDate)}
         self.type = 'R'
-        self.tfmap = {'R':self.getTitleR, 'A':self.getTitleA, 'B':self.getTitleB, 'Q':self.getTitleQ}
+        self.titleFuncMap = {'A':self.getTitleA, 'B':self.getTitleB, 'Q':self.getTitleQ, 'R':self.getTitleR}
+        self.dateFuncMap  = {'A':self.getDateR,  'B':self.getDateR,  'Q':self.getDateQ,  'R':self.getDateR}
         self.NANOS_PER_SEC = 1000000000
         self.timerCount = 1000
-        self.dt = 0
+        self.dtTitle, self.dtParse = 0, 0
         self.len = 0
         self.fileSize = 0
         self.charCount = 0
         self.inFileName = inFileName
         self.outFileName = outFileName
-        self.reDate = r'\s*(?P<reDate>1[0-2]|0[1-9]|[1-9])-(1[0-9]|2[0-9]|3[0-1]|0[1-9]|[1-9])-(\d{2})\s*'
         self.getCmdArgs()
         with open(self.outFileName, 'w+') as self.outFile, open(self.inFileName, 'r') as self.inFile: self.readFile()
 
@@ -46,7 +47,7 @@ class Tags(object):
     def readFile(self):
         for line in self.inFile:
             i = 0
-            self.fileSize += len(line) + 1 #account for the line termination char
+            self.fileSize += len(line) + 1 #account for the line termination char?
             self.getTags(line.strip())
             for k, v in self.tags.items():
                 i += 1
@@ -57,21 +58,25 @@ class Tags(object):
             for k in self.tags.keys(): self.printn('{}'.format(self.tags[k]), end=',')
             self.printn("]")
             self.len = 0
-        self.printn('Avg time per char of title = {:7.3f} nano seconds, type = {}, fileSize={}'.format(self.dt, self.type, self.fileSize), file = 'BOTH')
-        self.printn('Total time = {:.1f} seconds'.format(time.time() - self.t0), file = 'BOTH')
+        self.printn('Avg time title/char = {:7.3f} nano seconds, avg time parse = {:.0f} nano seconds'.format(self.dtTitle, self.dtParse), file = 'BOTH')
+        self.printn('Total time = {:.1f} seconds, type = {}, fileSize={} bytes'.format(time.time() - self.t0, self.type, self.fileSize), file = 'BOTH')
 
     def getTags(self, line, idx=[0]):
         n = idx[0]
         idx[0] += 1
-        self.printn('line[{}] = {}'.format(idx[0], line))
+        self.printn('line[{},{},{},{}] = {}'.format(idx[0], len(line), self.fileSize, self.type, line))
         self.tags = collections.OrderedDict()
-        dt, title = self.timer(self.timerCount, self.tfmap[self.type], line)
-        dt = dt / len(line)
-        self.dt = (n * self.dt + dt) / idx[0]
-        self.printn('dt[{}]={:7.3f} nsec, self.dt={:7.3f} nsec, line len={}, fileSize = {}, type={}'.format(idx[0], dt, self.dt, len(line), self.fileSize, self.type))
+        dtTitle, title = self.timer(self.timerCount, self.titleFuncMap[self.type], line)
+        dtTitle = dtTitle / len(line)
+        self.dtTitle = (n * self.dtTitle + dtTitle) / idx[0]
+        self.printn('dtTitle[{}]={:7.3f} nsec, self.dtTitle={:7.3f} nsec'.format(idx[0], dtTitle, self.dtTitle))
         self.addTag('Title', ''.join(title.split(',')))
-        remainder = self.parse(title, ', ', ['Name', 'Venue', 'City', 'State'])
-        self.getDateAndOther(remainder)
+#        remainder =                                      self.parse( title, ', ', ['Name', 'Venue', 'City', 'State'])
+        dtParse, remainder = self.timer(self.timerCount, self.parse, title, ', ', ['Name', 'Venue', 'City', 'State'])
+        self.dtParse = (n * self.dtParse + dtParse) / idx[0]
+        self.printn('dtParse={:.0f} nsec, self.dtParse = {:.0f} nsec'.format(dtParse, self.dtParse))
+#        self.getDateQ(remainder)
+        dtDate = self.timer(self.timerCount, self.date, remainder)
         self.group()
 
     def getTitleA(self, s):
@@ -115,7 +120,14 @@ class Tags(object):
         remainder = tokens[-1]
         return remainder
 
-    def getDateAndOther(self, s):
+    def getDateQ(self, s):
+        m = self.cres['Date'].search(s)
+        if m.start() != 0: self.addTag('Other1', s[:m.start()])
+        self.addTag('Date', m.group(1) + '-' + m.group(2) + '-' + m.group(3))
+        remainder = s[m.end():]
+        if remainder: self.tags['Other2'] = remainder
+
+    def getDateR(self, s):
         m = re.search(self.reDate, s)
         if m.start() != 0: self.addTag('Other1', s[:m.start()])
         self.addTag('Date', m.group(1) + '-' + m.group(2) + '-' + m.group(3))
