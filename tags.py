@@ -23,7 +23,7 @@ class Tags(object):
         self.dateFuncMap  = {'A':self.getDateR,  'B':self.getDateR,  'Q':self.getDateQ,  'R':self.getDateR}
         self.NANOS_PER_SEC = 1000000000
         self.timerCount = 1000
-        self.dtTitle, self.dtParse = 0, 0
+        self.dtTitle, self.dtParse, self.dtDate = 0, 0, 0
         self.len = 0
         self.fileSize = 0
         self.charCount = 0
@@ -58,7 +58,7 @@ class Tags(object):
             for k in self.tags.keys(): self.printn('{}'.format(self.tags[k]), end=',')
             self.printn("]")
             self.len = 0
-        self.printn('Avg time title/char = {:7.3f} nano seconds, avg time parse = {:.0f} nano seconds'.format(self.dtTitle, self.dtParse), file = 'BOTH')
+        self.printn('Avg time title/char = {:7.3f} nano seconds, avg time parse = {:.0f} nano seconds, avg time date = {:.0f} nano seconds'.format(self.dtTitle, self.dtParse, self.dtDate), file = 'BOTH')
         self.printn('Total time = {:.1f} seconds, type = {}, fileSize={} bytes'.format(time.time() - self.t0, self.type, self.fileSize), file = 'BOTH')
 
     def getTags(self, line, idx=[0]):
@@ -76,7 +76,9 @@ class Tags(object):
         self.dtParse = (n * self.dtParse + dtParse) / idx[0]
         self.printn('dtParse={:.0f} nsec, self.dtParse = {:.0f} nsec'.format(dtParse, self.dtParse))
 #        self.getDateQ(remainder)
-        dtDate = self.timer(self.timerCount, self.date, remainder)
+        dtDate, ret = self.timer(self.timerCount, self.dateFuncMap[self.type], remainder)
+        self.dtDate = (n * self.dtDate + dtDate) / idx[0]
+        self.printn('dtDate={:.0f} nsec, self.dtDate = {:.0f} nsec'.format(dtDate, self.dtDate))
         self.group()
 
     def getTitleA(self, s):
