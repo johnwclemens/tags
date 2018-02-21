@@ -7,14 +7,14 @@ def main():
 
 class Tags(object):
     def timer(self, count, func, *args, **kwargs):
-        t1 = time.time()
+        t1 = time.monotonic()
         for i in range(0, count):
             retVal = func(*args, **kwargs)
-        dt = self.NANOS_PER_SEC * (time.time() - t1) / (count)
+        dt = self.NANOS_PER_SEC * (time.monotonic() - t1) / (count)
         return dt, retVal
 
     def __init__(self, inFileName = 'in.txt', outFileName='out.txt'):
-        self.t0 = time.time()
+        self.t0 = time.monotonic()
         self.tags, self.type = None, 'R'
         self.reDate = r'\s*(?P<reDate>1[0-2]|0[1-9]|[1-9])-(1[0-9]|2[0-9]|3[0-1]|0[1-9]|[1-9])-(\d{2})\s*'
         self.cres = {'Title1':re.compile(r"[A-Za-z]+('[A-Za-z]+)?"), 'Title2':re.compile('\((.*?)\)'), 'Date':re.compile(self.reDate)}
@@ -54,7 +54,7 @@ class Tags(object):
             self.printn("]")
             self.len = 0
         self.printn('Avg time title/char = {:7.3f} nano seconds, avg time parse = {:.0f} nano seconds, avg time date = {:.0f} nano seconds'.format(self.dtTitle, self.dtParse, self.dtDate), file = 'BOTH')
-        self.printn('Total time = {:.1f} seconds, type = {}, fileSize={} bytes'.format(time.time() - self.t0, self.type, self.fileSize), file = 'BOTH')
+        self.printn('Total time = {:.1f} seconds, type = {}, fileSize={} bytes'.format(time.monotonic() - self.t0, self.type, self.fileSize), file = 'BOTH')
 
     def getTags(self, line, idx=[0]):
         n = idx[0]
