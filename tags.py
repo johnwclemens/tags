@@ -1,9 +1,49 @@
-import os, sys, re, collections, time, timeit
+import os, sys, re, collections, time
+from functools import wraps
 sys.path.insert(0, os.path.abspath('..\lib'))
 import jwcCmdArgs
 
-def main(): 
+#'''
+class Timer(object):
+    def __init__(self, nanosPerSec, count):
+        self.nanosPerSec = nanosPerSec
+        self.count = count
+
+    def __enter__(self):
+        self.start = time.time()
+        return self
+
+    def __exit__(self, *args):
+        self.end = time.time()
+        self.interval = (self.end - self.start) * self.nanosPerSec / self.count
+#'''
+
+def main():
     Tags()
+    '''
+    def timed(f):
+        @wraps(f)
+        def wrapper(*args, **kwargs):
+            start = time()
+            for r in range(args[0]):
+                retVal = f(*args, **kwargs)
+            print('dt={}'.format(time() - start))
+            return retVal
+        return wrapper
+
+    @timed
+    def f(count, d):
+        l = d.split()
+        d = ' '.join(l)
+        return 'f({}, \'{}\')'.format(count, d)
+
+    d = 'a b c d e f g h i j k l m n o p q r s t u v w x y z'
+    print('f.__name__={}'.format(f.__name__))
+    print('f.__doc__={}'.format(f.__doc__))
+    r = f(100000, d)
+    print('r={}'.format(r))
+    exit()
+    '''
 
 class Tags(object):
     def timer(self, count, func, *args, **kwargs):
@@ -15,6 +55,7 @@ class Tags(object):
 
     def __init__(self, inFileName = 'in.txt', outFileName='out.txt'):
         self.t0 = time.monotonic()
+        self.tokenCount = 0
         self.tags, self.type = None, 'R'
         self.reDate = r'\s*(?P<reDate>1[0-2]|0[1-9]|[1-9])-(1[0-9]|2[0-9]|3[0-1]|0[1-9]|[1-9])-(\d{2})\s*'
         self.cres = {'Title1':re.compile(r"[A-Za-z]+('[A-Za-z]+)?"), 'Title2':re.compile('\((.*?)\)'), 'Date':re.compile(self.reDate)}
@@ -66,9 +107,14 @@ class Tags(object):
         self.dtTitle = (n * self.dtTitle + dtTitle) / idx[0]
         self.printn('dtTitle[{}]={:7.3f} nsec, self.dtTitle={:7.3f} nsec'.format(idx[0], dtTitle, self.dtTitle))
         self.addTag('Title', ''.join(title.split(',')))
-        dtParse, remainder = self.timer(self.timerCount, self.parse, title, ', ', ['Name', 'Venue', 'City', 'State'])
-        self.dtParse = (n * self.dtParse + dtParse) / idx[0]
-        self.printn('dtParse={:.0f} nsec, self.dtParse = {:.0f} nsec'.format(dtParse, self.dtParse))
+#        dtParse, remainder = self.timer(self.timerCount, self.parse, title, ', ', ['Name', 'Venue', 'City', 'State'])
+#        self.dtParse = (n * self.dtParse + dtParse / self.tokenCount) / idx[0]
+#        self.printn('dtParse={:.0f} nsec, self.dtParse = {:.0f} nsec'.format(dtParse / self.tokenCount, self.dtParse))
+        with Timer(self.NANOS_PER_SEC, self.timerCount) as dtParse:
+            for x in range(self.timerCount):
+                remainder = self.parse(title, ', ', ['Name', 'Venue', 'City', 'State'])
+        self.dtParse = (n * self.dtParse + dtParse.interval / self.tokenCount) / idx[0]
+        self.printn('dtParse={:.0f} nsec, self.dtParse = {:.0f} nsec'.format(dtParse.interval / self.tokenCount, self.dtParse))
         dtDate, ret = self.timer(self.timerCount, self.dateFuncMap[self.type], remainder)
         self.dtDate = (n * self.dtDate + dtDate) / idx[0]
         self.printn('dtDate={:.0f} nsec, self.dtDate = {:.0f} nsec'.format(dtDate, self.dtDate))
@@ -109,6 +155,7 @@ class Tags(object):
     def parse(self, s, delim, keys):
         max = len(keys)
         tokens = s.split(delim, max+1)
+        self.tokenCount = len(tokens)
         for i in range(0, max):
             self.addTag(keys[i], tokens[i])
         i += 1
