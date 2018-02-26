@@ -48,7 +48,7 @@ def main():
 class Tags(object):
     def timer(self, count, func, *args, **kwargs):
         t1 = time.monotonic()
-        for i in range(0, count):
+        for i in range(count):
             retVal = func(*args, **kwargs)
         dt = self.NANOS_PER_SEC * (time.monotonic() - t1) / (count)
         return dt, retVal
@@ -107,14 +107,14 @@ class Tags(object):
         self.dtTitle = (n * self.dtTitle + dtTitle) / idx[0]
         self.printn('dtTitle[{}]={:7.3f} nsec, self.dtTitle={:7.3f} nsec'.format(idx[0], dtTitle, self.dtTitle))
         self.addTag('Title', ''.join(title.split(',')))
-#        dtParse, remainder = self.timer(self.timerCount, self.parse, title, ', ', ['Name', 'Venue', 'City', 'State'])
-#        self.dtParse = (n * self.dtParse + dtParse / self.tokenCount) / idx[0]
-#        self.printn('dtParse={:.0f} nsec, self.dtParse = {:.0f} nsec'.format(dtParse / self.tokenCount, self.dtParse))
-        with Timer(self.NANOS_PER_SEC, self.timerCount) as dtParse:
-            for x in range(self.timerCount):
-                remainder = self.parse(title, ', ', ['Name', 'Venue', 'City', 'State'])
-        self.dtParse = (n * self.dtParse + dtParse.interval / self.tokenCount) / idx[0]
-        self.printn('dtParse={:.0f} nsec, self.dtParse = {:.0f} nsec'.format(dtParse.interval / self.tokenCount, self.dtParse))
+        dtParse, remainder = self.timer(self.timerCount, self.parse, title, ', ', ['Name', 'Venue', 'City', 'State'])
+        self.dtParse = (n * self.dtParse + dtParse / self.tokenCount) / idx[0]
+        self.printn('dtParse={:.0f} nsec, self.dtParse = {:.0f} nsec'.format(dtParse / self.tokenCount, self.dtParse))
+#        with Timer(self.NANOS_PER_SEC, self.timerCount) as dtParse:
+#            for x in range(self.timerCount):
+#                remainder = self.parse(title, ', ', ['Name', 'Venue', 'City', 'State'])
+#        self.dtParse = (n * self.dtParse + dtParse.interval / self.tokenCount) / idx[0]
+#        self.printn('dtParse={:.0f} nsec, self.dtParse = {:.0f} nsec'.format(dtParse.interval / self.tokenCount, self.dtParse))
         dtDate, ret = self.timer(self.timerCount, self.dateFuncMap[self.type], remainder)
         self.dtDate = (n * self.dtDate + dtDate) / idx[0]
         self.printn('dtDate={:.0f} nsec, self.dtDate = {:.0f} nsec'.format(dtDate, self.dtDate))
