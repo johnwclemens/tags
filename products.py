@@ -1,32 +1,26 @@
-def getProds(a=None):
+def getProds(a=None, dbg=0):
     aDefault = (4, 7, 3, 2, 5)
     if a is None or len(a) is 0:
         a = aDefault
-    la = len(a)
-    print('a = (', end='')
-    print('{}'.format(a[0]), end='')
-    for i in range(1, la):
-        print(',{}'.format(a[i]), end='')
-    print(')')
-    lp, rp, r = 1, 1, []
-    for i in range(0, la):
+    max = len(a)
+    print('a = {}'.format(a))
+    l, p = 1, []
+    for i in range(0, max):
         if i > 0:
-            lp *= a[i-1]
-        if i < la-1:
-            rp *= a[i+1]
-        r.append(lp*rp)
-    return r
-#    return aDefault[0]
+            l *= a[i-1]
+        if dbg: print('i={}, l={}'.format(i, l))
+        r = 1
+        for j in range(max-1, i, -1):
+            r *= a[j]
+            if dbg: print('    j={}, r={}'.format(j, r))
+        if dbg: print('p = {}'.format(l*r))
+        p.append(l*r)
+    return p
     
 if __name__ == "__main__":
-#    inP = (5, 4, 8, 6, 3)
-#    inP = [2, 1]
-#    inP = [2,]
-    inP = []
-    outP = getProds(a=inP)
-#    outP = getProds()
-#    outP = getProds(a=None)
-    print('prod = {}'.format(outP))
+    inP = (1,2,3,4,5)
+    outP = getProds(a=None)
+    print('products = {}'.format(outP))
     
 '''
 4, 7, 3, 2, 5 PROD=840
