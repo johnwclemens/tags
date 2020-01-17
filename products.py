@@ -1,4 +1,4 @@
-def getProds(a=None, dbg=0):
+def getProds(a=None, dbg=1):
     aDefault = (4, 7, 3, 2, 5)
     if a is None or len(a) is 0:
         a = aDefault

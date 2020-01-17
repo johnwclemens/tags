@@ -1,3 +1,201 @@
+﻿ 1 @ Label    for   Line 0
+ 2 @ String 1 Tabs  Line 0 bgnRow(0)
+ 3 @ String 2 Tabs  Line 0
+ 4 @ String 3 Tabs  Line 0
+ 5 @ String 4 Tabs  Line 0
+ 6 @ String 5 Tabs  Line 0
+ 7 @ String 6 Tabs  Line 0  endRow(0)
+ 8 @ String 1 Notes Line 0
+ 9 @ String 2 Notes Line 0
+10 @ String 3 Notes Line 0
+11 @ String 4 Notes Line 0
+12 @ String 5 Notes Line 0
+13 @ String 6 Notes Line 0
+14 @ String 1 Ivals Line 0
+15 @ String 2 Ivals Line 0
+16 @ String 3 Ivals Line 0
+17 @ String 4 Ivals Line 0
+18 @ String 5 Ivals Line 0
+19 @ String 6 Ivals Line 0
+20 @ Chord  1 Chord Line 0
+21 @ Chord  2 Chord Line 0
+22 @ Chord  3 Chord Line 0
+23 @ Chord  4 Chord Line 0
+24 @ Chord  5 Chord Line 0
+25 @ Label    for   Line 1
+26 @ String 1 Tabs  Line 1 bgnRow(1)
+27 @ String 2 Tabs  Line 1
+28 @ String 3 Tabs  Line 1
+29 @ String 4 Tabs  Line 1
+30 @ String 5 Tabs  Line 1
+31 @ String 6 Tabs  Line 1 endRow(1)
+32 @ String 1 Notes Line 1
+33 @ String 2 Notes Line 1
+34 @ String 3 Notes Line 1
+35 @ String 4 Notes Line 1
+36 @ String 5 Notes Line 1
+37 @ String 6 Notes Line 1
+38 @ String 1 Ivals Line 1
+39 @ String 2 Ivals Line 1
+40 @ String 3 Ivals Line 1
+41 @ String 4 Ivals Line 1
+42 @ String 5 Ivals Line 1
+43 @ String 6 Ivals Line 1
+44 @ Chord  1 Chord Line 1
+45 @ Chord  2 Chord Line 1
+46 @ Chord  3 Chord Line 1
+47 @ Chord  4 Chord Line 1
+48 @ Chord  5 Chord Line 1
+49 @ Label    for   Line 2
+50 @ String 1 Tabs  Line 2 bgnRow(2)
+51 @ String 2 Tabs  Line 2
+52 @ String 3 Tabs  Line 2
+53 @ String 4 Tabs  Line 2
+54 @ String 5 Tabs  Line 2
+55 @ String 6 Tabs  Line 2 endRow(2)
+56 @ String 1 Notes Line 2
+57 @ String 2 Notes Line 2
+58 @ String 3 Notes Line 2
+59 @ String 4 Notes Line 2
+60 @ String 5 Notes Line 2
+61 @ String 6 Notes Line 2
+62 @ String 1 Ivals Line 2
+63 @ String 2 Ivals Line 2
+64 @ String 3 Ivals Line 2
+65 @ String 4 Ivals Line 2
+66 @ String 5 Ivals Line 2
+67 @ String 6 Ivals Line 2
+68 @ Chord  1 Chord Line 2
+69 @ Chord  2 Chord Line 2
+70 @ Chord  3 Chord Line 2
+71 @ Chord  4 Chord Line 2
+72 @ Chord  5 Chord Line 2
+
+
+
+    def setTab(self, tab, dbg=0):
+        '''Set given tab byte at the current row and col, print the corresponding tab character and then move cursor according to the cursor mode.'''
+        row, col = self.row, self.col
+        rr, cc = self.rowCol2Indices(row, col)
+        s, ss = rr + 1, self.getOrdSfx(rr + 1)
+        print('setTab({}, {}, {}, {}) tab={}({}), {}({}{}) string, bgn'.format(rr, cc, self.row, self.col, tab, chr(tab), self.getNote(s, 0).name, s, ss), file=Tabs.DBG_FILE)
+        if self.bgnCol() > self.col > self.endCol() or self.ROW_OFF > self.row > self.ROW_OFF + self.numLines * self.lineDelta():
+            return self.printe('row/col out of range setTab({},{},{}, {}) tab={}({})'.format(rr, cc, self.row, self.col, tab, chr(tab)))
+        if self.editMode == self.EDIT_MODES['INSERT']:
+            for c in range(len(self.tabs[rr]) - 1, cc, - 1):
+                self.tabs[rr][c] = self.tabs[rr][c - 1]
+                self.htabs[rr][c] = self.htabs[rr][c - 1]
+        prevTab = self.tabs[rr][cc]
+        capTab = self.tabs[rr][cc] = tab
+        if dbg: print('setTab({}({})) tabs={}({}) htabs={}({}) check isFret()'.format(tab, chr(tab), self.tabs[rr][cc], chr(self.tabs[rr][cc]), self.htabs[rr][cc], chr(self.htabs[rr][cc])), file=Tabs.DBG_FILE)
+        if Tabs.isFret(chr(tab)):
+            tabFN = self.getFretNum(tab)
+            maxFN = self.getFretNum(self.maxFret)
+            capFN = self.getFretNum(self.capo)
+            if dbg: print('setTab() maxFN={}({}) check tabFN:{}({}) + capFN:{}({}) > {}?'.format(self.maxFret, maxFN, tab, tabFN, self.capo, capFN, self.NUM_FRETS), file=Tabs.DBG_FILE)
+            if tabFN + capFN > self.NUM_FRETS:
+                return self.printe('setTab() capFN:{} + tabFN:{} > {}! tabc={}, tab={}, chr(capo)={}, capo={}'.format(capFN, tabFN, self.NUM_FRETS, chr(tab), tab, chr(self.capo), self.capo))
+            if dbg: print('setTab() check tabFn:{} > maxFn:{}?'.format(tabFN, maxFN), file=Tabs.DBG_FILE)
+            if tabFN > maxFN: 
+                self.maxFret = tab
+                if dbg: print('setTab() updating maxFret: chr(mf)={}, maxFret={}, maxFN={}'.format(chr(self.maxFret), self.maxFret, self.getFretNum(self.maxFret)), file=Tabs.DBG_FILE)
+            capTab = self.getFretByte(tabFN + capFN)
+            if dbg: print('setTab() setting capTab:{}({}) = self.getFretByte(tabFN:{}({}) + capFN:{}({}))'.format(capTab, chr(capTab), tab, tabFN, self.capo, capFN), file=Tabs.DBG_FILE)
+        if self.editMode == self.EDIT_MODES['INSERT']:
+            self.printTabs()
+        elif self.editMode == self.EDIT_MODES['REPLACE']:
+            self.prints(chr(capTab), row, col, self.styles['TABS'])
+            if self.displayNotes == self.DISPLAY_NOTES['ENABLED']:
+                if Tabs.isFret(chr(capTab)):
+                    n = self.getNote(s, capTab)
+                    print('setTab(DISPLAY_NOTES) capTab={}({}) nn={}'.format(capTab, chr(capTab), n.name), file=Tabs.DBG_FILE)
+                    self.printNote(row + self.numStrings, col, n)
+                else:
+                    self.prints(chr(capTab), row + self.numStrings, col, self.styles['NAT_NOTE'])
+            if self.displayChords == self.DISPLAY_CHORDS['ENABLED']:
+                self.chordsObj.eraseChord(cc)
+                if cc in self.chordInfo: 
+                    if dbg: print('setTab(DISPLAY_CHORDS) chordInfo[{}]={}'.format(cc, self.chordInfo[cc]), file=Tabs.DBG_FILE)
+                noteCount = 0
+                for r in range(0, self.numStrings):
+                    if Tabs.isFret(chr(self.tabs[r][cc])):
+                        if dbg: self.printMapLimap(self.chordInfo, reason='setTab(DISPLAY_CHORDS) r={} cc={}'.format(r, cc))
+                        noteCount += 1
+                        if noteCount > 1:
+                            print('setTab(DISPLAY_CHORDS) r={}, increment noteCount={}'.format(r, noteCount), file=Tabs.DBG_FILE)
+                            self.chordsObj.printChord(c=cc)
+                            break
+                        else: 
+                            print('setTab(DISPLAY_CHORDS) r={}, noteCount={}'.format(r, noteCount), file=Tabs.DBG_FILE)
+            if self.displayIntervals == self.DISPLAY_INTERVALS['ENABLED']:
+                irow = self.indices2Row(self.lineDelta() * self.colIndex2Line(cc) + self.numStrings + self.NOTES_LEN, col)
+                for r in range(self.numStrings):
+                    self.printInterval(irow + r, col, '-', dbg=0)
+                if dbg: self.printMapLimap(self.chordInfo, reason='setTab(DISPLAY_INTERVALS) irow={} line={} cc={}'.format(irow, self.colIndex2Line(cc), cc))
+                if cc not in self.chordInfo:
+                    print('setTab(DISPLAY_INTERVALS) row={} col={} ival={}'.format(row, col, 'R'), file=Tabs.DBG_FILE)
+                    if Tabs.isFret(chr(capTab)):
+                        self.printInterval(row + self.numStrings + self.numStrings, col, 'R', dbg=0)
+                    else: print('setTab(DISPLAY_INTERVALS) NOT a Fret tab={}'.format(chr(capTab)), file=Tabs.DBG_FILE)
+                else:
+                    for r in range(self.numStrings):
+                        self.wrapPrintInterval(r, cc, dbg=dbg)
+        self.moveCursor()
+        self.dumpTabs('setTab() end')
+
+
+    def deleteTab(self, row=None, col=None, back=0, dbg=1):
+        if dbg: print('deleteTab(row={} col={} back={}) bgn'.format(row, col, back), file=Tabs.DBG_FILE)
+        r, c = self.rowCol2Indices(row, col)
+        if self.editMode == self.EDIT_MODES['INSERT']:
+            print('deleteTab(row={} col={} back={}) r={} c={} EDIT_MODES[INSERT]'.format(row, col, back, r, c), file=Tabs.DBG_FILE)
+            for cc in range(c, len(self.tabs[r]) - 1):
+                self.tabs[r][cc]  = self.tabs[r][cc + 1]
+                self.htabs[r][cc] = self.htabs[r][cc + 1]
+            cc = len(self.tabs[r]) - 1
+            self.tabs[r][cc]  = ord('-')
+            self.htabs[r][cc] = ord('0')
+            if back: self.moveLeft()
+            self.printTabs()
+        elif self.editMode == self.EDIT_MODES['REPLACE']:
+            print('deleteTab(row={} col={} back={}) r={} c={} EDIT_MODES[REPLACE]'.format(row, col, back, r, c), file=Tabs.DBG_FILE)
+            self.moveCursor(row=row, col=col, back=back)
+            self.tabs[r][c] = ord('-')
+            self.htabs[r][c] = ord('0')
+            if c in self.chordInfo:
+#                print('deleteTab() deleting chordInfo[{}]={}'.format(c, self.chordInfo[c]), file=Tabs.DBG_FILE)
+                del self.chordInfo[c]
+#                self.printMapLimap(self.chordInfo, reason='deleteTab()' )
+            self.prints(chr(self.tabs[r][c]), row, col, self.styles['TABS'])
+            if self.displayNotes == self.DISPLAY_NOTES['ENABLED']:
+                self.prints(chr(self.tabs[r][c]), row + self.numStrings, col, self.styles['NAT_NOTE'])
+            if self.displayChords == self.DISPLAY_CHORDS['ENABLED']:
+                self.chordsObj.eraseChord(c)
+                self.chordsObj.printChord(c=c)
+            if self.displayIntervals == self.DISPLAY_INTERVALS['ENABLED']:
+                self.printColumnIvals(c)
+            self.resetPos()
+        self.printStatus()
+    
+    def deletePrevTab(self):
+        '''Delete previous tab (backspace).'''
+        if self.cursorMode == self.CURSOR_MODES['MELODY']:
+            self.deleteTab(col=self.col-1, back=1)
+        elif self.cursorMode == self.CURSOR_MODES['CHORD']:
+            if self.cursorDir == self.CURSOR_DIRS['UP']:
+                self.deleteTab(row=self.row+1, back=1)
+            elif self.cursorDir == self.CURSOR_DIRS['DOWN']:
+                self.deleteTab(row=self.row-1, back=1)
+        elif self.cursorMode == self.CURSOR_MODES['ARPEGGIO']:
+            if self.cursorDir == self.CURSOR_DIRS['UP']:
+                self.deleteTab(row=self.row+1, col=self.col-1, back=1)
+            elif self.cursorDir == self.CURSOR_DIRS['DOWN']:
+                self.deleteTab(row=self.row-1, col=self.col-1, back=1)
+
+
+ss.youtube
+snapshot
+
 The House Cafe, Dekalb IL, 7-13-17:
 RedHorse https://www.youtube.com/watch?v=mJgDe7z6EIU
 Heather Maloney and Ryan Hommel (part 1) https://www.youtube.com/watch?v=X5u-ojfXNuw
@@ -27,6 +225,9 @@ M Piske https://www.youtube.com/watch?v=6C0hqY0qt4A&t=331s
 Steve Barnes & the Hazy Sparrow https://www.youtube.com/watch?v=qGB7ZnGO2F0&t=1353s
 Rebecca Johnson & the Miles Burning Band https://www.youtube.com/watch?v=TBUCYY9MJog
 Backwoods Bunny Fight https://www.youtube.com/watch?v=quSEtArPku0
+
+rebeccajohnson@rjmusico.com
+
 
 Kiss the Sky, Batavia IL, 9-23-17:
 Noah Gabriel (part1) https://www.youtube.com/watch?v=Wzq6oy_cHdA
@@ -211,6 +412,454 @@ Schubert Family Band Part 1: https://youtu.be/i27ndEgbH2w
 Schubert Family Band Part 2: https://youtu.be/dheUWG_9wYo
 
 
+Downers Grove, Farmers Market 7-21-18:
+Swing Set Supper Club Part 1: https://www.youtube.com/watch?v=bhfka2Gknpw
+Swing Set Supper Club Part 2: https://www.youtube.com/watch?v=9qE1y2sdt1o
+Swing Set Supper Club Part 3: https://www.youtube.com/watch?v=PpmAOxWDE0s
+Swing Set Supper Club Part 4: https://www.youtube.com/watch?v=qJbW20IPuow
+Swing Set Supper Club Part 5: https://www.youtube.com/watch?v=xSRuiBTqNgo
+Downers Grove, Farmers Market 7-21-18
+
+
+Pain Killers - Kiss The Sky, Batavia, IL 10-6-18:
+San Antone: https://youtu.be/1HuF4uGmEQc
+Old Red: https://youtu.be/H-ebwlhnMBY
+Sailor's Life, Angel From Montgomery, Rich Girl (Part A): https://youtu.be/cma_pX0Ngz4
+Rich Girl (Part B), Memphis, Hey Pretty Pretty: https://youtu.be/L0zZttsVTMU
+Old Man Levi, Laveen (Part A): https://youtu.be/tpbHTgwSkk8
+Laveen (Part B): https://youtu.be/zvyhcALUxSM
+For My Father, Black Cat Lounge: https://youtu.be/7U0AZVCK2-M
+Comes The Rain, Traveling Man (Part A): https://youtu.be/lK9_kXXEHKo
+Traveling Man (Part B), Dying Man's Prayer, Redneck (Part A): https://youtu.be/n_5sDdapk5w
+Redneck (Part B), Tear Jerkin' Beer Drinkin' Song, Long Haul Driver: https://youtu.be/ZhjiGFGuUcM
+Rob Anderlik - Kiss The Sky, Batavia, IL 10-6-18:
+https://youtu.be/wD6wYMKiHjA
+
+
+Pain Killers 2nd Part: https://youtu.be/hTjLQ4Cn8g0
+Pain Killers Last Part: https://youtu.be/wjNFt-7ED84
+
+DanGiltjes@gmail.com
+heebsdad@gmail.com
+
+Kiss The Sky, Batavia, IL 10-13-18:
+John Klatt Part 1: https://youtu.be/hioq70R-R6c
+John Klatt Part 2: https://youtu.be/GZnYWZCE0s8
+
+
+Kiss The Sky, Batavia, IL 10-20-18:
+Noah Gabriel Soundcheck: https://youtu.be/CbzC10ML1gM
+Noah Gabriel Part 1: https://youtu.be/jcxGmJTkTbc
+Noah Gabriel Part 2: https://youtu.be/RH3wSLRFHjA
+Flying Nowakowski Brothers Soundcheck: https://youtu.be/MV0rPZR0SqE
+Flying Nowakowski Brothers Part 1: https://youtu.be/-XndgTBolTo
+Flying Nowakowski Brothers Part 2: https://youtu.be/9b5e9EQymog
+Rebel Soul Revival Part 1: https://youtu.be/Ueho2EkESmk
+Rebel Soul Revival Part 2: https://youtu.be/o7DWZOyI2H4
+Rebel Soul Revival Part 3: https://youtu.be/FOrfBbiqBbE
+Rebel Soul Revival Part 4: https://youtu.be/cP0jWardvj4
+
+?? The Flying Nowakowski Brothers, Kiss The Sky, Batavia, IL 10-20-18 Part 2
+C:\Python36\my\tabs>python tabs.py -anb -t 167 -f data/study/test.tab -s E2G2D3G3B3E4
+
+noah@noahgabriel.com
+Steven.Andrew.Doepke@gmail.com
+
+Peanuts, Naperville, IL 10-25-18:
+Rich Matz Part 1: https://youtu.be/GRiGNp7bOeI
+Rich Matz Part 2: https://youtu.be/ops0Ni2otTQ
+Rich Matz Part 3: https://youtu.be/p-2rGJsVgfw
+Rich Matz Part 4: https://youtu.be/AgmcTNyR6PM
+Rich Matz Part 5: https://youtu.be/pq4xdKf-kZc
+Peanuts, Naperville, IL 10-25-18
+richmatz@matzbroz.com
+
+
+Rue, GlenEllyn, IL 10-26-18
+Moynihan & Hurley Experiment Part 1: https://youtu.be/OtVmrAhSgJw
+Moynihan & Hurley Experiment Part 2: https://youtu.be/nnRM4reiN_o
+Moynihan & Hurley Experiment Part 3: https://youtu.be/9Wt7-qCNNL4
+Rue, GlenEllyn, IL 10-26-18
+Part 1: https://youtu.be/OtVmrAhSgJw
+Part 2: https://youtu.be/nnRM4reiN_o
+Part 3: https://youtu.be/9Wt7-qCNNL4
+waveformllc@gmail.com
+
+
+Java Plus, Aurora, IL 11-1-18 Open Mic:
+Eric Peter Schwartz Part 1: https://youtu.be/IRyW8Q1QqLw
+Eric Peter Schwartz Part 2: https://youtu.be/A8S73VAny98
+Alyssa Trivett Part 1: https://youtu.be/bouJcowd-SM
+Eric Dinse Part 1: https://youtu.be/FJBLMsF6fIw
+Eric Dinse Part 2: https://youtu.be/22sfPJqK6b4
+Neils Potter Part 1: https://youtu.be/NwLP9XcYh-M
+Neils Potter Part 2: https://youtu.be/eqO374Comt0
+Neils Potter Part 3: https://youtu.be/Q7ZGXPD2Lzo
+The Leagues Of Erics Part 1: https://youtu.be/Wab8eObjNbE
+The Leagues Of Erics Part 2: https://youtu.be/dBGvQvt4TN8
+Java Plus, Aurora, IL 11-1-18 Open Mic:
+
+Eric Peter Schwartz, Java Plus, Aurora, IL 11-1-18 Part 1
+Alyssa Trivett, Java Plus, Aurora, IL 11-1-18 Part 1
+Eric Dinse, Java Plus, Aurora, IL 11-1-18 Part 1
+Neils Potter, Java Plus, Aurora, IL 11-1-18 Part 1
+epschwartzmusic@gmail.com
+alyssat316@aol.com
+thrillhammered@yahoo.com  (ESD)
+
+
+
+Sandwich Opera House, Sandwich, IL 11-2-18:
+Steve Pescitelli Intro: https://youtu.be/Qnmc-typKXY
+Steve Pescitelli Part1: https://youtu.be/7mlSa3g9pJ4
+Steve Pescitelli Part2: https://youtu.be/vOinymMN5Ys
+Sandwich Opera House, Sandwich, IL 11-2-18
+
+Kiss The Sky, Batavia, IL 11-3-18:
+Kathleen Dooley Part 1: https://youtu.be/7p0X914P_38
+Kathleen Dooley Part 2: https://youtu.be/GrmesveUeNs
+Kathleen Dooley Part 3: https://youtu.be/hyGJAC1Qq3g
+John Papadolias Part 1: https://youtu.be/BF_vCTE2uus
+John Papadolias Part 2: https://youtu.be/nbM0obtrFQE
+Kiss The Sky, Batavia, IL 11-3-18
+
+JohnPapo@comcast.net
+
+
+Miss Kitty's Saloon, Naperville, IL 11-5-18:
+Dan Cutaia Part 1: https://youtu.be/nsB1SRWFiFg
+Dan Cutaia Part 2: https://youtu.be/bsEL_J8uU-c
+Dan Cutaia Part 3: https://youtu.be/7KohRXKW6JY
+Downtown Charlie Brown: https://youtu.be/ROiALVlgpI8
+Glenn Long: https://youtu.be/PRQZQkOHYrU
+Footsie: https://youtu.be/bIYq-DP3ENA
+Dane and Jackie: https://youtu.be/Gj5shZ51Qa4
+Steve Maviate: https://youtu.be/DDRKXKyvqOA
+Jon: https://youtu.be/7AxQtT7sHqM
+Dan Cutaia, David Rios, and Pat Murphy: https://youtu.be/xXNjjq0ZqZI
+Dina Simone: https://youtu.be/_7JwK5OcNsw
+Mark Konkol: https://youtu.be/XUVq8TMm6Ws
+JD Newman: https://youtu.be/n4CHe2jNXH8
+Miss Kitty's Saloon, Naperville, IL 11-5-18
+
+dan@aucita.com
+cleanhead1@aol.com
+DTCB1@aol.com
+Footsie@gmail.com
+DaneFireFighter@hotmail.com
+SMaviate@aol.com
+LionsgateFM@gmail.com
+DinaSimoneMusic@gmail.com
+KonkolsKorner@gmail.com
+MrNewman2020@yahoo.com
+
+
+Java Plus, Aurora, IL 11-1-18:
+Eric Dinse: https://youtu.be/xF9-Rjg4y5M
+Eric Peter Schwartz: https://youtu.be/ouySjy5EBrk
+League Of Erics: https://youtu.be/Sbt8pa1hmAs
+Java Plus, Aurora, IL 11-1-18
+
+
+Kiss The Sky, Batavia, IL 11-10-18:
+Lime Forest: https://youtu.be/mG5gXL9hJNQ
+Distant Haze Part 1: https://youtu.be/W2WnKCZBy8g
+Distant Haze Part 2: https://youtu.be/Gqj3O1Vqeoo
+Kiss The Sky, Batavia, IL 11-10-18
+
+LimeForestMusic@gmail.com
+DistantHazeBand@gmail.com
+
+
+Rue, Glen Ellyn, IL 11-16-18: 
+ChansonDuChat: https://youtu.be/zpuxjXsm0Go
+johnpapo@comcast.net
+
+johnpapadolias@gmail.com
+jameslefager@gmail.com
+cwat21@yahoo.com
+davebowers34@gmail.com
+
+Dear Chanson Du Chat, Nornally I would have uploaded all the video files to WeTransfer.com so that you can download them and use them as you wish.  
+However, the file (720p) is more than 2 GB and the free service has a 2 GB file transfer limitation.  So at this  point I gues I have 
+3 options: pay for premium service, learn how to edit the file and cut it into smaller pieces, or upload the 10 12.5 minute auto
+2 GB chunked files (1080p) one at a time (and then you would need to splice them as needed). Please let me know if you want the video files that you can edit 
+then I can upload the 10 chunked 1080p files.  Thanks - John
+
+
+Kiss The Sky, Batavia, IL 11-24-18:
+Oblio And Arrow Part 1: https://youtu.be/-S8kLdmNfUA
+Oblio And Arrow Part 2: https://youtu.be/ylbwrzeatus
+Eric Peter Schwartz Part 1: https://youtu.be/xcEw3d4wdkg
+Eric Peter Schwartz Part 2: https://youtu.be/zgJYqxHMtUk
+The Aviators Part 1: https://youtu.be/POUTgqLVJng
+The Aviators Part 2: https://youtu.be/CfDNvmspEQ8
+Kiss The Sky, Batavia, IL 11-24-18
+
+zacharygoforth@gmail.com, jenmar100@gmail.com, mlanderson22@gmail.com and fempleo@gmail.com
+
+4oblioandarrow@gmail.com
+matthew4kopecky@gmail.com
+
+
+Kiss The Sky, Batavia, IL 12-1-18:
+Anthony Padilla Part 1: https://youtu.be/R3CBVYeC7NQ
+Anthony Padilla Part 2: https://youtu.be/dbBQn5BKxso
+John Papadolias Part 1: https://youtu.be/Vvt9ltdxET4
+John Papadolias Part 2: https://youtu.be/yea36TFggLs
+Brent Brown: https://youtu.be/y4fUvYkkJps
+Kiss The Sky, Batavia, IL 12-1-18
+
+johnpapadolias@gmail.com
+brentbrownmusic@yahoo.com
+funktionalfamily@gmail.com
+
+
+Kiss The Sky, Batavia, IL 12-8-18:
+Aaron Kelly Part 1: https://youtu.be/QiagnvgejUk
+Aaron Kelly Part 2: https://youtu.be/uafHFmaQQs0
+Aaron Kelly Part 3: https://youtu.be/VT1AZk0rxCM
+Funktional Family Part 1: https://youtu.be/2A44K3Ze2y0
+Funktional Family Part 2: https://youtu.be/tGKxVP9K__4
+Kiss The Sky, Batavia, IL 12-8-18
+
+aaronkellybooking@gmail.com
+Funktionalfamily@gmail.com
+
+
+Kiss The Sky, Batavia, IL 12-15-18:
+Emily Hollis Tipping Part 1: https://youtu.be/a-NkdvQyAiQ
+Emily Hollis Tipping Part 2: https://youtu.be/Yb2Pi1_XTtE
+The Corner Boys Part 1: https://youtu.be/4LkqTsmWvMY
+The Corner Boys Part 2: https://youtu.be/3VTDerBEoeE
+
+Emily@RECManagement.com
+info@CornerBoys.net
+
+
+Miss Kitty's Saloon, Naperville, IL 12-29-18:
+Power And Signal: https://youtu.be/JtclquXj_6o
+Danhattans Set 1: https://youtu.be/V2HxaB0YNFA
+Danhattans Set 2: https://youtu.be/BondigjNJ18
+
+
+Java Plus, Aurora, IL 1-18-19:
+Kathleen Dooley & Eric Peter Schwartz Part 1: https://youtu.be/bymh6My1WnM
+Kathleen Dooley & Eric Peter Schwartz Part 2: https://youtu.be/UViHOsA3ZdY
+Kathleen Dooley & Eric Peter Schwartz Part 3: https://youtu.be/xFUpUX_Lu6s
+Java Plus, Aurora, IL 1-18-19
+
+epschwartzmusic@gmail.com kathleen_dooley@yahoo.com
+
+
+The Law Office, Yorkville, IL 1-24-19:
+Matthew Kopecky Part 1: https://youtu.be/zA3DccKlX2E
+Matthew Kopecky Part 2: https://youtu.be/hmnB4Hy7CQU
+Matthew Kopecky Part 3: https://youtu.be/2CJarIqcTQg
+
+
+Kiss The Sky. Batavia. IL 2-2-19:
+Jim Green Part 1: https://youtu.be/s4SX3OlzEAE
+Jim Green Part 2: https://youtu.be/OUr77QUhHh0
+
+jimgreeninfo@gmail.com
+630 313 9056 Jim Green
+
+
+
+Kiss The Sky, Batavia, IL 2-8-19:
+August West: https://youtu.be/6j60q_PXP8c
+
+
+
+Kiss The Sky, Batavia, IL 2-9-19:
+Dave Ramont Part 1: https://youtu.be/OzL0af5RHag
+Dave Ramont Part 2: https://youtu.be/5Pe5DPUVcY0
+John Papadolias Part 1: https://youtu.be/kb2TCQuw1C4
+John Papadolias Part 2: https://youtu.be/iD-_6wkGpLM
+Brent Brown Part 1: https://youtu.be/PyT9oSa4hjk
+Brent Brown Part 2: https://youtu.be/r4TR87F2dTU
+Kiss The Sky, Batavia, IL 2-9-19
+
+
+
+Java Plus, Aurora IL 2-15-19: 
+John Klatt Part 1: https://youtu.be/pIziGTDY-IY
+John Klatt Part 2: https://youtu.be/J1W5wJzUekM
+John Klatt Part 3: https://youtu.be/IaD0P3roe6Y
+
+
+
+Kiss The Sky, Batavia, IL 2-16-19:
+Doug Feltz Part 1: https://youtu.be/L_Jt3ygJGVI
+Doug Feltz Part 2: https://youtu.be/J1W5wJzUekM
+Rich Becker	Part 1: https://youtu.be/RkH6iBb_5Yw
+Rich Becker	Part 2: https://youtu.be/lpAS8wPgV1U
+Corner Boys	Part 1: https://youtu.be/KColwzoSlv0
+Corner Boys	Part 1: https://youtu.be/pdLyEOyPMiE
+
+
+Kiss The Sky, Batavia, IL 2-23-19:
+Al Schubert Part 1: https://youtu.be/qWRdtJWX1rQ
+Al Schubert Part 2: https://youtu.be/lT0-FaIhb3Y
+Al Schubert Part 3: https://youtu.be/_wxeT_fXIv4
+Al Schubert Part 4: https://youtu.be/6NvFxqbiAbQ
+
+
+The Law Office, Yorkville, IL 2-23-19:
+Noah Gabriel Part 1: https://youtu.be/FriHMJEwv08
+Noah Gabriel Part 2: https://youtu.be/pYigqS7Ll_o
+Noah Gabriel Part 3: https://youtu.be/YzAAHgt66fE
+
+
+cwat21@yahoo.com
+dave@clayheadrecords.com
+noah@noahgabriel.com
+Myfavoritejustin@gmail.com
+RyanCarney20@gmail.com
+
+
+Java Plus, Aurora, IL 3-15-19:
+John Klatt set 1: https://youtu.be/x-MGhWrOuMo
+John Klatt set 2: https://youtu.be/Q_X8GyjvBzE
+
+jdklattmusic@gmail.com
+
+
+
+Kiss The Sky, Batavia, IL 3-16-19:
+Noah Gabriel Part 1: https://youtu.be/5TKramGXgFQ
+Noah Gabriel Part 2: https://youtu.be/GvAwV7lHByU
+
+
+
+The House Pub, St Charles, IL 3-28-19:
+Matthew Kopecky Part 1: https://youtu.be/3J2NpxUG_zg
+Matthew Kopecky Part 2: https://youtu.be/ommveE9wQUA
+Matthew Kopecky Part 3: https://youtu.be/jS9jAj70iIA
+
+
+
+Kiss The Sky, Batavia, IL 3-30-19:
+Kathleen Dooley Part 1: https://youtu.be/CVl0_DtKwbs
+Kathleen Dooley Part 2: https://youtu.be/7fNQsfWABBg
+Redhorse Part 1: https://youtu.be/pN8DFrE4_G4
+Redhorse Part 2: https://youtu.be/elDlkeu1KGM
+Redhorse Part 3: https://youtu.be/Nmq2kQCaS24
+
+
+Board And Barrel, Naperville, IL 5-10-19:
+The Backdrops Part 1: https://youtu.be/IRLoBC_G7Hw
+The Backdrops Part 2: https://youtu.be/blWm0ty2nSE
+The Backdrops Part 3: https://youtu.be/zL4xBI3n4B0
+The Backdrops Part 4: https://youtu.be/c2GTHjnhyZs
+The Backdrops Part 5: https://youtu.be/mIODa-KZox4
+The Backdrops Part 6: https://youtu.be/_uHy2E9Y6fY
+The Backdrops Part 7: https://youtu.be/EUkMagU_300
+
+
+The Law Office, Yorkville, IL 11-8-19:
+Heather Maloney: https://youtu.be/TYcRr1cPg-k
+David Wax Museum Part 1: https://youtu.be/71mh6uan894
+David Wax Museum Part 2: https://youtu.be/TOzggmx1UIU
+
+
+The Venue, Aurora, IL 12-20-19:
+Vivian Garcia: https://youtu.be/xJfAsv3c1aI
+Chanson Du Chat: https://youtu.be/a3EOxTmAvg0
+Chanson Du Chat: https://youtu.be/Ak-yQi0721U
+
+Chanson Du Chat, Bossa Dorado, by Dorado Schmidtt: https://youtu.be/rG06P3l7anY
+
+
+Eric Schelkopf
+
+
+Sony movie studio platinum (video editor)
+
+HearClear
+
+
+Neil deGrasse
+https://www.youtube.com/watch?v=ZyYi76GdDmQ
+
+Nova Einstein's Quantum Riddle
+https://www.youtube.com/watch?v=EGF34iPfPDY
+
+python tabs.py -anb -t 208 -f data/208/SDan/DoItAgain.tab
+
+Mix - Chris Thile - Bach: Sonata No. 1 in G Minor
+https://www.youtube.com/watch?v=O7EcT5YzKhQ&list=RDj3lH_Tevw5o&index=18
+Chris Thile NPR: 
+    Punch Brothers
+    Michael Daves
+    YoYo Ma, Edgar Meyer & Stuart Duncan
+    Nickel Creek
+
+
+git:
+git add fileA fileB
+git commit -m"add fileA fileB"
+git push
+jwclemens@yahoo.com
+Ypsilanti_23
+
+
+Stupid Shark vacuum:
+https://www.youtube.com/watch?v=qdznafE4uis
+
+Sturgeon Bay freighter time lapse video
+https://youtu.be/aVDorBjNZhw
+
+jane.j.luo@gmail.com
+
+Hi John. I think it’s the same gia@giawarner.com.  Can you send it in Dropbox? Then I could download directly to my iMovie where I could cut the songs up.
+Then you could send all of it. And thanks again for recording!!
+
+#######################################################################################################################################################################################################
+#######################################################################################################################################################################################################
+
+Script - upload videos:
+    for each file (SEQ by alphabetic order of name):
+        rename SEQ video file
+            get file name
+            calculate new file name
+            rename file
+        calculate video title from file name
+        calculate video description
+        calculate video date
+        
+
+#######################################################################################################################################################################################################
+#######################################################################################################################################################################################################
+
+
+DADF#AE
+
+Glenn Long
+https://soundcloud.com/g-w-long/going-up-the-country
+
+
+Dear Gia, I do not have a bucket list, but I think maybe I should.  The first thing on my list will be to film a session with you and Bobby.  Bobby is more than your cool dad, he is a musical and spiritual treasure.  It is pure joy to see and or hear you and him together.  One of my biggest regrets is that I was too shy to film you guys when I saw you at the Royal Park Hotel in Rochester.  If I could make a request, I wish you would play and share video of the Sultans of Swing at your house living room venue.
+
+
+Dear Distant Haze,
+It was a pleasure to record you yesterday.  You should have received an email with a link to download the files.  Note the link is only valid for about a week.
+Thanks - John
+
+
+
+If you send me an email address, I can upload the raw video files to WeTransfer.com and you will receive an email with a link to download.
+
+noah gabriel diggin in the ditch: https://www.youtube.com/watch?v=dOTZfS79ao0&list=PLuW_TzRPXFuS8SVHLyKAdYvWrHdxrKMRx&index=1
+
+Saturday Morning Cafe, BATV1017 1/25: https://www.youtube.com/watch?v=SNgjJ5hYoAk&list=PLEe8uKTuM7O-1kk8U9XWlLZv2JnrItOfH&index=1
+
+
+Here is the 2nd download link with the last raw video file.  I was hoping to get the whole show in 2-3 takes.  Fresh batteries should last about an hour each.  However, I was having trouble with my older batteries and got into the habit of leaving an old on the camera until the last second before the show starts and then put in a fresh one just in time to start recording.  Unfortunately, I was a bit surprised by how fast you guys approached the stage and decided to stick with the old batterie because I didn't want to miss the beginning of the 1st tune while swapping to the fresh new battery.  The old battery was practically dead after the 1st song so I had to swap it out.  Then I was also surprised by how you swap members on stage and thought I might as well swap the battery one more time thinking that the trio was more of a warm up band.  Sorry, just trying to explain why I needed 4 takes to record the whole show.  
+I think the whole audience enjoyed the show.  Sorry, I did not get a chance to congratulate you guys on nailing it, because I was too busy helping Steve, Dee, and Jim reset the store items for the next opening etc...  Enjoy and feel free to use the raw videos as you wish.   
+https://we.tl/t-UIRdneh2zf
+
 
 http://musictheoryblog.blogspot.com/2007/02/chord-roots-and-chord-inversion.html
 
@@ -223,6 +872,8 @@ JDKlattMusic@gmail.com
  
 Can you please confirm the date and time for my next appointment (Wed June 6, 1:15-1:45pm)?  And please reply with the current balance on my account?
  
+camozack@gmail.com (Zack Darce)
+
 MissyAndersenMusic@gmail.com
 
 Funktionalfamily@gmail.com
@@ -243,6 +894,9 @@ Asamu Johnson and the Associates of the Blues (Scott Millard sometimes)
 
 What a beautiful world https://www.youtube.com/watch?v=Fdg412Ky6QA
 You've got a friend: https://www.youtube.com/watch?v=-C-u-vl5qy8
+
+shemalezcomvideos
+39890hot-shemale-masturbating-her-big-cock/?fr=39890
 
 The Town Band 3-26-17: https://www.youtube.com/watch?v=w8VpfwyjyrY&feature=youtu.be
 Razamataz
@@ -477,6 +1131,8 @@ https://www.youtube.com/watch?v=HxGT5z6d-GA
 Rush - Side 1 of Hemispheres - Guitar cover
 https://www.youtube.com/watch?v=uRBxcL1C5B4
 
+Wes Montgomery https://www.youtube.com/watch?v=mygyWbgcZ50
+
 
 Stalin Brothers, Miss Kitty's Saloon, Naperville, IL 6-20-18 Open Mic
 
@@ -487,10 +1143,105 @@ Alfred Weckesser
 Steven Garrett
 Patrick Kampmeyer
 
-Features Bar & Grill, 
+https://www.youtube.com/watch?v=XDCvxm0FGKo
+https://www.youtube.com/watch?v=yy1W4OXzvCM
+
+00100087
+85814631351
 
 Things to do:
 new user account on Win10 box
 guitar stuff
 
 
+Chuck Bennorth (photographer)
+Denise Beidler Bennorth (photographer)
+Mapping Tonal Harmony Pro
+
+
+https://jimatwood.wordpress.com/2016/03/02/boss-rc-3-no-power-problem-review/
+
+John Nugent
+PO Box 250281
+W. Bloomfield
+MI 48325
+248 954 5770.
+
+
+2 GB / 12.5 Minutes = 9.6 GB / Hour
+1.5 GB / hour = 6.4
+
+Kaytie Faries at kfaries@cyso.org (312) 939-2207 ext. 240 or Colin Marusek at cmarusek@cyso.org (312) 939-2207 ext. 280  
+
+leaky gut info
+https://newhealthlive.com/fbuq/?clear=1&controls=1&noplay=1&muted=1&fbclid=IwAR3kDsPq-59hbalk1FbRaGhFE72nFCNHUVbpDfhqxmtuIchoA6HY2g4Ze84
+
+Not being able to sleep is very frustrating and leads to negative and judgmental thoughts.
+
+Dr Butz Jan 2019 exam:
+Right Left
+20/50 20/200 uncorrected
+20/20 20/100 best corrected
+-.75  -.75
+     +2.25
+
+@@@@@@@@@@@@@@@@@@@@@@@@@
+@@@@@@@@@@@@@@@@@@@@@@@@@
+@@@@@@@@@@@@@@@@@@@@@@@@@
+I am a huge Heather Maloney fan and have seen her perform about a half dozen times in the mid west.  
+I think she would be a great fit for 'The Venue' in Aurora IL.  It is a new, non profit, listening room atmosphere similar to 7 Steps Up in Spring Harbor MI.  
+I saw her perform at the Law Office in Yorkville IL last November and at the House Cafe in Dekalb IL in July 2017.  
+However, both of these venues are essentially bar rooms with plenty of distracting crowd noise despite the live music.  
+I have only been to the Venue once thus far, but I am very confident that the audiences are there to listen rather than talk.  Below is a link for booking.  
+The founder also runs a record store in Batavia IL that often hosts live music but has been on break due to the effort of opening and running the Venue since last summer.  
+Best wishes - John
+https://themusicvenue.org/contact     
+     
+
+     Issues with memory, vision, hearing, depression, anxiety, disorientation, frustration, anger management, sleep
+
+sensory issues; vision (surgery recommended for left eye macula) often need magnifying glass and flashlight to see small things, 
+hearing (Audio Processing Disorder tested 9/2018), touch (pinched nerve) was out on short term disability for about 1 month 2016
+had constant severe pain, needed spinal injection and medications.
+
+Computers & technical change:
+Difficulty typing, using mouse, navigating web pages, managing user Ids and passwords, 
+using telephone and earphones.
+
+following verbal and written instructions, multitasking, starting and finishing projects,
+meeting deadlines, communicating project status, 
+
+confused
+
+The Crane Wives with Guest at Hey Nonny
+The Crane Waves with Guest at Hey Nanny
+
+Tabs row numbers:
+
+
+OptumRx & UHC
+open email from OptumRx
+click on link (view status)
+MyUHC:
+    Manage Your Prescriptions
+        Refill or Delivery Status => OptumRx
+        
+
+Disoriented and confused while driving from Dr Beresford to Dr Fisher and to viola & costco & back home.
+Memory remembered to call Advocator group, but forgot to ask about a letter or form from Dr Beresford & Fisher for SS appeal.
+How things work gas pump stopped but I did not hear it shutoff, could not pump any more despite squeezing the nozzle lever also no receipt.
+Cognition coding I had a bug that I was puzzled with and every line I looked at I thought was the root cause, but wasn't.
+My brain jumps ahead and tries to guess letters and words but is almost always wrong it makes bad guesses very quickly.
+Memory when I try to recall things from the past (as far back as college) I draw a complete blank.  Then I make my best guess and 
+I tend to believe it for a minute or so and then I doubt the guess and (then considering the opposite) then its either wrong (opposite) or I really can't remember.
+Daily stuck searching my memory for ordinary words in routine conversation.
+Similary with spelling and vocabulary definitions.
+Difficulty pronouncing words.
+Fine motor skills.
+Google Docs to proof read my son's college essays.
+Difficulty making decisions.
+
+
+
+
+        
