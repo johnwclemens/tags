@@ -1,0 +1,45 @@
+Bent Knee The House Cafe Dekalb Il 7-23-17 Part 2,
+Bent Knee The House Cafe Dekalb Il 7-23-17,
+Bent Knee The House Cafe 7-23-17,
+Bent Knee The House Cafe Dekalb Il,
+Bent Knee The House Cafe Dekalb,
+Bent Knee The House Cafe,
+Bent Knee Dekalb Il,
+Bent Knee Dekalb,
+Bent Knee 7-23-17,
+Bent Knee Il,
+Bent Knee,
+The House Cafe 7-23-17,
+The House Cafe Dekalb Il,
+The House Cafe Dekalb,
+The House Cafe,
+Dekalb 7-23-17,
+7-23-17,
+Ben Levin,
+Courtney Swain,
+Chris Baum
+
+
+Nicolet Mall, Minnapolis, MN, 12-22-17:
+George Winston (Set 1) https://youtu.be/ThRLQ3V84Lo
+(Professor Long Hair)
+Spring (Steve Reich)
+
+George Winston (Set 2) https://youtu.be/DIlIKAOLvzg
+Fragrant Fields (Art Lande)
+Beverly
+Muted Dream
+Pixie (James Booker)
+(Harmonica)
+Variations on the Cannon
+
+
+
+Call Dr Erhart
+Call Neuro Psych
+
+
+211 x 73 @ 16 Lucida Sans Typewriter
+C:\Python36\my\tabs>python tabs.py -anb -f data/study/SatinDoll.tab -t 208
+
+musical instruments: https://youtu.be/6dtmCqZjd4Y
