@@ -145,7 +145,6 @@ def testC2(args={'dbg': 1}):
 
 def testA(args={'dbg': 0}):
     '''testA: i(len(grid)) a.append(grid[i].split()) j(len(grid[i]) a[i][j] = int(a[i][j])'''
-    test = 'testA'
     dbg = 0
     if 'dbg' in args: dbg = args['dbg']
     a = []
@@ -153,13 +152,12 @@ def testA(args={'dbg': 0}):
         a.append(grid[i].split())
         for j in range(len(a[i])):
             a[i][j] = int(a[i][j])
-    if dbg > 2: print2da(a, test)
+    if dbg > 2: print2da(a)
     return a
 
 """
 def testA1(args={'dbg': 1}):
     '''i(N) a.append(grid[i].split()) j(N) a[i][j] = int(a[i][j])'''
-    test = 'testA1
     dbg = 0
     if 'dbg' in args: dbg = args['dbg']
     if 'N'   in args:   N = args['N']
@@ -168,13 +166,12 @@ def testA1(args={'dbg': 1}):
         a.append(grid[i].split())
         for j in range(N):
             a[i][j] = int(a[i][j])
-    if dbg > 2: print2da(a, test)
+    if dbg > 2: print2da(a)
     return a
 """
 
 def testB(args={'dbg': 1}):
     '''a = [[int(grid[i].split()[j]) j(N)] i(N)]'''
-    test = 'testB'
     dbg = 1
     if 'dbg' in args: dbg = args['dbg']
     if 'N'   in args:   N = args['N']
@@ -185,7 +182,6 @@ def testB(args={'dbg': 1}):
 
 def testC(args={'dbg': 1}):
     '''a = [[int(x) for x in g.split()] for g in grid]'''
-    test = 'testC'
     dbg = 1
     if 'dbg' in args: dbg = args['dbg']
     if 'N'   in args:   N = args['N']
@@ -195,8 +191,7 @@ def testC(args={'dbg': 1}):
     return a
 
 def testD(args={'dbg': 1}):
-    '''[a = list(map(int, g.split()) g(grid)]'''
-    test = 'testD'
+    '''testD(): [a = list(map(int, g.split()) g(grid)]'''
     dbg = 1
     if 'dbg' in args: dbg = args['dbg']
     if 'N'   in args:   N = args['N']
@@ -207,7 +202,6 @@ def testD(args={'dbg': 1}):
 
 def testE(args={'dbg': 1}):
     '''a = list(map(lambda x:list(map(int, x.split())), grid))'''
-    test = 'testE'
     dbg = 1
     if 'dbg' in args: dbg = args['dbg']
     if 'N'   in args:   N = args['N']
@@ -218,7 +212,6 @@ def testE(args={'dbg': 1}):
 
 def testF(args={'dbg': 1}):
     '''a = list(map(lambda x:list(map(int, x)), list(map(lambda x:x.split(), grid))))'''
-    test = 'testF'
     dbg = 1
     if 'dbg' in args: dbg = args['dbg']
     if 'N'   in args:   N = args['N']
@@ -228,56 +221,62 @@ def testF(args={'dbg': 1}):
     return a
 
 def testG(args={'dbg': 1}):
-    '''b = data.replace("\\n"," ") b = list(map(int, b.split()))'''
-    test = 'testG'
-    dbg = 1
-    if 'dbg' in args: dbg = args['dbg']
-    if 'N'   in args:   N = args['N']
-    if 'M'   in args:   M = args['M']
-#    if dbg > 0: print('.', end='')
-    b = data.replace("\n"," ")
-    b = list(map(int, b.split()))
-    if dbg > 2: print2da(b)
-    return b
-
-def testH(args={'dbg': 1}):
-    '''b = data.replace("\\n"," ") b = b.split()'''
-    test = 'testH'
-    dbg = 1
-    if 'dbg' in args: dbg = args['dbg']
-    if 'N'   in args:   N = args['N']
-    if 'M'   in args:   M = args['M']
-#    if dbg > 0: print('.', end='')
-    b = data.replace("\n"," ")
-    b = b.split()
-    if dbg > 2: print2da(b)
-    return b
-
-def testI(args={'dbg': 1}):
     '''c = testB(): [[0]*(N+M-1)]*3 + [[int(grid[i].split()[j]) for j in range(N)] + [0,0,0] for i in range(N)] + [[0]*(N+M-1)]*3'''
-    test = 'testI'
     dbg = 1
     if 'dbg' in args: dbg = args['dbg']
     if 'N'   in args:   N = args['N']
     if 'M'   in args:   M = args['M']
-#    if dbg > 0: print('.', end='')
     m = 1
     c = [[0]*(N+M-1)]*3 + [[int(grid[i].split()[j]) for j in range(N)] + [0,0,0] for i in range(N)] + [[0]*(N+M-1)]*3
     if dbg > 2: print2da(c)
     return c
 
-def testJ(args={'dbg': 1}):
+def testH(args={'dbg': 1}):
     '''c = testC(): m = max([reduce(mul, [a[y+n*d[0]][x+n*d[1]] n(M)]) x(N) y(M-1,N+M-1) d in ((0,1),(1,0),(1,1),(-1,1))])'''
-    test = 'testJ'
     dbg = 1
     if 'dbg' in args: dbg = args['dbg']
     if 'N'   in args:   N = args['N']
     if 'M'   in args:   M = args['M']
-#    if dbg > 0: print('.', end='')
     m = 1
     c = [[0]*(N+M-1)]*3 + [[int(x) for x in g.split()] + [0,0,0] for g in grid] + [[0]*(N+M-1)]*3
     if dbg > 2: print2da(c)
     return c
+
+def testQ(args={'dbg': 1}):
+    '''testQ(ONE-DIM): b = data.replace("\\n"," ") b = list(map(int, b.split())) ONE-DIM'''
+    dbg = 1
+    if 'dbg' in args: dbg = args['dbg']
+    if 'N'   in args:   N = args['N']
+    if 'M'   in args:   M = args['M']
+    b = data.replace("\n"," ")
+    b = list(map(int, b.split()))
+    if dbg > 2: print(b)
+    return b
+
+def testR(args={'dbg': 1}):
+    '''testR(ONE-DIM): b = data.replace("\\n"," ") b = b.split() Does NOT call int() ONE-DIM'''
+    dbg = 1
+    if 'dbg' in args: dbg = args['dbg']
+    if 'N'   in args:   N = args['N']
+    if 'M'   in args:   M = args['M']
+    b = data.replace("\n"," ")
+    b = b.split()
+    if dbg > 2: print(b)
+    return b
+
+def testS(args={'dbg': 1}):
+    '''testS(ONE-DIM): d=802229738...89196748 b=[0]*N*N i(N*N-1,-1,-1) b[i]=d%100 d//=100  ONE-DIM'''
+    dbg = 1
+    if 'dbg' in args: dbg = args['dbg']
+    if 'N'   in args:   N = args['N']
+    if 'M'   in args:   M = args['M']
+    d = 8022297381500400075040507785212507791084949994017811857608717409843694804566200814931735579142993714067538830034913366552709523046011426924685601325671370236912231167151676389419236542240402866331380244732609903450244753353783684203517125032988128642367102638406759547066183864706726206802621220956394396308409166499421245558056673992697177878968314883489637221362309750076442045351400613397343133957817532822753167159403800462161409535692163905429635314755588824001754243629855786560048357189070544443744602158515417581980816805944769287392138652177704895540045208839735991607975732162626793327986688366887576220720346336746551232639353690442167338253911249472180846293240627636206936417230238834629969826759857404361620733529783190017431497148868116235705540170547183515469169233486143520189196748
+    b = [0] * N * N
+    for i in range(N*N-1, -1, -1):
+        b[i] = d % 100
+        d //= 100
+    if dbg > 2: print(b)
+    return b
 
 ##########################################################################################################################
 
@@ -350,21 +349,21 @@ def test0B(args={'dbg': 1}):
     m = max(m1, m2, m3, m4)
     if dbg: print("{} greatest product of {} cells in any direction is '?' [?][?] = [?] = {:,}".format(test, M, m))
 
-@docstring('Uses: ' + testA.__doc__)
+@docstring('Uses: ' + testD.__doc__)
 def test1A(args={'dbg': 1}):
-    '''h = testA(): m = findMaxProdH(h) m = findMaxProdV(h) findMaxProdV(d1A, d1B, d2A, d2B)'''
+    '''h = testD(): m = findMaxProdH(h) m = findMaxProdV(h) findMaxProdV(d1A, d1B, d2A, d2B)'''
     test = 'test1A'
     if 'dbg' in args: dbg = args['dbg']
     if 'N'   in args:   N = args['N']
     if 'M'   in args:   M = args['M']
 #    if dbg > 0: print('.', end='')
-    m, h, dir = [], [], 'Horizontal'
-    h = testA()
+    m, dir = [], 'Horizontal'
+    h = testD()
 #    for i in range(N):
 #        h.append(grid[i].split())
 #        for j in range(N):
 #            h[i][j] = int(h[i][j])
-    if dbg > 3: print2da(h, dir)
+    if dbg > 2: print2da(h, dir)
     m = findMaxProdH(m, test, M, h, dir, dbg)
     
     dir = 'Vertical'
@@ -429,21 +428,21 @@ def test1A(args={'dbg': 1}):
     m = findMaxProdV(m, test, M, d2B, dir, dbg)
     if dbg: print("{} greatest product of {} cells in any direction is '{}' [{}][{}] = {} = {:,}".format(test, M, m[0], m[1], m[2], m[3], m[4]))
     
-@docstring('Uses: ' + testA.__doc__)
+@docstring('Uses: ' + testD.__doc__)
 def test1B(args={'dbg': 1}):
-    '''h = testA(): m = findMaxProdH(h) h = list(zip(*h)) m = findMaxProdH(h) findMaxProdV(d1A, d1B, d2A, d2B)'''
+    '''h = testD(): m = findMaxProdH(h) h = list(zip(*h)) m = findMaxProdH(h) findMaxProdV(d1A, d1B, d2A, d2B)'''
     test = 'test1B'
     if 'dbg' in args: dbg = args['dbg']
     if 'N'   in args:   N = args['N']
     if 'M'   in args:   M = args['M']
 #    if dbg > 0: print('.', end='')
-    m, h, dir = [], [], 'Horizontal'
-    h = testA()
+    m, dir = [], 'Horizontal'
+    h = testD()
 #    for i in range(N):
 #        h.append(grid[i].split())
 #        for j in range(N):
 #            h[i][j] = int(h[i][j])
-#    if dbg > 3: print2da(h, dir)
+    if dbg > 2: print2da(h, dir)
     m = findMaxProdH(m, test, M, h, dir, dbg)
     
     dir = 'Vertical'
@@ -539,19 +538,19 @@ def test1B(args={'dbg': 1}):
     print2da(d2, 'd2')
     '''
 
-@docstring('Uses: ' + testB.__doc__)
+@docstring('Uses: ' + testD.__doc__)
 def test2A(args={'dbg': 1}):
-    '''h = testB(): m = findMaxProdH(h) m findMaxProdV(v, d1A, d1B, d2A, d2B)'''
+    '''h = testD(): m = findMaxProdH(h) m findMaxProdV(v, d1A, d1B, d2A, d2B)'''
     test = 'test2A'
     dbg = 1
     if 'dbg' in args: dbg = args['dbg']
     if 'N'   in args:   N = args['N']
     if 'M'   in args:   M = args['M']
 #    if dbg > 0: print('.', end='')
-    m, h, dir = [], [], 'Horizontal'
-    h = testB()
+    m, dir = [], 'Horizontal'
+    h = testD()
 #    h = [[int(grid[i].split()[j]) for j in range(N)] for i in range(N)]
-    if dbg > 3: print2da(h, dir)
+    if dbg > 2: print2da(h, dir)
     m = findMaxProdH(m, test, M, h, dir, dbg)
 
     dir = 'Vertical'
@@ -580,9 +579,9 @@ def test2A(args={'dbg': 1}):
     m = findMaxProdV(m, test, M, d2B, dir, dbg)
     if dbg: print("{} greatest product of {} cells in any direction is '{}' [{}][{}] = {} = {:,}".format(test, M, m[0], m[1], m[2], m[3], m[4]))
 
-@docstring('Uses: ' + testB.__doc__)
+@docstring('Uses: ' + testD.__doc__)
 def test2B(args={'dbg': 1}):
-    '''h = testB(): m = findMaxProdH(h) v = list(zip(*h)) m = findMaxProdV(v, d1A, d1B, d2A, d2B)'''
+    '''h = testD(): m = findMaxProdH(h) v = list(zip(*h)) m = findMaxProdV(v, d1A, d1B, d2A, d2B)'''
     test = 'test2B'
     dbg = 1
     if 'dbg' in args: dbg = args['dbg']
@@ -590,9 +589,9 @@ def test2B(args={'dbg': 1}):
     if 'M'   in args:   M = args['M']
 #    if dbg > 0: print('.', end='')
     m, dir = [], 'Horizontal'
-    h = testB()
+    h = testD()
 #    h = [[int(grid[i].split()[j]) for j in range(N)] for i in range(N)]
-    if dbg > 3: print2da(h, dir)
+    if dbg > 2: print2da(h, dir)
     m = findMaxProdH(m, test, M, h, dir, dbg)
 
     dir = 'Vertical'
@@ -621,35 +620,33 @@ def test2B(args={'dbg': 1}):
     m = findMaxProdV(m, test, M, d2B, dir, dbg)
     if dbg: print("{} greatest product of {} cells in any direction is '{}' [{}][{}] = {} = {:,}".format(test, M, m[0], m[1], m[2], m[3], m[4]))
 
-@docstring('Uses: ' + testB.__doc__)
+@docstring('Uses: ' + testD.__doc__)
 def test3A(args={'dbg': 1}):
-    '''a = testB(): i(N) j(N) if j<=N-M: m1 = max(m1, reduce(lambda x,y:x*y, a[i][j:j+M]) if i<=N-M reduce(lambda x,y:x*y, [a[i+k][j] for k in range(M)])'''
+    '''a = testD(): i(N) j(N) if j<=N-M: m1=max(m1, reduce(lambda x,y:x*y, a[i][j:j+M] k(M)]) if i<=N-M reduce(lambda x,y:x*y, [a[i+k][j] k(M)])'''
     test = 'test3A'
     dbg = 1
     if 'dbg' in args: dbg = args['dbg']
     if 'N'   in args:   N = args['N']
     if 'M'   in args:   M = args['M']
 #    if dbg > 0: print('.', end='')
-    a = testB()
+    a = testD()
 #    a = [[int(grid[i].split()[j]) for j in range(N)] for i in range(N)]
     if dbg > 2: print2da(a)
     m1 = m2 = m3 = m4 = 1
     for i in range(N):
         for j in range(N):
             if j <= N-M:
-#                m1 = max(m1, reduce(lambda x,y:x*y, a[i][j:j+M]))
-                m1 = max(m1, reduce(lambda x,y:x*y, a[i][j:j+M]))
-                if dbg > 2: print('({:2},{:2}){:2} ({:2},{:2}){:2} ({:2},{:2}){:2} ({:2},{:2}){:2} m1 = {:,}'.format(i,j,a[i][j], i,j+1,a[i][j+1], i,j+2,a[i][j+2], i,j+3,a[i][j+3], m1))
+                m1 = max(m1, reduce(lambda x,y:x*y, [a[i][j+k] for k in range(M)]))
+                if dbg > 3: print('({:2},{:2}){:2} ({:2},{:2}){:2} ({:2},{:2}){:2} ({:2},{:2}){:2} m1 = {:,}'.format(i,j,a[i][j], i,j+1,a[i][j+1], i,j+2,a[i][j+2], i,j+3,a[i][j+3], m1))
             if i <= N-M:
-#                m2 = max(m2, reduce(lambda x,y:x*y, a[i:i+M][j]))
                 m2 = max(m2, reduce(lambda x,y:x*y, [a[i+k][j] for k in range(M)]))
-                if dbg > 2: print('[{:02}][{:02}]{:02} [{:02}][{:02}]{:02} [{:02}][{:02}]{:02} [{:02}][{:02}]{:02} m2 = {:,}'.format(i,j,a[i][j], i+1,j,a[i+1][j], i+2,j,a[i+2][j], i+3,j,a[i+3][j], m2))
+                if dbg > 3: print('({:2},{:2}){:2} ({:2},{:2}){:2} ({:2},{:2}){:2} ({:2},{:2}){:2} m2 = {:,}'.format(i,j,a[i][j], i+1,j,a[i+1][j], i+2,j,a[i+2][j], i+3,j,a[i+3][j], m2))
             if i <= N-M and j <= N-M:
                 m3 = max(m3, reduce(lambda x,y:x*y, [a[i+k][j+k] for k in range(M)]))
-                if dbg > 2: print('({:2},{:2}){:2} ({:2},{:2}){:2} ({:2},{:2}){:2} ({:2},{:2}){:2} m3 = {:,}'.format(i,j,a[i][j], i+1,j+1,a[i+1][j+1], i+2,j+2,a[i+2][j+2], i+3,j+3,a[i+3][j+3], m3))
+                if dbg > 3: print('({:2},{:2}){:2} ({:2},{:2}){:2} ({:2},{:2}){:2} ({:2},{:2}){:2} m3 = {:,}'.format(i,j,a[i][j], i+1,j+1,a[i+1][j+1], i+2,j+2,a[i+2][j+2], i+3,j+3,a[i+3][j+3], m3))
             if i <= N-M and j >= M-1:
                 m4 = max(m4, reduce(lambda x,y:x*y, [a[i+k][j-k] for k in range(M)]))
-                if dbg > 2: print('({:2},{:2}){:2} ({:2},{:2}){:2} ({:2},{:2}){:2} ({:2},{:2}){:2} m4 = {:,}'.format(i,j,a[i][j], i+1,j-1,a[i+1][j-1], i+2,j-2,a[i+2][j-2], i+3,j-3,a[i+3][j-3], m4))
+                if dbg > 3: print('({:2},{:2}){:2} ({:2},{:2}){:2} ({:2},{:2}){:2} ({:2},{:2}){:2} m4 = {:,}'.format(i,j,a[i][j], i+1,j-1,a[i+1][j-1], i+2,j-2,a[i+2][j-2], i+3,j-3,a[i+3][j-3], m4))
     if dbg > 1: print("{} greatest product of {} cells '{}' [?][?] = [?] = {:,}".format(test, M, 'Horizontal', m1))
     if dbg > 1: print("{} greatest product of {} cells '{}' [?][?] = [?] = {:,}".format(test, M, 'Vertical',   m2))
     if dbg > 1: print("{} greatest product of {} cells '{}' [?][?] = [?] = {:,}".format(test, M, 'Diaginal A', m3))
@@ -657,16 +654,16 @@ def test3A(args={'dbg': 1}):
     m = max(m1, m2, m3, m4)
     if dbg: print("{} greatest product of {} cells in any direction is '?' [?][?] = [?] = {:,}".format(test, M, m))
 
-@docstring('Uses: ' + testB.__doc__)
+@docstring('Uses: ' + testD.__doc__)
 def test3B(args={'dbg': 1}):
-    '''a = testB(): i(N) j(N) if j<=N-M: m1 = max(m1, reduce(lambda x,y:x*y, a[i][j:j+M]) if i<=N-M reduce(lambda x,y:x*y, [e[j] for e in a[i:i+M]])'''
+    '''a = testD(): i(N) j(N) if j<=N-M: m1 = max(m1, reduce(lambda x,y:x*y, a[i][j:j+M]) if i<=N-M reduce(lambda x,y:x*y, [e[j] for e in a[i:i+M]])'''
     test = 'test3B'
     dbg = 1
     if 'dbg' in args: dbg = args['dbg']
     if 'N'   in args:   N = args['N']
     if 'M'   in args:   M = args['M']
 #    if dbg > 0: print('.', end='')
-    a = testB()
+    a = testD()
 #    a = [[int(grid[i].split()[j]) for j in range(N)] for i in range(N)]
     if dbg > 2: print2da(a)
     m1 = m2 = m3 = m4 = 1
@@ -674,17 +671,17 @@ def test3B(args={'dbg': 1}):
         for j in range(N):
             if j <= N-M:
                 m1 = max(m1, reduce(lambda x,y:x*y, a[i][j:j+M]))
-                if dbg > 2: print('({:2},{:2}){:2} ({:2},{:2}){:2} ({:2},{:2}){:2} ({:2},{:2}){:2} m1 = {:,}'.format(i,j,a[i][j], i,j+1,a[i][j+1], i,j+2,a[i][j+2], i,j+3,a[i][j+3], m1))
+                if dbg > 3: print('({:2},{:2}){:2} ({:2},{:2}){:2} ({:2},{:2}){:2} ({:2},{:2}){:2} m1 = {:,}'.format(i,j,a[i][j], i,j+1,a[i][j+1], i,j+2,a[i][j+2], i,j+3,a[i][j+3], m1))
             if i <= N-M:
 #                m2 = max(m2, reduce(lambda x,y:x*y, a[i:i+M][j]))
                 m2 = max(m2, reduce(lambda x,y:x*y, [e[j] for e in a[i:i+M]]))
-                if dbg > 2: print('[{:02}][{:02}]{:02} [{:02}][{:02}]{:02} [{:02}][{:02}]{:02} [{:02}][{:02}]{:02} m2 = {:,}'.format(i,j,a[i][j], i+1,j,a[i+1][j], i+2,j,a[i+2][j], i+3,j,a[i+3][j], m2))
+                if dbg > 3: print('[{:02}][{:02}]{:02} [{:02}][{:02}]{:02} [{:02}][{:02}]{:02} [{:02}][{:02}]{:02} m2 = {:,}'.format(i,j,a[i][j], i+1,j,a[i+1][j], i+2,j,a[i+2][j], i+3,j,a[i+3][j], m2))
             if i <= N-M and j <= N-M:
                 m3 = max(m3, reduce(lambda x,y:x*y, [a[i+k][j+k] for k in range(M)]))
-                if dbg > 2: print('({:2},{:2}){:2} ({:2},{:2}){:2} ({:2},{:2}){:2} ({:2},{:2}){:2} m3 = {:,}'.format(i,j,a[i][j], i+1,j+1,a[i+1][j+1], i+2,j+2,a[i+2][j+2], i+3,j+3,a[i+3][j+3], m3))
+                if dbg > 3: print('({:2},{:2}){:2} ({:2},{:2}){:2} ({:2},{:2}){:2} ({:2},{:2}){:2} m3 = {:,}'.format(i,j,a[i][j], i+1,j+1,a[i+1][j+1], i+2,j+2,a[i+2][j+2], i+3,j+3,a[i+3][j+3], m3))
             if i <= N-M and j >= M-1:
                 m4 = max(m4, reduce(lambda x,y:x*y, [a[i+k][j-k] for k in range(M)]))
-                if dbg > 2: print('({:2},{:2}){:2} ({:2},{:2}){:2} ({:2},{:2}){:2} ({:2},{:2}){:2} m4 = {:,}'.format(i,j,a[i][j], i+1,j-1,a[i+1][j-1], i+2,j-2,a[i+2][j-2], i+3,j-3,a[i+3][j-3], m4))
+                if dbg > 3: print('({:2},{:2}){:2} ({:2},{:2}){:2} ({:2},{:2}){:2} ({:2},{:2}){:2} m4 = {:,}'.format(i,j,a[i][j], i+1,j-1,a[i+1][j-1], i+2,j-2,a[i+2][j-2], i+3,j-3,a[i+3][j-3], m4))
     if dbg > 1: print("{} greatest product of {} cells '{}' [?][?] = [?] = {:,}".format(test, M, 'Horizontal', m1))
     if dbg > 1: print("{} greatest product of {} cells '{}' [?][?] = [?] = {:,}".format(test, M, 'Vertical',   m2))
     if dbg > 1: print("{} greatest product of {} cells '{}' [?][?] = [?] = {:,}".format(test, M, 'Diaginal A', m3))
@@ -692,16 +689,16 @@ def test3B(args={'dbg': 1}):
     m = max(m1, m2, m3, m4)
     if dbg: print("{} greatest product of {} cells in any direction is '?' [?][?] = [?] = {:,}".format(test, M, m))
 
-@docstring('Uses: ' + testB.__doc__)
+@docstring('Uses: ' + testD.__doc__)
 def test3C(args={'dbg': 1}):
-    '''a = testB(): i(N) j(N) if j<=N-M: m1 = max(m1, a[i][j] * a[i][j+1] * a[i][j+2] * a[i][j+3]) if i<=N-M: m2 = max(m2, a[i][j] * a[i+1][j] * a[i+2][j] * a[i+3][j])'''
+    '''a = testD(): i(N) j(N) if j<=N-M: m1=max(m1,a[i][j]*a[i][j+1]*a[i][j+2]*a[i][j+3]) if i<=N-M: m2=max(m2,a[i][j]*a[i+1][j]*a[i+2][j]*a[i+3][j])'''
     test = 'test3C'
     dbg = 1
     if 'dbg' in args: dbg = args['dbg']
     if 'N'   in args:   N = args['N']
     if 'M'   in args:   M = args['M']
 #    if dbg > 0: print('.', end='')
-    a = testB()
+    a = testD()
 #    a = [[int(grid[i].split()[j]) for j in range(N)] for i in range(N)]
     if dbg > 2: print2da(a)
     m1 = m2 = m3 = m4 = 1
@@ -709,16 +706,16 @@ def test3C(args={'dbg': 1}):
         for j in range(N):
             if j <= N-M:
                 m1 = max(m1, a[i][j] * a[i][j+1] * a[i][j+2] * a[i][j+3])
-                if dbg > 2: print('({:2},{:2}){:2} ({:2},{:2}){:2} ({:2},{:2}){:2} ({:2},{:2}){:2} m1 = {:,}'.format(i,j,a[i][j], i,j+1,a[i][j+1], i,j+2,a[i][j+2], i,j+3,a[i][j+3], m1))
+                if dbg > 3: print('({:2},{:2}){:2} ({:2},{:2}){:2} ({:2},{:2}){:2} ({:2},{:2}){:2} m1 = {:,}'.format(i,j,a[i][j], i,j+1,a[i][j+1], i,j+2,a[i][j+2], i,j+3,a[i][j+3], m1))
             if i <= N-M:
                 m2 = max(m2, a[i][j] * a[i+1][j] * a[i+2][j] * a[i+3][j])
-                if dbg > 2: print('({:2},{:2}){:2} ({:2},{:2}){:2} ({:2},{:2}){:2} ({:2},{:2}){:2} m2 = {:,}'.format(i,j,a[i][j], i+1,j,a[i+1][j], i+2,j,a[i+2][j], i+3,j,a[i+3][j], m2))
+                if dbg > 3: print('({:2},{:2}){:2} ({:2},{:2}){:2} ({:2},{:2}){:2} ({:2},{:2}){:2} m2 = {:,}'.format(i,j,a[i][j], i+1,j,a[i+1][j], i+2,j,a[i+2][j], i+3,j,a[i+3][j], m2))
             if i <= N-M and j <= N-M:
                 m3 = max(m3, a[i][j] * a[i+1][j+1] * a[i+2][j+2] * a[i+3][j+3])
-                if dbg > 2: print('({:2},{:2}){:2} ({:2},{:2}){:2} ({:2},{:2}){:2} ({:2},{:2}){:2} m3 = {:,}'.format(i,j,a[i][j], i+1,j+1,a[i+1][j+1], i+2,j+2,a[i+2][j+2], i+3,j+3,a[i+3][j+3], m3))
+                if dbg > 3: print('({:2},{:2}){:2} ({:2},{:2}){:2} ({:2},{:2}){:2} ({:2},{:2}){:2} m3 = {:,}'.format(i,j,a[i][j], i+1,j+1,a[i+1][j+1], i+2,j+2,a[i+2][j+2], i+3,j+3,a[i+3][j+3], m3))
             if i <= N-M and j >= M-1:
                 m4 = max(m4, a[i][j] * a[i+1][j-1] * a[i+2][j-2] * a[i+3][j-3])
-                if dbg > 2: print('({:2},{:2}){:2} ({:2},{:2}){:2} ({:2},{:2}){:2} ({:2},{:2}){:2} m4 = {:,}'.format(i,j,a[i][j], i+1,j-1,a[i+1][j-1], i+2,j-2,a[i+2][j-2], i+3,j-3,a[i+3][j-3], m4))
+                if dbg > 3: print('({:2},{:2}){:2} ({:2},{:2}){:2} ({:2},{:2}){:2} ({:2},{:2}){:2} m4 = {:,}'.format(i,j,a[i][j], i+1,j-1,a[i+1][j-1], i+2,j-2,a[i+2][j-2], i+3,j-3,a[i+3][j-3], m4))
     if dbg > 1: print("{} greatest product of {} cells '{}' [?][?] = [?] = {:,}".format(test, M, 'Horizontal', m1))
     if dbg > 1: print("{} greatest product of {} cells '{}' [?][?] = [?] = {:,}".format(test, M, 'Vertical',   m2))
     if dbg > 1: print("{} greatest product of {} cells '{}' [?][?] = [?] = {:,}".format(test, M, 'Diaginal A', m3))
@@ -726,9 +723,9 @@ def test3C(args={'dbg': 1}):
     m = max(m1, m2, m3, m4)
     if dbg: print("{} greatest product of {} cells in any direction is '?' [?][?] = [?] = {:,}".format(test, M, m))
 
-@docstring('Uses: ' + testB.__doc__)
+@docstring('Uses: ' + testD.__doc__)
 def test4(args={'dbg': 1}):
-    '''a = testB(): i(N) j(N-M+1) if a[i][j]*a[i][j+1]*a[i][j+2]*a[i][j+3] > m1: m1 = a[i][j]*a[i][j+1]*a[i][j+2]*a[i][j+3] if a[j][i]*a[j+1][i]*a[j+2][i]*a[j+3][i] > m2: m2 = a[j][i]*a[j+1][i] * a[j+2][i] * a[j+3][i]'''
+    '''a = testD(): i(N) j(N-M+1) if a[i][j]*a[i][j+1]*a[i][j+2]*a[i][j+3] > m1: m1=a[i][j]*a[i][j+1]*a[i][j+2]*a[i][j+3] if a[j][i]*a[j+1][i]*a[j+2][i]*a[j+3][i] > m2: m2=a[j][i]*a[j+1][i]*a[j+2][i]*a[j+3][i]'''
     test = 'test4'
     dbg = 1
     if 'dbg' in args: dbg = args['dbg']
@@ -736,21 +733,21 @@ def test4(args={'dbg': 1}):
     if 'M'   in args:   M = args['M']
 #    if dbg > 0: print('.', end='')
     m1, m2, m3, m4 = 1, 1, 1, 1
-    a = testB()
+    a = testD()
 #    a = [[int(grid[i].split()[j]) for j in range(N)] for i in range(N)]
     if dbg > 2: print2da(a)
     for i in range(N):
         for j in range(N-M+1):
             if a[i][j] * a[i][j+1] * a[i][j+2] * a[i][j+3] > m1: m1 = a[i][j] * a[i][j+1] * a[i][j+2] * a[i][j+3]
-            if dbg > 2: print('({:2},{:2}){:2} ({:2},{:2}){:2} ({:2},{:2}){:2} ({:2},{:2}){:2} m1={:,}'.format(i,j,a[i][j], i,j+1,a[i][j+1], i,j+2,a[i][j+2], i,j+3,a[i][j+3], m1))
+            if dbg > 3: print('({:2},{:2}){:2} ({:2},{:2}){:2} ({:2},{:2}){:2} ({:2},{:2}){:2} m1={:,}'.format(i,j,a[i][j], i,j+1,a[i][j+1], i,j+2,a[i][j+2], i,j+3,a[i][j+3], m1))
             if a[j][i] * a[j+1][i] * a[j+2][i] * a[j+3][i] > m2: m2 = a[j][i] * a[j+1][i] * a[j+2][i] * a[j+3][i]
-            if dbg > 2: print('({:2},{:2}){:2} ({:2},{:2}){:2} ({:2},{:2}){:2} ({:2},{:2}){:2} m2={:,}'.format(j,i,a[j][i], j+1,i,a[j+1][i], j+2,i,a[j+2][i], j+3,i,a[j+3][i], m2))
+            if dbg > 3: print('({:2},{:2}){:2} ({:2},{:2}){:2} ({:2},{:2}){:2} ({:2},{:2}){:2} m2={:,}'.format(j,i,a[j][i], j+1,i,a[j+1][i], j+2,i,a[j+2][i], j+3,i,a[j+3][i], m2))
     for i in range(N-M+1):
         for j in range(N-M+1):
             if a[i][j]     * a[i+1][j+1]   * a[i+2][j+2]   * a[i+3][j+3]   > m3: m3 = a[i][j]     * a[i+1][j+1]   * a[i+2][j+2]   * a[i+3][j+3]
-            if dbg > 2: print('({:2},{:2}){:2} ({:2},{:2}){:2} ({:2},{:2}){:2} ({:2},{:2}){:2} m3={:,}'.format(i,j,a[i][j], i+1,j+1,a[i+1][j+1], i+2,j+2,a[i+2][j+2], i+3,j+3,a[i+3][j+3], m3))
+            if dbg > 3: print('({:2},{:2}){:2} ({:2},{:2}){:2} ({:2},{:2}){:2} ({:2},{:2}){:2} m3={:,}'.format(i,j,a[i][j], i+1,j+1,a[i+1][j+1], i+2,j+2,a[i+2][j+2], i+3,j+3,a[i+3][j+3], m3))
             if a[N-1-i][j] * a[N-2-i][j+1] * a[N-3-i][j+2] * a[N-4-i][j+3] > m4: m4 = a[N-1-i][j] * a[N-2-i][j+1] * a[N-3-i][j+2] * a[N-4-i][j+3]
-            if dbg > 2: print('({:2},{:2}){:2} ({:2},{:2}){:2} ({:2},{:2}){:2} ({:2},{:2}){:2} m4={:,}'.format(N-1-i,j,a[N-1-i][j], N-2-i,j+1,a[N-2-i][j+1], N-3-i,j+2,a[N-3-i][j+2], N-4-i,j+3,a[N-4-i][j+3], m4))
+            if dbg > 3: print('({:2},{:2}){:2} ({:2},{:2}){:2} ({:2},{:2}){:2} ({:2},{:2}){:2} m4={:,}'.format(N-1-i,j,a[N-1-i][j], N-2-i,j+1,a[N-2-i][j+1], N-3-i,j+2,a[N-3-i][j+2], N-4-i,j+3,a[N-4-i][j+3], m4))
     if dbg > 1: print("{} greatest product of {} cells '{}' [?][?] = [?] = {:,}".format(test, M, 'Horizontal', m1))
     if dbg > 1: print("{} greatest product of {} cells '{}' [?][?] = [?] = {:,}".format(test, M, 'Vertical',   m2))
     if dbg > 1: print("{} greatest product of {} cells '{}' [?][?] = [?] = {:,}".format(test, M, 'Diaginal A', m3))
@@ -825,7 +822,7 @@ def test5(args={'dbg': 1}):
     
 @docstring('Uses: ' + testB.__doc__)
 def test6A(args={'dbg': 1}):
-    '''a = testI(): m = max([reduce(mul, [a[y+n*d[0]][x+n*d[1]] for n in range(M)]) for x in range(N) for y in range(M-1, N+M-1) for d in ((0,1),(1,0),(1,1),(-1,1))])'''
+    '''a = testG(): m = max([reduce(mul, [a[y+n*d[0]][x+n*d[1]] for n in range(M)]) for x in range(N) for y in range(M-1, N+M-1) for d in ((0,1),(1,0),(1,1),(-1,1))])'''
     test = 'test6A'
     dbg = 1
     if 'dbg' in args: dbg = args['dbg']
@@ -845,7 +842,7 @@ def test6A(args={'dbg': 1}):
 
 @docstring('Uses: ' + testC.__doc__)
 def test6B(args={'dbg': 1}):
-    '''a = testJ(): m = max([reduce(mul, [a[y+n*d[0]][x+n*d[1]] for n in range(M)]) for x in range(N) for y in range(M-1, N+M-1) for d in ((0,1),(1,0),(1,1),(-1,1))])'''
+    '''a = testH(): m = max([reduce(mul, [a[y+n*d[0]][x+n*d[1]] for n in range(M)]) for x in range(N) for y in range(M-1, N+M-1) for d in ((0,1),(1,0),(1,1),(-1,1))])'''
     test = 'test6B'
     dbg = 1
     if 'dbg' in args: dbg = args['dbg']
@@ -919,11 +916,12 @@ def test8(args={'dbg': 1}):
     m1, m2, m3, m4 = 1, 1, 1, 1
     a = testD()
 #    a = [[int(grid[i].split()[j]) for j in range(N)] for i in range(N)]
+    if dbg > 2: print2da(a)
     for i in range(N): #horizontal lines
         for j in range(N-M+1):
-            m1 = max(m1, prod8([a[i][j+k] for k in range(M)]))
+            m1 = max(m1, reduce(lambda x,y:x*y, [a[i][j+k] for k in range(M)]))
     for i in range(N-M+1): #vertical lines
-        for j in range(N):
+        for j in range(N): 
             m2 = max(m2, prod8([a[i+k][j] for k in range(M)]))
     for i in range(N-M+1): # diagonal lines
         for j in range(N-M+1):
@@ -955,19 +953,20 @@ def test9(args={'dbg': 1}):
 #    if dbg > 0: print('.', end='')
     a = testD()
 #    a = [[int(grid[i].split()[j]) for j in range(N)] for i in range(N)]
+    if dbg > 2: print2da(a)
     m = max([max(list(prod9(a, i, j, M, N))) for i in range(N) for j in range(N)])
     if dbg: print("{} greatest product of {} cells in any direction is '?' [?][?] = [?] = {:,}".format(test, M, m))
 
-@docstring('Uses: ' + testG.__doc__)
+@docstring('Uses: ' + testQ.__doc__)
 def test10A(args={'dbg': 1}):
-    '''b = testG(): i(len(b)) if i%N<N-M+1: m1 = max(m1, reduce(lambda x,y:x*y, b[i:i+M]))'''
+    '''b = testQ(): i(len(b)) if i%N<N-M+1: m1 = max(m1, reduce(lambda x,y:x*y, b[i:i+M]))'''
     test = 'test10A'
     dbg = 1
     if 'dbg' in args: dbg = args['dbg']
     if 'N'   in args:   N = args['N']
     if 'M'   in args:   M = args['M']
 #    if dbg > 0: print('.', end='')
-    b = testG()
+    b = testQ()
     if dbg > 2: print2da(b)
     m = m1 = m2 = m3 = m4 = 1
     for i in range(len(b)):
@@ -986,16 +985,16 @@ def test10A(args={'dbg': 1}):
     m = max(m1, m2, m3, m4)
     if dbg: print("{} greatest product of {} cells in any direction is '?' [?][?] = [?] = {:,}".format(test, M, m))
 
-@docstring('Uses: ' + testH.__doc__)
-def test10B(args={'dbg': 1}):
-    '''b = testH(): i(len(b)) if i%N<N-M+1: m1 = max(m1, reduce(lambda x,y:int(x)*int(y), b[i:i+M]))'''
+@docstring('Uses: ' + testR.__doc__)
+def test10B(args={'dbg': 1}): # int() is not called when parsing, but rather when computing the max products (array init is faster, but max products is much slower) calls int() more than once on each cell
+    '''b = testR(): i(len(b)) if i%N<N-M+1: m1 = max(m1, reduce(lambda x,y:int(x)*int(y), b[i:i+M]))  ###  Calls int() more than once/node  ###'''
     test = 'test10B'
     dbg = 1
     if 'dbg' in args: dbg = args['dbg']
     if 'N'   in args:   N = args['N']
     if 'M'   in args:   M = args['M']
 #    if dbg > 0: print('.', end='')
-    b = testH()
+    b = testR()
     if dbg > 2: print2da(a)
     m = m1 = m2 = m3 = m4 = 1
     for i in range(len(b)):
@@ -1057,7 +1056,7 @@ def prod12B(n):
     return(reduce(lambda x,y:x*y,n))
 @docstring('Uses: ' + testD.__doc__)
 def test12A(args={'dbg': 1}):
-    '''a = testD(): '''
+    '''a = testD(): i(a) j(a[i]) prods.append(prod12A()) m = max(prods, key=lambda item:item[3])'''
     test = 'test12A'
     dbg = 1
     if 'dbg' in args: dbg = args['dbg']
@@ -1076,7 +1075,8 @@ def test12A(args={'dbg': 1}):
 
 @docstring('Uses: ' + testD.__doc__)
 def test12B(args={'dbg': 1}):
-    '''a = testD(): '''
+    '''a = testD(): i(a) j(a[i]) if j+M < len(a[i]): m1 = max(m1, prod12B(a[i][j:j+M]))'''
+    pass
     test = 'test12B'
     dbg = 1
     if 'dbg' in args: dbg = args['dbg']
@@ -1101,93 +1101,176 @@ def test12B(args={'dbg': 1}):
     if dbg > 1: print("{} greatest product of {} cells '{}' [?][?] = [?] = {:,}".format(test, M, 'Diaginal B', m4))
     if dbg: print("{} greatest product of {} cells in any direction is '?' [?][?] = [?] = {:,}".format(test, M, m))
 
+@docstring('Uses: ' + testQ.__doc__)
+def test13A(args={'dbg': 1}):
+    '''\
+         b=testQ(): i(N*N) if i%N<N-M+1: m1=max(m1,b[i]*b[i+1]*b[i+2]*b[i+3])                                if i<N*N-N*(M-1): m2=max(m2,b[i]*b[i+N]*b[i+2*N]*b[i+3*N]) 
+         if i%N<N-M+1 and i<N*N-N*(M-1): m3=max(m3,b[i]*b[i+N+1]*b[i+2*N+2]*b[i+3*N+3]) j=N*N-1-i if i%N>=M-1 and j>(M-1)*N-1: m4=max(m4,b[j]*b[j-N+1]*b[j-2*N+2]*b[j-3*N+3])'''
+    test = 'test13A'
+    dbg = 1
+    if 'dbg' in args: dbg = args['dbg']
+    if 'N'   in args:   N = args['N']
+    if 'M'   in args:   M = args['M']
+    m1 = m2 = m3 = m4 = 0
+    b = testQ(args={'dbg':dbg})
+    if dbg > 2:
+        for i in range(N*N):
+            print('{:2}'.format(b[i]), end=' ')
+            if (i + 1) % N == 0: print()
+    for i in range(N*N):
+        if i % N < N-M+1:
+            m1 = max(m1, b[i] * b[i+1] * b[i+2] * b[i+3])
+#            if dbg > 3: print('({:3},{:2} {:3},{:2} {:3},{:2} {:3},{:2})'.format(i, b[i], i+1, b[i+1], i+2, b[i+2], i+3, b[i+3]), end=' ')
+        if i < N*N - N*(M-1):
+            m2 = max(m2, b[i] * b[i+N] * b[i+2*N] * b[i+3*N])
+#            if dbg > 3: print('({:3},{:2} {:3},{:2} {:3},{:2} {:3},{:2})'.format(i, b[i], i+N, b[i+N], i+2*N, b[i+2*N], i+3*N, b[i+3*N]), end=' ')
+        if i % N < N-M+1 and i < N*N - N*(M-1):
+            m3 = max(m3, b[i] * b[i+N+1] * b[i+2*N+2] * b[i+3*N+3])
+#            if dbg > 3: print('({:3},{:2} {:3},{:2} {:3},{:2} {:3},{:2})'.format(i, b[i], i+N+1, b[i+N+1], i+2*N+2, b[i+2*N+2], i+3*N+3, b[i+3*N+3]), end=' ')
+#            if dbg > 3 and i > 0 and i % N == 0: print()
+        j = N*N-1-i
+        if i % N >= M-1 and j > (M-1)*N-1:
+            m4 = max(m4, b[j] * b[j-N+1] * b[j-2*N+2] * b[j-3*N+3])
+            if dbg > 3: print('({:3},{:2} {:3},{:2} {:3},{:2} {:3},{:2})'.format(j, b[j], j-N+1, b[j-N+1], j-2*N+2, b[j-2*N+2], j-3*N+3, b[j-3*N+3]), end=' ')
+            if dbg > 3 and (i+1) % N == 0: print()
+    if dbg > 3: print()
+    m = max(m1, m2, m3, m4)
+    if dbg > 1: print("{} greatest product of {} cells '{}' [?][?] = [?] = {:,}".format(test, M, 'Horizontal', m1))
+    if dbg > 1: print("{} greatest product of {} cells '{}' [?][?] = [?] = {:,}".format(test, M, 'Vertical',   m2))
+    if dbg > 1: print("{} greatest product of {} cells '{}' [?][?] = [?] = {:,}".format(test, M, 'Diaginal A', m3))
+    if dbg > 1: print("{} greatest product of {} cells '{}' [?][?] = [?] = {:,}".format(test, M, 'Diaginal B', m4))
+    if dbg: print("{} greatest product of {} cells in any direction is '?' [?][?] = [?] = {:,}".format(test, M, m))
+
+@docstring('Uses: ' + testS.__doc__)
+def test13B(args={'dbg': 1}):
+    '''\
+         b=testS(): i(N*N) if i%N<N-M+1: m1=max(m1,b[i]*b[i+1]*b[i+2]*b[i+3])                                if i<N*N-N*(M-1): m2=max(m2,b[i]*b[i+N]*b[i+2*N]*b[i+3*N]) 
+         if i%N<N-M+1 and i<N*N-N*(M-1): m3=max(m3,b[i]*b[i+N+1]*b[i+2*N+2]*b[i+3*N+3]) j=N*N-1-i if i%N>=M-1 and j>(M-1)*N-1: m4=max(m4,b[j]*b[j-N+1]*b[j-2*N+2]*b[j-3*N+3])'''
+    test = 'test13B'
+    dbg = 1
+    if 'dbg' in args: dbg = args['dbg']
+    if 'N'   in args:   N = args['N']
+    if 'M'   in args:   M = args['M']
+#    if dbg > 0: print('.', end='')
+    m1 = m2 = m3 = m4 = 0
+    b = testS(args={'N':20})
+    if dbg > 2:
+        for i in range(N*N):
+            print('{:2}'.format(b[i]), end=' ')
+            if (i + 1) % N == 0: print()
+    for i in range(N*N):
+        if i % N < N-M+1:
+            m1 = max(m1, b[i] * b[i+1] * b[i+2] * b[i+3])
+#            if dbg > 3: print('({:3},{:2} {:3},{:2} {:3},{:2} {:3},{:2})'.format(i, b[i], i+1, b[i+1], i+2, b[i+2], i+3, b[i+3]), end=' ')
+        if i < N*N - N*(M-1):
+            m2 = max(m2, b[i] * b[i+N] * b[i+2*N] * b[i+3*N])
+#            if dbg > 3: print('({:3},{:2} {:3},{:2} {:3},{:2} {:3},{:2})'.format(i, b[i], i+N, b[i+N], i+2*N, b[i+2*N], i+3*N, b[i+3*N]), end=' ')
+        if i % N < N-M+1 and i < N*N - N*(M-1):
+            m3 = max(m3, b[i] * b[i+N+1] * b[i+2*N+2] * b[i+3*N+3])
+#            if dbg > 3: print('({:3},{:2} {:3},{:2} {:3},{:2} {:3},{:2})'.format(i, b[i], i+N+1, b[i+N+1], i+2*N+2, b[i+2*N+2], i+3*N+3, b[i+3*N+3]), end=' ')
+#            if dbg > 3 and i > 0 and i % N == 0: print()
+        j = N*N-1-i
+        if i % N >= M-1 and j > (M-1)*N-1:
+            m4 = max(m4, b[j] * b[j-N+1] * b[j-2*N+2] * b[j-3*N+3])
+            if dbg > 3: print('({:3},{:2} {:3},{:2} {:3},{:2} {:3},{:2})'.format(j, b[j], j-N+1, b[j-N+1], j-2*N+2, b[j-2*N+2], j-3*N+3, b[j-3*N+3]), end=' ')
+            if dbg > 3 and (i+1) % N == 0: print()
+    if dbg > 3: print()
+    m = max(m1, m2, m3, m4)
+    if dbg > 1: print("{} greatest product of {} cells '{}' [?][?] = [?] = {:,}".format(test, M, 'Horizontal', m1))
+    if dbg > 1: print("{} greatest product of {} cells '{}' [?][?] = [?] = {:,}".format(test, M, 'Vertical',   m2))
+    if dbg > 1: print("{} greatest product of {} cells '{}' [?][?] = [?] = {:,}".format(test, M, 'Diaginal A', m3))
+    if dbg > 1: print("{} greatest product of {} cells '{}' [?][?] = [?] = {:,}".format(test, M, 'Diaginal B', m4))
+    if dbg: print("{} greatest product of {} cells in any direction is '?' [?][?] = [?] = {:,}".format(test, M, m))
+
 if __name__ == "__main__":
     main()
 
 '''
 Jwclemens@LAPTOP-IUJAQF4L MINGW64 /c/Python36/my/tags/ProjectEuler/0011_largest_product_in_grid (master)
-$ python 0011_LargestProductInGrid.py 20 100000 3 0 A B C D E F G H I J 0A 0B 1A 1B 2A 2B 3A 3B 3C 4 5 6A 6B 7 8 9 10A 10B 11 12A 12B
+$ python 0011_LargestProductInGrid.py 20 10000 3 0 A B C D E F G H I J 0A 0B 1A 1B 2A 2B 3A 3B 3C 4 5 6A 6B 7 8 9 10A 10B 11 12A 12B 13A
     In the 20*20 grid below, four numbers along a diagonal line have been marked in red.
     The product of these numbers is 26 * 63 * 78 * 14 = 1788696.
     What is the greatest product of four adjacent numbers in the same direction (up, down, left, right, or diagonally) in the 20*20 grid?
-Run testA n=100,000 r=3 'testA: i(len(grid)) a.append(grid[i].split()) j(len(grid[i]) a[i][j] = int(a[i][j])'
-    testA n=100,000 loops (    10.53    10.63    10.88 ) sec  MIN = 105 usec/loop
-Run testB n=100,000 r=3 'a = [[int(grid[i].split()[j]) j(N)] i(N)]'
-    testB n=100,000 loops (    34.22    35.37    35.51 ) sec  MIN = 342 usec/loop
-Run testC n=100,000 r=3 'a = [[int(x) for x in g.split()] for g in grid]'
-    testC n=100,000 loops (    9.064    8.942     9.27 ) sec  MIN = 89 usec/loop
-Run testD n=100,000 r=3 '[a = list(map(int, g.split()) g(grid)]'
-    testD n=100,000 loops (    7.285     7.32     7.45 ) sec  MIN = 72 usec/loop
-Run testE n=100,000 r=3 'a = list(map(lambda x:list(map(int, x.split())), grid))'
-    testE n=100,000 loops (    7.407    7.458    7.455 ) sec  MIN = 74 usec/loop
-Run testF n=100,000 r=3 'a = list(map(lambda x:list(map(int, x)), list(map(lambda x:x.split(), grid))))'
-    testF n=100,000 loops (    7.687      7.6    7.561 ) sec  MIN = 75 usec/loop
-Run testG n=100,000 r=3 'b = data.replace("\n"," ") b = list(map(int, b.split()))'
-    testG n=100,000 loops (    6.864     6.94    6.862 ) sec  MIN = 68 usec/loop
-Run testH n=100,000 r=3 'b = data.replace("\n"," ") b = b.split()'
-    testH n=100,000 loops (    1.543    1.519    1.605 ) sec  MIN = 15 usec/loop
-Run testI n=100,000 r=3 'c = testB(): [[0]*(N+M-1)]*3 + [[int(grid[i].split()[j]) for j in range(N)] + [0,0,0] for i in range(N)] + [[0]*(N+M-1)]*3'
-    testI n=100,000 loops (    39.42    38.71    39.28 ) sec  MIN = 387 usec/loop
-Run testJ n=100,000 r=3 'c = testC(): m = max([reduce(mul, [a[y+n*d[0]][x+n*d[1]] n(M)]) x(N) y(M-1,N+M-1) d in ((0,1),(1,0),(1,1),(-1,1))])'
-    testJ n=100,000 loops (    9.677    9.545    9.939 ) sec  MIN = 95 usec/loop
-Run test0A n=100,000 r=3 ''
-    test0A n=100,000 loops (    67.14    66.44     64.2 ) sec  MIN = 642 usec/loop
-Run test0B n=100,000 r=3 ''
-    test0B n=100,000 loops (    59.99    57.58    60.63 ) sec  MIN = 575 usec/loop
-Run test1A n=100,000 r=3 'Uses: testA: i(len(grid)) a.append(grid[i].split()) j(len(grid[i]) a[i][j] = int(a[i][j])
+Run testA n=10,000 r=3 'testA: i(len(grid)) a.append(grid[i].split()) j(len(grid[i]) a[i][j] = int(a[i][j])'
+    testA n=10,000 loops (    1.146    1.352     1.19 ) sec  MIN = 114 usec/loop
+Run testB n=10,000 r=3 'a = [[int(grid[i].split()[j]) j(N)] i(N)]'
+    testB n=10,000 loops (    3.922    4.023    3.651 ) sec  MIN = 365 usec/loop
+Run testC n=10,000 r=3 'a = [[int(x) for x in g.split()] for g in grid]'
+    testC n=10,000 loops (   0.8181   0.8072   0.7729 ) sec  MIN = 77 usec/loop
+Run testD n=10,000 r=3 '[a = list(map(int, g.split()) g(grid)]'
+    testD n=10,000 loops (   0.6789   0.6659   0.6704 ) sec  MIN = 66 usec/loop
+Run testE n=10,000 r=3 'a = list(map(lambda x:list(map(int, x.split())), grid))'
+    testE n=10,000 loops (   0.7302   0.7021   0.7474 ) sec  MIN = 70 usec/loop
+Run testF n=10,000 r=3 'a = list(map(lambda x:list(map(int, x)), list(map(lambda x:x.split(), grid))))'
+    testF n=10,000 loops (   0.7651   0.7901   0.7231 ) sec  MIN = 72 usec/loop
+Run testG n=10,000 r=3 'b = data.replace("\n"," ") b = list(map(int, b.split()))'
+    testG n=10,000 loops (   0.6957    0.681   0.6658 ) sec  MIN = 66 usec/loop
+Run testH n=10,000 r=3 'b = data.replace("\n"," ") b = b.split()  ###  Does Not call int()  ###'
+    testH n=10,000 loops (   0.1668   0.1646   0.1632 ) sec  MIN = 16 usec/loop
+Run testI n=10,000 r=3 'c = testB(): [[0]*(N+M-1)]*3 + [[int(grid[i].split()[j]) for j in range(N)] + [0,0,0] for i in range(N)] + [[0]*(N+M-1)]*3'
+    testI n=10,000 loops (    3.724    3.912    3.652 ) sec  MIN = 365 usec/loop
+Run testJ n=10,000 r=3 'c = testC(): m = max([reduce(mul, [a[y+n*d[0]][x+n*d[1]] n(M)]) x(N) y(M-1,N+M-1) d in ((0,1),(1,0),(1,1),(-1,1))])'
+    testJ n=10,000 loops (   0.9665   0.9472   0.8125 ) sec  MIN = 81 usec/loop
+Run test0A n=10,000 r=3 ''
+    test0A n=10,000 loops (    5.959    6.957    6.496 ) sec  MIN = 595 usec/loop
+Run test0B n=10,000 r=3 ''
+    test0B n=10,000 loops (    6.288    6.166     6.16 ) sec  MIN = 616 usec/loop
+Run test1A n=10,000 r=3 'Uses: testA: i(len(grid)) a.append(grid[i].split()) j(len(grid[i]) a[i][j] = int(a[i][j])
 h = testA(): m = findMaxProdH(h) m = findMaxProdV(h) findMaxProdV(d1A, d1B, d2A, d2B)'
-    test1A n=100,000 loops (    214.8    197.9    206.4 ) sec  MIN = 1,979 usec/loop
-Run test1B n=100,000 r=3 'Uses: testA: i(len(grid)) a.append(grid[i].split()) j(len(grid[i]) a[i][j] = int(a[i][j])
+    test1A n=10,000 loops (    24.13     23.3    23.83 ) sec  MIN = 2,329 usec/loop
+Run test1B n=10,000 r=3 'Uses: testA: i(len(grid)) a.append(grid[i].split()) j(len(grid[i]) a[i][j] = int(a[i][j])
 h = testA(): m = findMaxProdH(h) h = list(zip(*h)) m = findMaxProdH(h) findMaxProdV(d1A, d1B, d2A, d2B)'
-    test1B n=100,000 loops (    172.4    184.6    181.3 ) sec  MIN = 1,723 usec/loop
-Run test2A n=100,000 r=3 'Uses: a = [[int(grid[i].split()[j]) j(N)] i(N)]
+    test1B n=10,000 loops (     17.7    19.78    19.41 ) sec  MIN = 1,770 usec/loop
+Run test2A n=10,000 r=3 'Uses: a = [[int(grid[i].split()[j]) j(N)] i(N)]
 h = testB(): m = findMaxProdH(h) m findMaxProdV(v, d1A, d1B, d2A, d2B)'
-    test2A n=100,000 loops (    301.8    290.6    316.4 ) sec  MIN = 2,905 usec/loop
-Run test2B n=100,000 r=3 'Uses: a = [[int(grid[i].split()[j]) j(N)] i(N)]
+    test2A n=10,000 loops (    32.24    32.59    33.07 ) sec  MIN = 3,224 usec/loop
+Run test2B n=10,000 r=3 'Uses: a = [[int(grid[i].split()[j]) j(N)] i(N)]
 h = testB(): m = findMaxProdH(h) v = list(zip(*h)) m = findMaxProdV(v, d1A, d1B, d2A, d2B)'
-    test2B n=100,000 loops (    235.6    231.0    222.2 ) sec  MIN = 2,222 usec/loop
-Run test3A n=100,000 r=3 'Uses: a = [[int(grid[i].split()[j]) j(N)] i(N)]
+    test2B n=10,000 loops (    26.47    25.27    26.35 ) sec  MIN = 2,526 usec/loop
+Run test3A n=10,000 r=3 'Uses: a = [[int(grid[i].split()[j]) j(N)] i(N)]
 a = testB(): i(N) j(N) if j<=N-M: m1 = max(m1, reduce(lambda x,y:x*y, a[i][j:j+M]) if i<=N-M reduce(lambda x,y:x*y, [a[i+k][j] for k in range(M)])'
-    test3A n=100,000 loops (    200.0    202.3    198.5 ) sec  MIN = 1,985 usec/loop
-Run test3B n=100,000 r=3 'Uses: a = [[int(grid[i].split()[j]) j(N)] i(N)]
+    test3A n=10,000 loops (    23.15    23.73    22.67 ) sec  MIN = 2,267 usec/loop
+Run test3B n=10,000 r=3 'Uses: a = [[int(grid[i].split()[j]) j(N)] i(N)]
 a = testB(): i(N) j(N) if j<=N-M: m1 = max(m1, reduce(lambda x,y:x*y, a[i][j:j+M]) if i<=N-M reduce(lambda x,y:x*y, [e[j] for e in a[i:i+M]])'
-    test3B n=100,000 loops (    192.8    192.8    193.2 ) sec  MIN = 1,927 usec/loop
-Run test3C n=100,000 r=3 'Uses: a = [[int(grid[i].split()[j]) j(N)] i(N)]
+    test3B n=10,000 loops (    24.04    22.59     21.3 ) sec  MIN = 2,129 usec/loop
+Run test3C n=10,000 r=3 'Uses: a = [[int(grid[i].split()[j]) j(N)] i(N)]
 a = testB(): i(N) j(N) if j<=N-M: m1 = max(m1, a[i][j] * a[i][j+1] * a[i][j+2] * a[i][j+3]) if i<=N-M: m2 = max(m2, a[i][j] * a[i+1][j] * a[i+2][j] * a[i+3][j])'
-    test3C n=100,000 loops (    106.8    106.2    106.0 ) sec  MIN = 1,060 usec/loop
-Run test4 n=100,000 r=3 'Uses: a = [[int(grid[i].split()[j]) j(N)] i(N)]
+    test3C n=10,000 loops (    12.08    12.05    11.17 ) sec  MIN = 1,117 usec/loop
+Run test4 n=10,000 r=3 'Uses: a = [[int(grid[i].split()[j]) j(N)] i(N)]
 a = testB(): i(N) j(N-M+1) if a[i][j]*a[i][j+1]*a[i][j+2]*a[i][j+3] > m1: m1 = a[i][j]*a[i][j+1]*a[i][j+2]*a[i][j+3] if a[j][i]*a[j+1][i]*a[j+2][i]*a[j+3][i] > m2: m2 = a[j][i]*a[j+1][i] * a[j+2][i] * a[j+3][i]'
-    test4 n=100,000 loops (    81.68    82.21    81.76 ) sec  MIN = 816 usec/loop
-Run test5 n=100,000 r=3 'Uses: [a = list(map(int, g.split()) g(grid)]
+    test4 n=10,000 loops (    10.76    9.941    9.369 ) sec  MIN = 936 usec/loop
+Run test5 n=10,000 r=3 'Uses: [a = list(map(int, g.split()) g(grid)]
 rows = testD(): for row in rows: prods.extend([y[0]*y[1]*y[2]*y[3] y in [row[i:i+4] i(N-M+1)]]) [[rows[i][j] i(N)] j(N)]'
-    test5 n=100,000 loops (    70.64    70.48    72.53 ) sec  MIN = 704 usec/loop
-Run test6A n=100,000 r=3 'Uses: a = [[int(grid[i].split()[j]) j(N)] i(N)]
+    test5 n=10,000 loops (     8.05    8.157     9.02 ) sec  MIN = 804 usec/loop
+Run test6A n=10,000 r=3 'Uses: a = [[int(grid[i].split()[j]) j(N)] i(N)]
 a = testI(): m = max([reduce(mul, [a[y+n*d[0]][x+n*d[1]] for n in range(M)]) for x in range(N) for y in range(M-1, N+M-1) for d in ((0,1),(1,0),(1,1),(-1,1))])'
-    test6A n=100,000 loops (    279.3    268.2    281.8 ) sec  MIN = 2,681 usec/loop
-Run test6B n=100,000 r=3 'Uses: a = [[int(x) for x in g.split()] for g in grid]
+    test6A n=10,000 loops (    31.31    31.31    25.81 ) sec  MIN = 2,580 usec/loop
+Run test6B n=10,000 r=3 'Uses: a = [[int(x) for x in g.split()] for g in grid]
 a = testJ(): m = max([reduce(mul, [a[y+n*d[0]][x+n*d[1]] for n in range(M)]) for x in range(N) for y in range(M-1, N+M-1) for d in ((0,1),(1,0),(1,1),(-1,1))])'
-    test6B n=100,000 loops (    239.8    254.1    288.5 ) sec  MIN = 2,398 usec/loop
-Run test7 n=100,000 r=3 'cell(x, y): return int(grid[y-1][(x-1)*3:(x-1)*3+2]) y(1, N+1) x(1,L) yield [cell(x, y), cell(x+1, y), cell(x+2, y), cell(x+3, y)]'
-    test7 n=100,000 loops (    322.1    319.1    328.2 ) sec  MIN = 3,191 usec/loop
-Run test8 n=100,000 r=3 'Uses: [a = list(map(int, g.split()) g(grid)]
+    test6B n=10,000 loops (    26.93     26.1    28.27 ) sec  MIN = 2,609 usec/loop
+Run test7 n=10,000 r=3 'cell(x, y): return int(grid[y-1][(x-1)*3:(x-1)*3+2]) y(1, N+1) x(1,L) yield [cell(x, y), cell(x+1, y), cell(x+2, y), cell(x+3, y)]'
+    test7 n=10,000 loops (    33.86    31.03     32.6 ) sec  MIN = 3,103 usec/loop
+Run test8 n=10,000 r=3 'Uses: [a = list(map(int, g.split()) g(grid)]
 a = testD(): i(N) j(N-M+1) m1 = max(m1, prod([a[i][j+k] for k in range(M)]))'
-    test8 n=100,000 loops (    193.0    228.7    189.3 ) sec  MIN = 1,892 usec/loop
-Run test9 n=100,000 r=3 'Uses: [a = list(map(int, g.split()) g(grid)]
+    test8 n=10,000 loops (    22.58    20.52    18.28 ) sec  MIN = 1,828 usec/loop
+Run test9 n=10,000 r=3 'Uses: [a = list(map(int, g.split()) g(grid)]
 a = testD(): m = max([max(list(prod9))) i(N) j(N)] prod9: if j<N-M+1 yield reduce(mul, [a[i][j+k] for k in range(M)])'
-    test9 n=100,000 loops (    194.5    188.0    187.5 ) sec  MIN = 1,875 usec/loop
-Run test10A n=100,000 r=3 'Uses: b = data.replace("\n"," ") b = list(map(int, b.split()))
+    test9 n=10,000 loops (    18.92     17.3    17.69 ) sec  MIN = 1,730 usec/loop
+Run test10A n=10,000 r=3 'Uses: b = data.replace("\n"," ") b = list(map(int, b.split()))
 b = testG(): i(len(b)) if i%N<N-M+1: m1 = max(m1, reduce(lambda x,y:x*y, b[i:i+M]))'
-    test10A n=100,000 loops (    121.8    132.9    131.6 ) sec  MIN = 1,218 usec/loop
-Run test10B n=100,000 r=3 'Uses: b = data.replace("\n"," ") b = b.split()
-b = testH(): i(len(b)) if i%N<N-M+1: m1 = max(m1, reduce(lambda x,y:int(x)*int(y), b[i:i+M]))'
-    test10B n=100,000 loops (    215.9    212.5    235.5 ) sec  MIN = 2,125 usec/loop
-Run test11 n=100,000 r=3 'Uses: [a = list(map(int, g.split()) g(grid)]
+    test10A n=10,000 loops (    11.27    11.38    11.35 ) sec  MIN = 1,126 usec/loop
+Run test10B n=10,000 r=3 'Uses: b = data.replace("\n"," ") b = b.split()  ###  Does Not call int()  ###
+b = testH(): i(len(b)) if i%N<N-M+1: m1 = max(m1, reduce(lambda x,y:int(x)*int(y), b[i:i+M]))  ###  Calls int() more than once/node  ###'
+    test10B n=10,000 loops (    21.34    21.25    21.51 ) sec  MIN = 2,124 usec/loop
+Run test11 n=10,000 r=3 'Uses: [a = list(map(int, g.split()) g(grid)]
 a = testD(): prod = lambda s: reduce(lambda x,y:x*y, s) i(N-M) j(N-M) m1 = max(m1, prod(a[i][j:j+M])) m2 = max(m2, prod([d[j] for d in a[i:i+M]]))'
-    test11 n=100,000 loops (    90.23    90.67    91.43 ) sec  MIN = 902 usec/loop
-Run test12A n=100,000 r=3 'Uses: [a = list(map(int, g.split()) g(grid)]
+    test11 n=10,000 loops (     9.35     9.36    8.911 ) sec  MIN = 891 usec/loop
+Run test12A n=10,000 r=3 'Uses: [a = list(map(int, g.split()) g(grid)]
+a = testD(): n(a) p('
+    test12A n=10,000 loops (    21.64    21.59     21.1 ) sec  MIN = 2,110 usec/loop
+Run test12B n=10,000 r=3 'Uses: [a = list(map(int, g.split()) g(grid)]
 a = testD(): '
-    test12A n=100,000 loops (    222.7    223.4    221.9 ) sec  MIN = 2,218 usec/loop
-Run test12B n=100,000 r=3 'Uses: [a = list(map(int, g.split()) g(grid)]
-a = testD(): '
-    test12B n=100,000 loops (    82.43    82.51    83.53 ) sec  MIN = 824 usec/loop
+    test12B n=10,000 loops (    8.306    10.11    8.963 ) sec  MIN = 830 usec/loop
+Run test13A n=10,000 r=3 ''
+    test13A n=10,000 loops (    12.66    12.97    12.32 ) sec  MIN = 1,232 usec/loop
 '''
